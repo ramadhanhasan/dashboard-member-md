@@ -53,7 +53,7 @@ const Profile = () => {
 
   return (
     <DefaultLayout>
-      <div className="mx-auto max-w-270">
+      <div className="mx-auto">
         <Breadcrumbs items={breadcrumbItems} />
         <div className="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
           <div className="flex-1">

@@ -5,7 +5,7 @@ import { saveUser } from '@/utils//userUtils'
 import { USER_LOCAL_STORAGE_KEY } from '@/constants/data'
 
 export async function middleware(request: NextRequest) {
-  const publicUrl = ['/signin', '/verified'];
+  const publicUrl = ['/signin', '/verified', '/forgot-password', '/forgot-password/success', '/reset-password'];
   // get user request cookie
   const userCookie = request.cookies.get(USER_LOCAL_STORAGE_KEY)?.value ?? ''
   let isTokenValid = false

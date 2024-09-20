@@ -13,7 +13,7 @@ const SidebarItem = ({ item, pageName, setPageName }: any) => {
   const pathname = usePathname();
 
   const isActive = (item: any) => {
-    if (item.route === pathname) return true;
+    if (item.route === `/${pathname.split('/')[1]}`) return true;
     if (item.children) {
       return item.children.some((child: any) => isActive(child));
     }

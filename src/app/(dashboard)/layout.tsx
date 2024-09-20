@@ -4,6 +4,7 @@ import "@/css/style.css";
 import React, { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
 import DefaultLayout from "../../components/Layouts/DefaultLayout";
+import FloatingWhatsAppButton from "../../components/FloatingWhatsAppButton";
 
 export default function RootLayout({
   children,
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
       <div className="dark:bg-boxdark-2 dark:text-bodydark">
         {loading ? <Loader /> : children}
+        <FloatingWhatsAppButton />
       </div>
   );
 }
