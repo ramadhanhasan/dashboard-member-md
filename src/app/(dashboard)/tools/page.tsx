@@ -25,7 +25,6 @@ const OPTIONS: Option[] = [
   { label: TypeToolEnum.LINK, value: TypeToolEnum.LINK },
 ];
 
-
 const CoursePage = () => {
   const { paginationParams, sortParams } = useQueryParam();
   const [filterType, setFilterType] = useState<string>('');

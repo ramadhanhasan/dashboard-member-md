@@ -22,7 +22,7 @@ const defaultAuthContext: AuthContextProps = {
 export const AuthContext = createContext<AuthContextProps>(defaultAuthContext)
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
-  const publicUrl = ['/signin', '/verified', '/forgot-password', '/forgot-password/success', '/reset-password'];
+  const publicUrl = ['signin', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp'];
   const pathname = usePathname()
   const isAuth = pathname?.includes('/')
   const router = useRouter()
@@ -58,7 +58,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     if (token) {
       handleRefetchUserProfile()
     } else {
-      if (!publicUrl.includes(pathname) )router.replace('/signin')
+      if (!publicUrl.includes(pathname.split('/')[1]))router.replace('/signin')
     }
   }, [handleRefetchUserProfile, router])
 

@@ -1,15 +1,38 @@
 import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
-import { saveUser } from '@/utils//userUtils'
-import { USER_LOCAL_STORAGE_KEY } from '@/constants/data'
+import { saveAffUser, saveUser } from '@/utils//userUtils'
+import { AFF_STORAGE_KEY, USER_LOCAL_STORAGE_KEY } from '@/constants/data'
+import getOneLinkRepository from './app/(dashboard)/links/_repository/getOneRepository';
 
 export async function middleware(request: NextRequest) {
-  const publicUrl = ['/signin', '/verified', '/forgot-password', '/forgot-password/success', '/reset-password'];
+  const urlSearchParams = new URLSearchParams(request.nextUrl.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const publicUrl = ['signin', 'verified', 'forgot-password', 'forgot-passwordsuccess', 'reset-password', 'lp'];
   // get user request cookie
   const userCookie = request.cookies.get(USER_LOCAL_STORAGE_KEY)?.value ?? ''
   let isTokenValid = false
   // check if user cookie is in request
+  
+  if (request.nextUrl.pathname.split('/')[1] === 'lp') {
+    const data = await getOneLinkRepository(Number(params['i']) || 0, params['whatsapp']);
+    const affCookie = request.cookies.get(AFF_STORAGE_KEY)?.value ?? ''
+    const res = NextResponse.redirect(data.data.url, 302); // External website URL
+    
+    if (affCookie == '' && params['aff'] && params['aff'] != '') {
+      const expire = new Date()
+      expire.setDate(expire.getDate() + 90)
+      res.cookies.set(AFF_STORAGE_KEY, params['aff'], {
+        httpOnly: true,  // Secure, not accessible via JavaScript
+        path: '/',       // Path for which the cookie is valid
+        sameSite: 'strict',  // Control cross-site request behavior
+        maxAge: 60 * 60 * 24 * 90, // Optional: Set max-age for cookie (in seconds)
+        expires: expire, // Optional: expires in 1 day
+      });
+    }
+    return res;
+  }
+  
   if (userCookie) {
     // TODO: hit api to get token validity
     isTokenValid = true
@@ -33,7 +56,7 @@ export async function middleware(request: NextRequest) {
   }
 
   const response =
-  publicUrl.includes(request.nextUrl.pathname) 
+  publicUrl.includes(request.nextUrl.pathname.split('/')[1]) 
       ? NextResponse.next()
       : NextResponse.redirect(new URL('/signin', request.url))
 

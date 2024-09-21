@@ -11,7 +11,7 @@ const useGetDetailQuery
   })
 
   return {    
-    data: data?.data ?? null,
+    data: data ?? null,
     isLoading: isFetching,
     isError: error,
     refetchData: refetch,

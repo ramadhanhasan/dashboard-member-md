@@ -20,6 +20,7 @@ export interface UserProfile {
   name: string,
   email: string,
   avatar: string,
+  phone: string
 }
 
 export interface AuthContextProps {

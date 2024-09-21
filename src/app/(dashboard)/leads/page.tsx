@@ -16,7 +16,7 @@ export const detailPage = {
   path: 'leads',
 }
 
-const CoursePage = () => {
+const LeadsPage = () => {
   const { paginationParams, filterParams, sortParams } = useQueryParam(FILTER_KEYS);
 
   const { dataLeads, currentPageLeads, totalItemLeads, totalPageLeads } =
@@ -45,4 +45,4 @@ const CoursePage = () => {
   );
 };
 
-export default CoursePage;
+export default LeadsPage;

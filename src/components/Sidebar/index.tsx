@@ -7,7 +7,7 @@ import Image from "next/image";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { BookOpenCheck, CalendarSearch, UsersRound, Wrench } from "lucide-react";
+import { BookOpenCheck, CalendarSearch, Link2, UsersRound, Wrench } from "lucide-react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -78,6 +78,16 @@ const menuGroups = [
         ),
         label: "Affiliate Leads",
         route: "/leads",
+      },
+      {
+        icon: (
+          <Link2
+            width="18"
+            height="18"
+          />
+        ),
+        label: "Affiliate Link",
+        route: "/links",
       },
       {
         icon: (

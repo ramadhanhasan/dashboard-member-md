@@ -1,4 +1,5 @@
 export const USER_LOCAL_STORAGE_KEY = 'sidsecuretoken';
+export const AFF_STORAGE_KEY = 'affcode';
 
 export enum RouteENUM {
   CATEGORY = 'v1/categories/user/',
@@ -13,7 +14,8 @@ export enum RouteENUM {
   ORDERS = 'v1/orders/user/',
   PROVINCES = 'v1/provinces/',
   AUTH = 'v1/auth',
-  USERS = 'v1/users/user/'
+  USERS = 'v1/users/user/',
+  REFERRAL_LINK = 'v1/referral-links/user/',
 }
 
 export enum DiscountTypeEnum {
