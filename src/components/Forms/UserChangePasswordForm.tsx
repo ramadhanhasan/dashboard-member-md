@@ -16,7 +16,7 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { IUserVerified } from "../../app/(auth)/verified/_interfaces";
+import { IUserVerified } from "../../app/(auth)/_verified/_interfaces";
 import {
   Select,
   SelectContent,
@@ -34,7 +34,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { cn } from "../../lib/utils";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { Calendar } from "../ui/calendar";
-import useVerifiedUserQuery from "../../app/(auth)/verified/_query/useVerifiedUserQuery";
+import useVerifiedUserQuery from "../../app/(auth)/_verified/_query/useVerifiedUserQuery";
 import { useRouter } from "next/navigation";
 import { notification } from "antd";
 import { IChangePassword } from "../../app/(dashboard)/profile/_interfaces";

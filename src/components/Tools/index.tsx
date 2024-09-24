@@ -11,7 +11,7 @@ const Tools = ({ tools }: { tools: ITools[] }) => {
   return (
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 lg:grid-cols-4">
         {tools.map((tool: ITools) => (
-          <div className="max-w-sm transform overflow-hidden rounded bg-white text-center shadow-lg transition-transform duration-300 hover:scale-105 focus:outline-none">
+          <div key={tool.id} className="max-w-sm transform overflow-hidden rounded bg-white text-center shadow-lg transition-transform duration-300 hover:scale-105 focus:outline-none">
             <Image
               width={0}
               height={0}

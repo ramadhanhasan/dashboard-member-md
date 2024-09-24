@@ -20,7 +20,8 @@ export interface UserProfile {
   name: string,
   email: string,
   avatar: string,
-  phone: string
+  phone: string,
+  commission: number
 }
 
 export interface AuthContextProps {

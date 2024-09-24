@@ -22,7 +22,6 @@ import {
 } from "../../../../../../components/ui/accordion";
 import Link from "next/link";
 import { IChapter, ICourse, ILesson } from "../../../_interfaces";
-import { detailPage } from "../../../page";
 import useGetDetailQueryLesson from "./_query/useGetDetailQueryLesson";
 import useGetDetailQuery from "../../_query/useGetDetailQuery";
 import { DefaultControls, DefaultUi, Player, Youtube } from "@vime/react";
@@ -31,6 +30,8 @@ import { ButtonGroup } from "../../../../../../components/ui/button-group";
 import { Button } from "../../../../../../components/ui/button";
 import { useRouter } from "next/navigation";
 import useCompleteLessonQuery from "./_query/useCompleteLessonQuery";
+import { detailPage } from "../../../_constants";
+import PlayerComponent from "../../../../../../components/Players";
 
 const CoursePage = ({
   params,
@@ -80,13 +81,13 @@ const CoursePage = ({
       setNextLink(allLessons[index + 1]?.link ?? null);
       setPrevLink(allLessons[index - 1]?.link ?? null);
     }
-        
+
     setIsComplete(
       dataLesson?.lesson_history && dataLesson?.lesson_history[0].is_completed
         ? dataLesson?.lesson_history[0].is_completed
         : false,
     );
-  }, [dataLesson, data]);
+  }, [dataLesson, data, params.slug, params.slug_chapter, params.slug_lesson]);
 
   const completeLessonMutation = useCompleteLessonQuery(() => {
     setIsComplete(true);
@@ -123,12 +124,7 @@ const CoursePage = ({
           <div className="flex flex-col lg:flex-row lg:space-x-8">
             {/* Course Details Section */}
             <div className="mt-4 flex-1 space-y-6">
-              <Player theme="dark">
-                <Youtube videoId={dataLesson?.youtube_id ?? ""} />
-                <DefaultUi noControls>
-                  <DefaultControls hideOnMouseLeave activeDuration={2000} />
-                </DefaultUi>
-              </Player>
+              <PlayerComponent videoId={dataLesson?.youtube_id ?? ""} />
               <div
                 className="ql-editor custom-list"
                 dangerouslySetInnerHTML={{
@@ -183,6 +179,7 @@ const CoursePage = ({
                       {data?.chapters?.map(
                         (chapter: IChapter, index: number) => (
                           <AccordionItem
+                            key={index}
                             value={chapter?.slug ?? ""}
                             className="mb-4 rounded-lg bg-slate-200 pb-2"
                           >

@@ -7,13 +7,7 @@ import { useQueryParam } from "../../../hooks/useQueryParam";
 import useGetAllQuery from "./_query/useGetAllQuery";
 import Course from "../../../components/Courses";
 import { Breadcrumbs } from "../../../components/breadcrumbs";
-
-export const detailPage = {
-  baseTitle: 'Dashboard',
-  basePath : '/',
-  title: 'Program & Kurikulum',
-  path: 'course',
-}
+import { detailPage } from "./_constants";
 
 const CoursePage = () => {
   const { paginationParams, filterParams, sortParams } = useQueryParam();

@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: false,
     images: {
-        domains: ['dev-joar.oss-ap-southeast-1.aliyuncs.com', 'via.placeholder.com']
+        domains: ['dev-joar.oss-ap-southeast-1.aliyuncs.com', 'via.placeholder.com', 'placehold.co']
     }
 };
 

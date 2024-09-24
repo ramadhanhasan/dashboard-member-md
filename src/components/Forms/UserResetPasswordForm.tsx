@@ -15,10 +15,10 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { IResetPassword } from "../../app/(auth)/reset-password/_interfaces";
+import { IResetPassword } from "../../app/(auth)/_reset-password/_interfaces";
 import { useRouter } from "next/navigation";
 import { notification } from "antd";
-import useResetPasswordUserQuery from "../../app/(auth)/reset-password/_query/useResetPasswordUserQuery";
+import useResetPasswordUserQuery from "../../app/(auth)/_reset-password/_query/useResetPasswordUserQuery";
 
 const formSchema: z.ZodType<IResetPassword> = z
   .object({

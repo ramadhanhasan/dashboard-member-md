@@ -8,13 +8,7 @@ import Event from "../../../components/Events";
 import UserLeads from "../../../components/Tables/UserLeads";
 import { UserLeadsTable } from "../../../components/Tables/UserLeadsTables/user-leads-table";
 import { columns, FILTER_KEYS } from "../../../components/Tables/UserLeadsTables/columns";
-
-export const detailPage = {
-  baseTitle: 'Dashboard',
-  basePath : '/',
-  title: 'Affiliate Leads',
-  path: 'leads',
-}
+import { detailPage } from "./_constants";
 
 const LeadsPage = () => {
   const { paginationParams, filterParams, sortParams } = useQueryParam(FILTER_KEYS);

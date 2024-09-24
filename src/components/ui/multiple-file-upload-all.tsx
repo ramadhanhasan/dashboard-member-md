@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Upload, Button, Modal, message, UploadFile } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import Image from 'next/image';
 
 interface ImageUploadProps {
   onChange?: any;
@@ -69,7 +70,7 @@ const MultipleFileUploadAll = ({
         footer={null}
         onCancel={handleCancel}
       >
-        <img alt="example" style={{ width: '100%' }} src={previewImage} />
+        <Image alt="example" style={{ width: '100%' }} src={previewImage} />
       </Modal>
     </>
   );

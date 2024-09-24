@@ -5,16 +5,10 @@ import { useQueryParam } from "../../../hooks/useQueryParam";
 import useGetAllQuery from "./_query/useGetAllQuery";
 import { Breadcrumbs } from "../../../components/breadcrumbs";
 import { columns, FILTER_KEYS } from "../../../components/Tables/ReferralLinksTables/columns";
-import { ReferralLinksTable } from "../../../components/Tables/ReferralLinksTables/user-leads-table";
+import { ReferralLinksTable } from "../../../components/Tables/ReferralLinksTables/referral-link-table";
 import { AuthContext } from "../../../global_context/Auth";
 import { useContext } from "react";
-
-export const detailPage = {
-  baseTitle: 'Dashboard',
-  basePath : '/',
-  title: 'Affiliate Links',
-  path: 'links',
-}
+import { detailPage } from "./_constants";
 
 const LinkPage = () => {
   const { paginationParams, filterParams, sortParams } = useQueryParam(FILTER_KEYS);

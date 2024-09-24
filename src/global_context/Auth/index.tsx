@@ -22,7 +22,7 @@ const defaultAuthContext: AuthContextProps = {
 export const AuthContext = createContext<AuthContextProps>(defaultAuthContext)
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
-  const publicUrl = ['signin', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp'];
+  const publicUrl = useMemo(() => { return ['signin', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp']; }, [])
   const pathname = usePathname()
   const isAuth = pathname?.includes('/')
   const router = useRouter()
@@ -44,7 +44,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
       handleRefetchUserProfile()
       router.replace('/')
     },
-    [router],
+    [router, handleRefetchUserProfile],
   )
 
   const logout = useCallback(() => {
@@ -60,7 +60,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     } else {
       if (!publicUrl.includes(pathname.split('/')[1]))router.replace('/signin')
     }
-  }, [handleRefetchUserProfile, router])
+  }, [handleRefetchUserProfile, router, publicUrl, pathname])
 
   return (
     <AuthContext.Provider

@@ -16,10 +16,10 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import postSignIn from "../../app/(auth)/signin/_repository/postSignin";
+import postSignIn from "../../app/(auth)/_signin/_repository/postSignin";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { IReqForgotPassword } from "../../app/(auth)/forgot-password/_interfaces";
-import postForgetPassword from "../../app/(auth)/forgot-password/_repository/postForgetPassword";
+import { IReqForgotPassword } from "../../app/(auth)/_forgot-password/_interfaces";
+import postForgetPassword from "../../app/(auth)/_forgot-password/_repository/postForgetPassword";
 import { useRouter } from "next/navigation";
 
 const formSchema: z.ZodType<IReqForgotPassword> = z.object({

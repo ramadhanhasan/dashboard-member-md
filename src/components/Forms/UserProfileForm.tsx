@@ -33,7 +33,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { cn } from "../../lib/utils";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { Calendar } from "../ui/calendar";
-import useVerifiedUserQuery from "../../app/(auth)/verified/_query/useVerifiedUserQuery";
+import useVerifiedUserQuery from "../../app/(auth)/_verified/_query/useVerifiedUserQuery";
 import { useRouter } from "next/navigation";
 import { notification } from "antd";
 import { IUser } from "../../app/(dashboard)/profile/_interfaces";
@@ -121,7 +121,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
     if (initialData.city_id && provinces.length > 0) {
       initiateSubdistricts(initialData.city_id);
     }
-  }, [provinces, cities]);
+  }, [provinces, cities, initialData.city_id, initialData.province_id]);
 
   const updateProfileMutation = usePutProfileQuery(() => {
     notification.open({

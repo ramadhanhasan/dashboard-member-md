@@ -9,13 +9,7 @@ import Tools from "../../../components/Tools";
 import { TypeToolEnum } from "../../../constants/data";
 import MultipleSelector, { Option } from "../../../components/ui/multiple-selector";
 import { useState } from "react";
-
-export const detailPage = {
-  baseTitle: 'Dashboard',
-  basePath : '/',
-  title: 'Tools Marketing',
-  path: 'tools',
-}
+import { detailPage } from "./_constants";
 
 const OPTIONS: Option[] = [
   { label: TypeToolEnum.BANNER, value: TypeToolEnum.BANNER },

@@ -2,7 +2,6 @@
 
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import useGetDetailQuery from "./_query/useGetDetailQuery";
-import { detailPage } from "../page";
 import { Breadcrumbs } from "../../../../components/breadcrumbs";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent, CardHeader } from "../../../../components/ui/card";
@@ -18,6 +17,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import useEnrollCourseQuery from "./_query/useEnrollCourseQuery";
 import useGetAllHistoryQuery from "./_query/useGetAllHistoryQuery";
+import Image from "next/image";
+import { detailPage } from "../_constants";
 
 const CoursePage = ({ params }: { params: { slug: string } }) => {
   const router = useRouter();
@@ -92,7 +93,7 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
             <h2 className="mb-6 text-xl font-semibold">Isi Materi</h2>
             <Accordion type="multiple" className="w-full">
               {data?.chapters?.map((chapter, index) => (
-                <AccordionItem
+                <AccordionItem key={index}
                   value={chapter?.slug ?? ""}
                   className="mb-4 rounded-lg bg-slate-200 pb-2"
                 >
@@ -150,11 +151,12 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
             <div className="sticky top-10">
               <Card className="bg-white shadow-lg">
                 <CardHeader className="p-0">
-                  <img
+                  <Image
+                    width={400} height={200}
                     className="mb-4 w-full rounded-md"
                     src={
                       data?.image_introduce_url ??
-                      "https://placehold.co/358x240"
+                      "https://placehold.co/400x200"
                     }
                     alt="Course Image"
                   />

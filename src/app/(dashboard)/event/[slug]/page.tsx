@@ -2,7 +2,6 @@
 
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import useGetDetailQuery from "./_query/useGetDetailQuery";
-import { detailPage } from "../page";
 import { Breadcrumbs } from "../../../../components/breadcrumbs";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent, CardHeader } from "../../../../components/ui/card";
@@ -11,6 +10,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import TimestampConverter from "../../../../utils/dateFormatter";
 import { formatPrice } from "../../../../utils/priceFormatter";
+import Image from "next/image";
+import { detailPage } from "../_constants";
 
 const EventPage = ({ params }: { params: { slug: string } }) => {
   const router = useRouter();
@@ -46,9 +47,10 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
             <div className="sticky top-10">
               <Card className="bg-white shadow-lg">
                 <CardHeader className="p-0">
-                  <img
-                    className="mb-4 w-full rounded-md"
-                    src={data?.image_url ?? "https://placehold.co/358x240"}
+                  <Image
+                    className="mb-4 w-full rounded-md" 
+                    width={400} height={200}
+                    src={data?.image_url ?? "https://placehold.co/400x200"}
                     alt="Event Image"
                   />
                 </CardHeader>

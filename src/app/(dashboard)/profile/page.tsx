@@ -11,13 +11,7 @@ import { UserProfileForm } from "../../../components/Forms/UserProfileForm";
 import getDetailRepository from "./_repository/getDetailRepository";
 import { UserChangePasswordForm } from "../../../components/Forms/UserChangePasswordForm";
 import { UserMembershipInformationForm } from "../../../components/Forms/UserMembershipInformationForm";
-
-export const detailPage = {
-  baseTitle: "Dashboard",
-  basePath: "/",
-  title: "Akun saya",
-  path: "profile",
-};
+import { detailPage } from "./_constants";
 
 const Profile = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);

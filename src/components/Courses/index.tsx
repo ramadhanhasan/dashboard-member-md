@@ -5,6 +5,7 @@ import { ICourse } from "../../app/(dashboard)/course/_interfaces";
 import { Button } from "../ui/button";
 import { Flex, Text } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const Course = ({ courses }: { courses: ICourse[] }) => {
   const router = useRouter();
@@ -19,13 +20,14 @@ const Course = ({ courses }: { courses: ICourse[] }) => {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {courses.map((course: ICourse) => (
-        <button
+        <a key={course.id}
           onClick={() => {
             router.push(`course/${course.slug}`)
           }}
           className="max-w-sm transform cursor-pointer overflow-hidden rounded bg-white text-left shadow-lg transition-transform duration-300 hover:scale-105 focus:outline-none"
         >
-          <img
+          <Image 
+            width={400} height={200}
             className="w-full"
             src={
               course.image_introduce_url ??
@@ -66,7 +68,7 @@ const Course = ({ courses }: { courses: ICourse[] }) => {
           <div className="px-6 py-4 rounded-full">
             <Button className="w-full text-white">Buka Materi</Button>
           </div>
-        </button>
+        </a>
       ))}
     </div>
   );

@@ -6,20 +6,23 @@ import { useRouter } from "next/navigation";
 import { IEvent } from "../../app/(dashboard)/event/_interfaces";
 import TimestampConverter from "../../utils/dateFormatter";
 import { formatPrice } from "../../utils/priceFormatter";
+import Image from "next/image";
 
 const Event = ({ events }: { events: IEvent[] }) => {
   const router = useRouter();
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {events.map((event: IEvent) => (
-        <button
+        <a
+          key={event.slug}
           onClick={() => {
             router.push(`event/${event.slug}`)
           }}
           className="max-w-sm transform cursor-pointer overflow-hidden rounded bg-white text-left shadow-lg transition-transform duration-300 hover:scale-105 focus:outline-none"
         >
-          <img
+          <Image
             className="w-full"
+            width={400} height={200}
             src={
               event.image_url ??
               "https://via.placeholder.com/400x200"
@@ -52,7 +55,7 @@ const Event = ({ events }: { events: IEvent[] }) => {
           <div className="px-6 py-4 rounded-full">
             <Button className="w-full text-white">Lihat Event</Button>
           </div>
-        </button>
+        </a>
       ))}
     </div>
   );
