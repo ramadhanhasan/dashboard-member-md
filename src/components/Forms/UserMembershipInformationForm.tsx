@@ -18,6 +18,7 @@ import {
 import { useRouter } from "next/navigation";
 import { IUser } from "../../app/(dashboard)/profile/_interfaces";
 import TimestampConverter from "../../utils/dateFormatter";
+import { formatPrice } from "../../utils/priceFormatter";
 
 interface UserMembershipInformationFormProps {
   initialData: Partial<IUser>;
@@ -32,6 +33,8 @@ export const UserMembershipInformationForm: React.FC<
       referral_code: initialData.refferral_code,
       email: initialData.email,
       expired_time: initialData.expired_time,
+      balance: initialData.balance,
+      total_commission: initialData.total_commission
     },
   });
 
@@ -97,8 +100,25 @@ export const UserMembershipInformationForm: React.FC<
             <Input
               type="text"
               disabled
-              value={initialData.referral_from_user?.name ?? ''}
+              value={initialData.referral_from_user?.name ?? ""}
             />
+
+            <FormLabel className="pt-5">Total Komisi</FormLabel>
+            <Input
+              type="text"
+              disabled
+              value={formatPrice(initialData.total_commission || 0)}
+            />
+
+            <FormLabel className="pt-5">Total Payout</FormLabel>
+            <Input
+              type="text"
+              disabled
+              value={formatPrice((initialData.total_commission || 0) - (initialData.balance || 0))}
+            />
+
+            <FormLabel className="pt-5">Komisi Tersedia</FormLabel>
+            <Input type="text" disabled value={formatPrice(initialData.balance || 0)} />
           </form>
         </Form>
       </div>

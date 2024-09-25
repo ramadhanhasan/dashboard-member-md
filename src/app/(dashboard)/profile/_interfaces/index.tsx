@@ -1,3 +1,5 @@
+import { IHistoryCommission } from "../../commission/_interfaces";
+
 export interface IUser {
   created_at?: Date;
   updated_at?: Date;
@@ -23,6 +25,10 @@ export interface IUser {
   referral_from_user?: IUser;
   refferral_code?: string;
   expired_time?: Date;
+  balance?: number;
+  total_commission?: number;
+  total_withdrawal?: number;
+  history_commission?: IHistoryCommission[]
 }
 
 export interface IChangePassword {

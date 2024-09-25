@@ -22,6 +22,8 @@ const LinkPage = () => {
       { title: detailPage.title, link: detailPage.basePath + detailPage.path }
     ];
 
+  const phone = userProfile?.phone.startsWith("0") ? "62" + userProfile.phone.substring(1) : userProfile?.phone; 
+
   return (
     <DefaultLayout>
       <div className="mx-auto max-w-7xl">
@@ -33,7 +35,7 @@ const LinkPage = () => {
           columns={columns}
           totalData={totalItemReferralLinks}
           data={dataReferralLinks.map(link => {
-            link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type.toLowerCase()}&whatsapp=${link.is_whatsapp_link ? userProfile?.phone : ''}`
+            link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type.toLowerCase()}&whatsapp=${link.is_whatsapp_link ? phone : ''}`
             return link
           })}
           totalPage={totalPageReferralLinks}

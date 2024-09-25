@@ -1,10 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { AuthContext } from "../../global_context/Auth";
 import {
   Form,
   FormControl,
@@ -15,11 +14,9 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import Link from "next/link";
-import postSignIn from "../../app/(auth)/_signin/_repository/postSignin";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { IReqForgotPassword } from "../../app/(auth)/_forgot-password/_interfaces";
-import postForgetPassword from "../../app/(auth)/_forgot-password/_repository/postForgetPassword";
+import { IReqForgotPassword } from "../../app/(auth)/forgot-password/_interfaces";
+import postForgetPassword from "../../app/(auth)/forgot-password/_repository/postForgetPassword";
 import { useRouter } from "next/navigation";
 
 const formSchema: z.ZodType<IReqForgotPassword> = z.object({
@@ -45,8 +42,8 @@ export default function UserRequestForgotPasswordForm() {
       setErrorMsg(null);
       setLoading(true);
       await postForgetPassword(data);
-      router.push("/success");
-      router
+      router.refresh();
+      router.push("/forgot-password/success");
     } catch (error: any) {
       setErrorMsg(error.error);
       form.reset();

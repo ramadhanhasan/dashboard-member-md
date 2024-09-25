@@ -16,8 +16,8 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import postSignIn from "../../app/(auth)/_signin/_repository/postSignin";
-import { IAuth } from "../../app/(auth)/_signin/_interfaces";
+import postSignIn from "../../app/(auth)/signin/_repository/postSignin";
+import { IAuth } from "../../app/(auth)/signin/_interfaces";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 const formSchema: z.ZodType<IAuth> = z.object({

@@ -83,7 +83,7 @@ const CoursePage = ({
     }
 
     setIsComplete(
-      dataLesson?.lesson_history && dataLesson?.lesson_history[0].is_completed
+      dataLesson?.lesson_history && dataLesson?.lesson_history[0]?.is_completed
         ? dataLesson?.lesson_history[0].is_completed
         : false,
     );

@@ -33,11 +33,12 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { cn } from "../../lib/utils";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { Calendar } from "../ui/calendar";
-import useVerifiedUserQuery from "../../app/(auth)/_verified/_query/useVerifiedUserQuery";
+import useVerifiedUserQuery from "../../app/(auth)/verified/_query/useVerifiedUserQuery";
 import { useRouter } from "next/navigation";
 import { notification } from "antd";
 import { IUser } from "../../app/(dashboard)/profile/_interfaces";
 import usePutProfileQuery from "../../app/(dashboard)/profile/_query/usePutProfileUserQuery";
+import { BankList } from "../../constants/data";
 
 const numberRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -299,12 +300,36 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                   <FormItem>
                     <FormLabel className="mb-0">Bank Name</FormLabel>
                     <FormControl>
-                      <Input
-                        type="text"
-                        placeholder="Enter your Bank Name"
-                        disabled={loading}
-                        {...field}
-                      />
+                    <Select
+                      disabled={loading || !isEditAction}
+                      onValueChange={(e) => {
+                        field.onChange(e);
+                      }}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            defaultValue={field.value}
+                            placeholder="Select Bank"
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup className="max-h-[15rem] overflow-y-auto">
+                          {/* @ts-ignore  */}
+                          {BankList.map((bank) => (
+                            <SelectItem
+                              key={bank.name}
+                              value={bank.name}
+                            >
+                              {bank.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

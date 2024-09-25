@@ -3,10 +3,7 @@
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { Breadcrumbs } from "../../../../components/breadcrumbs";
 import { Card, CardContent, CardHeader } from "../../../../components/ui/card";
-import {
-  Link,
-  Timer,
-} from "lucide-react";
+import { Link, Timer } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { formatPrice } from "../../../../utils/priceFormatter";
 import useGetDetailMembershipProductQuery from "../_query/useGetDetailMembershipProductQuery";
@@ -22,6 +19,10 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
   const router = useRouter();
   const { data, isLoading, isError, refetchData } =
     useGetDetailMembershipProductQuery(params.slug);
+
+  const phone = userProfile?.phone.startsWith("0")
+    ? "62" + userProfile.phone.substring(1)
+    : userProfile?.phone;
 
   const breadcrumbItems = [
     { title: detailPage.baseTitle, link: detailPage.basePath },
@@ -51,7 +52,8 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
               <Card className="bg-white shadow-lg">
                 <CardHeader className="p-0">
                   <Image
-                    width={400} height={200}
+                    width={400}
+                    height={200}
                     className="mb-4 w-full rounded-md"
                     src={data?.image_url ?? "https://placehold.co/400x200"}
                     alt="Event Image"
@@ -101,14 +103,21 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
             </div>
           </div>
         </div>
-        <h1 className="text-lg font-bold mt-5">AFFILIATE LINK {data?.name}</h1>
+        <h1 className="mt-5 text-lg font-bold">AFFILIATE LINK {data?.name}</h1>
         <ReferralLinksRelationTable
           searchKey="name"
           page={1}
           limit={10}
           columns={columns}
           totalData={data?.referral_links?.length || 0}
-          data={data?.referral_links || []}
+          data={
+            data?.referral_links
+              ? data.referral_links.map((link) => {
+                  link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type?.toLowerCase()}&whatsapp=${link.is_whatsapp_link ? phone : ""}`;
+                  return link;
+                })
+              : []
+          }
           totalPage={1}
         />
       </div>
