@@ -42,7 +42,7 @@ function VerifiedPageComponent() {
         setIsValid(true);
         setIsLoaded(true);
       } catch (error: any) {
-        setErrMsg(error);
+        setErrMsg(error.error ?? error);
         setIsLoaded(true);
       }
     };

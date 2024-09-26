@@ -214,7 +214,7 @@ const CoursePage = ({
                                           lesson.lesson_history[0]
                                             .is_completed ? (
                                             <>
-                                              <span className="text-gray-800 flex-grow px-4 line-through	">
+                                              <span className="text-gray-800 flex-grow px-4">
                                                 {lesson.name}
                                               </span>
 

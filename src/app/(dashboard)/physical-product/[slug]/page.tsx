@@ -23,6 +23,10 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
     params.slug,
   );
 
+  const phone = userProfile?.phone.startsWith("0")
+    ? "62" + userProfile.phone.substring(1)
+    : userProfile?.phone;
+
   const breadcrumbItems = [
     { title: detailPage.baseTitle, link: detailPage.basePath },
     { title: detailPage.title, link: detailPage.basePath + detailPage.path },
@@ -149,7 +153,12 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
           limit={10}
           columns={columns}
           totalData={data?.referral_links?.length || 0}
-          data={data?.referral_links || []}
+          data={data?.referral_links
+            ? data.referral_links.map((link) => {
+                link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type?.toLowerCase()}&whatsapp=${link.is_whatsapp_link ? phone : ""}`;
+                return link;
+              })
+            : []}
           totalPage={1}
         />
       </div>

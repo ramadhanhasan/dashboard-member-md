@@ -7,7 +7,7 @@ import Image from "next/image";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { BookOpenCheck, CalendarSearch, FileBox, Link2, PackageOpen, PartyPopper, UsersRound, Wallet, Wrench } from "lucide-react";
+import { BookOpenCheck, CalendarSearch, FileBox, Images, Link2, PackageOpen, PartyPopper, UsersRound, Wallet, Wrench } from "lucide-react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -121,8 +121,18 @@ const menuGroups = [
             height="18"
           />
         ),
-        label: "Tools Marketing",
+        label: "Link & Lembar Kerja",
         route: "/tools",
+      },
+      {
+        icon: (
+          <Images
+            width="18"
+            height="18"
+          />
+        ),
+        label: "Konten",
+        route: "/content",
       },
     ],
   },

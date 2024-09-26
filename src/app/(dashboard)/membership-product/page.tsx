@@ -4,14 +4,12 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { useQueryParam } from "../../../hooks/useQueryParam";
 import useGetAllQuery from "./_query/useGetAllMembershipProductQuery";
 import { Breadcrumbs } from "../../../components/breadcrumbs";
-// import MembershipProduct from "../../../components/MembershipProducts";
+import MembershipProduct from "../../../components/MembershipProducts";
 import { DefaultControls, DefaultUi, Player, Youtube } from "@vime/react";
 import { Check, ChevronDown } from "lucide-react";
 import { detailPage } from "./_constants";
 import dynamic from "next/dynamic";
 import PlayerComponent from "../../../components/Players";
-
-const MembershipProduct = dynamic(() => import('../../../components/MembershipProducts'), { ssr: false });
 
 const CoursePage = () => {
   const { paginationParams, filterParams, sortParams } = useQueryParam();

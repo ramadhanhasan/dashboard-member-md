@@ -2,13 +2,13 @@ import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
 import { saveAffUser, saveUser } from '@/utils//userUtils'
-import { AFF_STORAGE_KEY, USER_LOCAL_STORAGE_KEY } from '@/constants/data'
+import { AFF_STORAGE_KEY, FUNNEL_STORAGE_KEY, USER_LOCAL_STORAGE_KEY } from '@/constants/data'
 import getOneLinkRepository from './app/(dashboard)/links/_repository/getOneRepository';
 
 export async function middleware(request: NextRequest) {
   const urlSearchParams = new URLSearchParams(request.nextUrl.search);
   const params = Object.fromEntries(urlSearchParams.entries());
-  const publicUrl = ['signin', 'verified', 'forgot-password', 'forgot-passwordsuccess', 'reset-password', 'lp'];
+  const publicUrl = ['signin', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp', 'checkout'];
   // get user request cookie
   const userCookie = request.cookies.get(USER_LOCAL_STORAGE_KEY)?.value ?? ''
   let isTokenValid = false
@@ -17,15 +17,25 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.split('/')[1] === 'lp') {
     const data = await getOneLinkRepository(Number(params['i']) || 0, params['whatsapp']);
     const affCookie = request.cookies.get(AFF_STORAGE_KEY)?.value ?? ''
-    const res = NextResponse.redirect(data.data.url, 302); // External website URL
     
+    const res = NextResponse.redirect(data.data.url + '?whatsapp='+ params['whatsapp'] + '&funnel='+data.data.name, 302); // External website URL
+    
+    const expire = new Date()
+    expire.setDate(expire.getDate() + 90)
+      
+    res.cookies.set(FUNNEL_STORAGE_KEY, data.data.name, {
+      // httpOnly: true,  // Secure, not accessible via JavaScript
+      // path: '/',       // Path for which the cookie is valid
+      // sameSite: 'strict',  // Control cross-site request behavior
+      maxAge: 60 * 60 * 24 * 90, // Optional: Set max-age for cookie (in seconds)
+      expires: expire, // Optional: expires in 1 day
+    });
+
     if (affCookie == '' && params['aff'] && params['aff'] != '') {
-      const expire = new Date()
-      expire.setDate(expire.getDate() + 90)
       res.cookies.set(AFF_STORAGE_KEY, params['aff'], {
-        httpOnly: true,  // Secure, not accessible via JavaScript
-        path: '/',       // Path for which the cookie is valid
-        sameSite: 'strict',  // Control cross-site request behavior
+        // httpOnly: true,  // Secure, not accessible via JavaScript
+        // path: '/',       // Path for which the cookie is valid
+        // sameSite: 'strict',  // Control cross-site request behavior
         maxAge: 60 * 60 * 24 * 90, // Optional: Set max-age for cookie (in seconds)
         expires: expire, // Optional: expires in 1 day
       });
@@ -44,7 +54,7 @@ export async function middleware(request: NextRequest) {
     // request.cookies.delete(USER_LOCAL_STORAGE_KEY)
 
     // check if request path name if from auth or default path redirect to dashboard
-    const response = publicUrl.includes(request.nextUrl.pathname)
+    const response = publicUrl.includes(request.nextUrl.pathname.split('/')[1])
       ? NextResponse.redirect(new URL('/', request.url))
       : NextResponse.next()
 

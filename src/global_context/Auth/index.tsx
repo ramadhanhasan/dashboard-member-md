@@ -22,7 +22,7 @@ const defaultAuthContext: AuthContextProps = {
 export const AuthContext = createContext<AuthContextProps>(defaultAuthContext)
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
-  const publicUrl = useMemo(() => { return ['signin', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp']; }, [])
+  const publicUrl = useMemo(() => { return ['signin', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp', 'checkout']; }, [])
   const pathname = usePathname()
   const isAuth = pathname?.includes('/')
   const router = useRouter()

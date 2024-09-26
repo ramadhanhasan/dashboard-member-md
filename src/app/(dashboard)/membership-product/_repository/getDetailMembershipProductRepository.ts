@@ -5,6 +5,7 @@ import { RouteENUM } from '../../../../constants/data'
 const getDetailRepository = async (slug: string) => {
   const res = await fetchConstructor<IMembershipProduct>({
     path: RouteENUM.MEMBERSHIP + slug,
+    withAuth: true
   })
 
   return res.data

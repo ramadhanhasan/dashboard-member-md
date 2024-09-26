@@ -28,6 +28,7 @@ const CommissionUserPage = () => {
     currentPageCommissionHistory,
     totalItemCommissionHistory,
     totalPageCommissionHistory,
+    refetechDataCommissionHistory
   } = useGetAllQuery({ ...paginationParams, filterParams, ...sortParams });
 
   const breadcrumbItems = [
@@ -51,9 +52,7 @@ const CommissionUserPage = () => {
     fetchData().catch((error) => {
       setIsLoaded(true);
     });
-  })
-
-  const { data } = useGetDetailQuery();
+  }, [refetechDataCommissionHistory])
 
   return (
     <DefaultLayout>
