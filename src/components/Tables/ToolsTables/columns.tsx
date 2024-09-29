@@ -30,10 +30,10 @@ export const columns: ColumnDef<ITools>[] = [
       />
     ),
   },
-  {
-    accessorKey: "format",
-    header: "Format",
-  },
+  // {
+  //   accessorKey: "format",
+  //   header: "Format",
+  // },
   {
     cell: ({ row }) => (row.original.type === "LINK" ? "Link" : "Lembar Kerja"),
     header: "Tipe",
