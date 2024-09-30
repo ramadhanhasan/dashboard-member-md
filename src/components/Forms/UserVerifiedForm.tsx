@@ -298,7 +298,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="select_birth_date"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Date</FormLabel>
+                <FormLabel>Birth Date</FormLabel>
                 <Popover open={isOpen} onOpenChange={setIsOpen}>
                   <PopoverTrigger asChild>
                     <FormControl>
@@ -348,12 +348,36 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
               <FormItem>
                 <FormLabel>Bank Name</FormLabel>
                 <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="Enter your Bank Name"
-                    disabled={loading}
-                    {...field}
-                  />
+                <Select
+                      disabled={loading}
+                      onValueChange={(e) => {
+                        field.onChange(e);
+                      }}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            defaultValue={field.value}
+                            placeholder="Select Bank"
+                          />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectGroup className="max-h-[15rem] overflow-y-auto">
+                          {/* @ts-ignore  */}
+                          {BankList.map((bank) => (
+                            <SelectItem
+                              key={bank.name}
+                              value={bank.name}
+                            >
+                              {bank.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
