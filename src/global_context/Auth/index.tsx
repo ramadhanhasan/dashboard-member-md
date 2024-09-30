@@ -39,10 +39,10 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   }, [refetchUserProfile])
 
   const login = useCallback(
-    async (userToken: UserToken) => {
-      await saveUser(userToken) // save token to cookie
-      await handleRefetchUserProfile()
-      await useEffect(() => {
+    (userToken: UserToken) => {
+      saveUser(userToken) // save token to cookie
+      handleRefetchUserProfile()
+      useEffect(() => {
         setTimeout(() => router.replace('/'), 1000);
       }, []);
     },
