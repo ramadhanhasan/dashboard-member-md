@@ -17,8 +17,9 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.split('/')[1] === 'lp') {
     const data = await getOneLinkRepository(Number(params['i']) || 0, params['whatsapp']);
     const affCookie = request.cookies.get(AFF_STORAGE_KEY)?.value ?? ''
+    const aff = request.nextUrl.pathname.split('/')[2]
     
-    const res = NextResponse.redirect(data.data.url + '?whatsapp='+ params['whatsapp'] + '&funnel='+data.data.name, 302); // External website URL
+    const res = NextResponse.redirect(data.data.url + '?whatsapp='+ params['whatsapp'] + '&affcode='+aff + '&funnel='+data.data.name, 302); // External website URL
     
     const expire = new Date()
     expire.setDate(expire.getDate() + 90)
@@ -31,8 +32,8 @@ export async function middleware(request: NextRequest) {
       expires: expire, // Optional: expires in 1 day
     });
 
-    if (affCookie == '' && params['aff'] && params['aff'] != '') {
-      res.cookies.set(AFF_STORAGE_KEY, params['aff'], {
+    if (affCookie == '' && aff && aff != '') {
+      res.cookies.set(AFF_STORAGE_KEY, aff, {
         // httpOnly: true,  // Secure, not accessible via JavaScript
         // path: '/',       // Path for which the cookie is valid
         // sameSite: 'strict',  // Control cross-site request behavior

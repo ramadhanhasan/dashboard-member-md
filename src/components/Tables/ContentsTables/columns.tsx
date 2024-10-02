@@ -1,6 +1,6 @@
 "use client";
 import { ColumnDef } from "@tanstack/react-table";
-import { ITools } from "../../../app/(dashboard)/tools/_interfaces";
+import { ITools } from "../../../app/(dashboard)/tools-work-paper/_interfaces";
 import { FormatMedia, TypeUrlEnum } from "../../../constants/data";
 import { Button } from "../../ui/button";
 import Link from "next/link";
@@ -53,7 +53,7 @@ export const columns: ColumnDef<ITools>[] = [
                     width={800}
                     height={600}
                     layout="responsive"
-                    className="rounded"
+                    className="rounded min-w-64"
                   />
                 ) : (
                   <div className="flex h-64 items-center justify-center rounded bg-muted">

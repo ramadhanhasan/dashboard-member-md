@@ -1,3 +1,5 @@
+import FloatingWhatsAppButton from "../../components/FloatingWhatsAppButton"
+
 export default function RootLayout({
   children,
 }: {
@@ -5,7 +7,9 @@ export default function RootLayout({
 }) {
   return (
     // <html lang="en">
-      <div>{children}</div>
+      <div>{children}
+              <FloatingWhatsAppButton />
+              </div>
     // </html>
   )
 }

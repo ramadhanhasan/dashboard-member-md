@@ -18,11 +18,13 @@ export const columns: ColumnDef<IUserLead>[] = [
   },
   {
     accessorKey: 'phone',
-    header: 'PHONE'
+    header: 'PHONE',
+    cell: ({ row }) => row.original.phone.slice(0, -6) + '******'
   },
   {
     accessorKey: 'email',
-    header: 'EMAIL'
+    header: 'EMAIL',
+    cell: ({ row }) => row.original.email.slice(0, 8) + '********'
   },
   {
     accessorKey: 'funnel',

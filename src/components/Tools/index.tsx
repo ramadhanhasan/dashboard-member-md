@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "../ui/button";
-import { ITools } from "../../app/(dashboard)/tools/_interfaces";
+import { ITools } from "../../app/(dashboard)/tools-work-paper/_interfaces";
 import Link from "next/link";
 import { FormatMedia, TypeToolEnum, TypeUrlEnum } from "../../constants/data";
 import defaultLogo from "../../../public/images/Default/document.jpg";

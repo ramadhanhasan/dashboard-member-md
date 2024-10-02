@@ -3,7 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Switch } from "@/components/ui/switch";
 import TimestampConverter from "../../../utils/dateFormatter";
 import { IUserLead } from "../../../app/(dashboard)/leads/_interfaces";
-import { ITools } from "../../../app/(dashboard)/tools/_interfaces";
+import { ITools } from "../../../app/(dashboard)/tools-work-paper/_interfaces";
 import { TypeUrlEnum } from "../../../constants/data";
 import { Button } from "../../ui/button";
 import Link from "next/link";
@@ -19,7 +19,7 @@ export const columns: ColumnDef<ITools>[] = [
   },
   {
     accessorKey: "name",
-    header: "Jenis Bantuan",
+    header: "Title",
   },
   {
     header: "Deskripsi",

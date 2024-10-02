@@ -6,13 +6,11 @@ import useGetAllQuery from "./_query/useGetAllQuery";
 import { Breadcrumbs } from "../../../components/breadcrumbs";
 import { useState } from "react";
 import { detailPage } from "./_constants";
-import { ContentTable } from "../../../components/Tables/ContentsTables/content-table";
-import { columns, FILTER_KEYS } from "../../../components/Tables/ContentsTables/columns";
-import PlayerComponent from "../../../components/Players";
-import { ChevronDown } from "lucide-react";
+import { ToolsTable } from "../../../components/Tables/ToolsTables/tools-table";
+import { columns, FILTER_KEYS } from "../../../components/Tables/ToolsTables/columns";
 
-const ContentPage = () => {
-  const [filterType, setFilterType] = useState<string>("CONTENT");
+const CoursePage = () => {
+  const [filterType, setFilterType] = useState<string>("WORK PAPER");
   const { paginationParams, filterParams, sortParams } = useQueryParam(FILTER_KEYS);
   const {
     dataTool,
@@ -35,19 +33,20 @@ const ContentPage = () => {
     <DefaultLayout>
       <div className="mx-auto max-w-7xl">
         <Breadcrumbs items={breadcrumbItems} />
-        <div className="mb-5 p-4 text-center shadow-default dark:border-strokedark dark:bg-boxdark md:p-6 xl:p-9">
-          <p className="text-gray-500 dark:text-gray-400 mb-6 text-lg font-normal capitalize sm:px-16 lg:text-2xl xl:px-48">
-          Silahkan tonton video dibawah ini, untuk mengetahui cara menggunakan tools marketing content
-          </p>
-          <h1 className="mb-2 mt-5 text-2xl font-bold">
-            Video Panduan (Wajib Ditonton)
-          </h1>
-          <PlayerComponent
-            videoId={process.env.NEXT_PUBLIC_YOUTUBE_ID_CONTENT ?? ""}
+        {/* <div className="mb-10 w-full">
+          <p className="py-3">Filter Tools: </p>
+          <MultipleSelector
+            defaultOptions={OPTIONS}
+            placeholder="Select tools you want filter..."
+            onChange={filterChange}
+            emptyIndicator={
+              <p className="text-gray-600 dark:text-gray-400 text-center text-lg leading-10">
+                no results found.
+              </p>
+            }
           />
-          <ChevronDown className="w-full mt-5" width={50} height={50} />
-        </div>
-        <ContentTable
+        </div> */}
+        <ToolsTable
           searchKey="name"
           page={currentPageTool}
           limit={paginationParams.limit}
@@ -56,9 +55,10 @@ const ContentPage = () => {
           data={dataTool}
           totalPage={totalPageTool}
         />
+        {/* <Tools tools={dataTool} /> */}
       </div>
     </DefaultLayout>
   );
 };
 
-export default ContentPage;
+export default CoursePage;

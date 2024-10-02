@@ -4,8 +4,26 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { useContext } from "react";
 import { AuthContext } from "../../global_context/Auth";
 import { Button } from "../../components/ui/button";
-import dynamic from "next/dynamic";
 import PlayerComponent from "../../components/Players";
+
+const videoDashboard = [
+  {
+    embedId: process.env.NEXT_PUBLIC_YOUTUBE_ID_DASHBOARD_1,
+    title: "VIDEO PENTING 1",
+  },
+  {
+    embedId: process.env.NEXT_PUBLIC_YOUTUBE_ID_DASHBOARD_2,
+    title: "VIDEO PENTING 2",
+  },
+  {
+    embedId: process.env.NEXT_PUBLIC_YOUTUBE_ID_DASHBOARD_3,
+    title: "VIDEO PENTING 3",
+  },
+  {
+    embedId: process.env.NEXT_PUBLIC_YOUTUBE_ID_DASHBOARD_4,
+    title: "VIDEO PENTING 4",
+  },
+];
 
 export default function Home() {
   const { userProfile, isAuth } = useContext(AuthContext);
@@ -24,9 +42,13 @@ export default function Home() {
           Langkah selanjutnya silahkan tonton VIDEO WAJIB dibawah ini ya.
         </p>
 
-        <PlayerComponent
-          videoId={process.env.NEXT_PUBLIC_YOUTUBE_ID_DASHBOARD ?? ""}
-        />
+        {videoDashboard.map((video) => (
+          <>
+            <h1 className="mb-2 mt-5 text-2xl font-bold">{video.title}</h1>
+            <PlayerComponent videoId={video.embedId ?? ""} />
+            {/* <Separator className="mt-5"/> */}
+          </>
+        ))}
 
         <h1 className="text-gray-900 mb-4 mt-10 text-xl font-bold leading-none tracking-tight dark:text-white md:text-2xl lg:text-3xl">
           Info Kopdar & Update Seputar Digital Marketing (Klik link dibawah) :

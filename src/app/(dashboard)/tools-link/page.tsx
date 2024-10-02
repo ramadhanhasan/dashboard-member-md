@@ -10,7 +10,7 @@ import { ToolsTable } from "../../../components/Tables/ToolsTables/tools-table";
 import { columns, FILTER_KEYS } from "../../../components/Tables/ToolsTables/columns";
 
 const CoursePage = () => {
-  const [filterType, setFilterType] = useState<string>("LINK,WORK PAPER");
+  const [filterType, setFilterType] = useState<string>("LINK");
   const { paginationParams, filterParams, sortParams } = useQueryParam(FILTER_KEYS);
   const {
     dataTool,

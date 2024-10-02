@@ -37,6 +37,7 @@ import { Calendar } from "../ui/calendar";
 import useVerifiedUserQuery from "../../app/(auth)/verified/_query/useVerifiedUserQuery";
 import { useRouter } from "next/navigation";
 import { notification } from "antd";
+import { BankList } from "../../constants/data";
 
 const numberRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -96,7 +97,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
 }) => {
   const [errorMsg, setErrorMsg] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-  const defaultValues: Partial<IUserVerified> = {...initialData, select_birth_date: new Date(initialData.birth_date ?? Date.now())};
+  const defaultValues: Partial<IUserVerified> = {...initialData, select_birth_date: new Date(initialData.birth_date ?? Date.now()), bank_name: BankList[5].name};
   const [cities, setCities] = useState<ICity[]>([]);
   const [subdistricts, setSubdistricts] = useState<ISubdistrict[]>([]);
   const [province, setProvince] = useState(initialData.province_id ?? "");
@@ -284,7 +285,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                   <Input
                     type="phone"
                     placeholder="Enter your phone"
-                    disabled={loading}
+                    disabled
                     {...field}
                   />
                 </FormControl>
@@ -437,7 +438,8 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                         handleProvinceChange(e);
                       }}
                       defaultValue={field.value}
-                      value={province || field.value}
+                      value={province}
+                      // value={province || field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
@@ -477,7 +479,8 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                         field.onChange(e);
                         handleCityChange(e);
                       }}
-                      value={city || field.value}
+                      // value={city || field.value}
+                      value={city}
                       defaultValue={field.value}
                     >
                       <FormControl>
