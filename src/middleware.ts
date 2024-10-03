@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.split('/')[1] === 'lp') {
     const data = await getOneLinkRepository(Number(params['i']) || 0, params['whatsapp']);
     const affCookie = request.cookies.get(AFF_STORAGE_KEY)?.value ?? ''
-    const aff = request.nextUrl.pathname.split('/')[2]
+    const aff = params['aff'];
     
     const res = NextResponse.redirect(data.data.url + '?whatsapp='+ params['whatsapp'] + '&affcode='+aff + '&funnel='+data.data.name, 302); // External website URL
     
