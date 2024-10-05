@@ -51,7 +51,7 @@ export async function middleware(request: NextRequest) {
     // request.cookies.delete(USER_LOCAL_STORAGE_KEY)
 
     // check if request path name if from auth or default path redirect to dashboard
-    if (pathname != '' && pathname != 'login') {
+    if (pathname != '' && pathname == 'login') {
       const response = publicUrl.includes(pathname)
         ? NextResponse.redirect(new URL('/', request.url))
         : NextResponse.next()
