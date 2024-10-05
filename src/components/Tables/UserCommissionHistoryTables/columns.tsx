@@ -9,27 +9,27 @@ export const FILTER_KEYS = ['search_field', 'search_value']
 
 export const columns: ColumnDef<IHistoryCommission>[] = [
   {
-    header: 'Previous Balance',
+    header: 'Komisi Tersedia Sebelumnya',
     cell: ({ row }) => formatPrice(row.original.previous_balance || 0, 'IDR', 'id-ID')
   },
   {
-    header: 'Adjustment',
+    header: 'Nominal',
     cell: ({ row }) => formatPrice(row.original.adjustment || 0, 'IDR', 'id-ID')
   },
   {
-    header: 'Increment / Decrement',
-    cell: ({ row }) => row.original.commission_action === COMMISSION_ACTION.ADDITION ? <p className='text-green-500 font-bold'>Masuk</p> : <p className='text-red-500 font-bold'>Withdrawl</p>
+    header: 'Masuk / Keluar',
+    cell: ({ row }) => row.original.commission_action === COMMISSION_ACTION.ADDITION ? <p className='text-green-500 font-bold'>Masuk Komisi</p> : <p className='text-red-500 font-bold'>Sudah Dicairkan</p>
   },
   {
-    header: 'Final Balance',
+    header: 'Komisi Tersedia Akhir',
     cell: ({ row }) => formatPrice(row.original.final_balance || 0, 'IDR', 'id-ID')
   },
   {
-    header: 'Notes',
+    header: 'Note',
     accessorKey: 'notes'
   },
   {
-    header: 'Created at',
+    header: 'Tanggal',
     cell: ({ row }) => TimestampConverter(row.original.created_at)
   },
 ];

@@ -12,9 +12,11 @@ import getDetailRepository from "./_repository/getDetailRepository";
 import { UserChangePasswordForm } from "../../../components/Forms/UserChangePasswordForm";
 import { UserMembershipInformationForm } from "../../../components/Forms/UserMembershipInformationForm";
 import { detailPage } from "./_constants";
+import Loader from "../../../components/common/Loader";
 
 const Profile = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const { dataProvinces, refetechDataProvinces } = useGetProvincesQuery({
     limit: 1000,
@@ -46,34 +48,40 @@ const Profile = () => {
   ];
 
   return (
-    <DefaultLayout>
-      <div className="mx-auto">
-        <Breadcrumbs items={breadcrumbItems} />
-        <div className="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
-          <div className="flex-1">
-            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-              {isLoaded && user && (
-                <UserProfileForm
-                  id={user?.id}
-                  initialData={user}
-                  provinces={dataProvinces}
-                />
-              )}
+    <>
+      {!isLoaded ? (
+        <Loader />
+      ) : (
+        <DefaultLayout>
+          <div className="mx-auto">
+            <Breadcrumbs items={breadcrumbItems} />
+            <div className="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
+              <div className="flex-1">
+                <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                  {isLoaded && user && (
+                    <UserProfileForm
+                      id={user?.id}
+                      initialData={user}
+                      provinces={dataProvinces}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="mb-5 flex-shrink-0 lg:w-1/3">
+                <div className="mb-5 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                  {isLoaded && user && (
+                    <UserMembershipInformationForm initialData={user} />
+                  )}
+                </div>
+                <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                  <UserChangePasswordForm />
+                </div>
+              </div>
             </div>
           </div>
-          <div className="mb-5 flex-shrink-0 lg:w-1/3">
-            <div className="mb-5 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-              {isLoaded && user && (
-                <UserMembershipInformationForm initialData={user} />
-              )}
-            </div>
-            <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-              <UserChangePasswordForm />
-            </div>
-          </div>
-        </div>
-      </div>
-    </DefaultLayout>
+        </DefaultLayout>
+      )}
+    </>
   );
 };
 

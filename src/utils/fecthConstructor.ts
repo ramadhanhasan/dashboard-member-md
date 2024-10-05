@@ -21,7 +21,7 @@ const fetchConstructor = async <ResponseT, InputT = unknown>({
 
   if (withAuth) {
     token = await getToken()
-    if (token === undefined) window.location.href = '/signin'
+    if (token === undefined) window.location.href = '/login'
   }
 
   if (isFormData) {

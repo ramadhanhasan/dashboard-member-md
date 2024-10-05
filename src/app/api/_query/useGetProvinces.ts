@@ -12,7 +12,7 @@ const useGetProvincesQuery = (params?: PaginationParamType) => {
   const { isFetching, error, data, refetch } = useQuery({
     queryKey,
     queryFn: () => getProvinces(params),
-    enabled: false
+    enabled: true
   })
 
   return {

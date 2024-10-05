@@ -139,7 +139,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
     })
     setTimeout(() => {
       router.refresh();
-      router.push('/signin');
+      router.push('/login');
     }, 3000);
   });
 

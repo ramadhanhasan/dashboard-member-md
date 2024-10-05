@@ -9,29 +9,29 @@ export const FILTER_KEYS = ['search_field', 'search_value']
 export const columns: ColumnDef<IUserLead>[] = [
   {
     accessorKey: 'created_at',
-    header: 'CREATED AT',
+    header: 'TANGGAL',
     cell: ({ row }) => TimestampConverter(row.original.created_at)
   },
   {
     accessorKey: 'name',
-    header: 'NAME'
+    header: 'NAMA'
   },
   {
     accessorKey: 'phone',
-    header: 'PHONE',
+    header: 'NOMOR WHATSAPP',
     cell: ({ row }) => row.original.phone.slice(0, -6) + '******'
   },
   {
     accessorKey: 'email',
     header: 'EMAIL',
-    cell: ({ row }) => row.original.email.slice(0, 8) + '********'
+    cell: ({ row }) => '****' + row.original.email.slice(row.original.email.length - 14, row.original.email.length)
   },
   {
     accessorKey: 'funnel',
     header: 'FUNNEL'
   },
   {
-    header: 'MEMBER STATUS',
-    cell: ({ row }) => row.original.is_member ? <p className='text-green-500 font-bold'>MEMBER</p> : <p className='font-bold'>Not Member</p> 
+    header: 'STATUS MEMBER',
+    cell: ({ row }) => row.original.is_member ? <p className='text-green-500 font-bold'>MEMBER</p> : row.original.is_expired ? <p className='font-bold font-red=500'>Expired</p> : <p className='font-bold'>Bukan Member</p>
   }
 ];

@@ -16,8 +16,8 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import postSignIn from "../../app/(auth)/signin/_repository/postSignin";
-import { IAuth } from "../../app/(auth)/signin/_interfaces";
+import postSignIn from "../../app/(auth)/login/_repository/postSignin";
+import { IAuth } from "../../app/(auth)/login/_interfaces";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 const formSchema: z.ZodType<IAuth> = z.object({
@@ -78,7 +78,7 @@ export default function UserAuthForm() {
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="Enter your email..."
+                    placeholder="Masukkan email Kamu"
                     disabled={loading}
                     {...field}
                   />
@@ -96,12 +96,12 @@ export default function UserAuthForm() {
                 <div className="flex justify-between">
 
                 <FormLabel>Password</FormLabel>
-                <Link href={'/forgot-password'}>forgot password ?</Link>
+                <Link href={'/forgot-password'}>lupa password ?</Link>
                 </div>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="6+ Characters, 1 Capital letter"
+                    placeholder="Masukkan password Kamu"
                     disabled={loading}
                     {...field}
                   />
@@ -114,19 +114,19 @@ export default function UserAuthForm() {
           <div className="mb-5">
             <Button
               type="submit"
-              value="Sign In"
+              value="Login"
               disabled={loading}
               className="w-full pb-5 pt-5 text-white"
             >
-              Sign In
+              Login
             </Button>
           </div>
 
           <div className="mt-6 text-center">
             <p>
-              Don’t have any account?{" "}
+              Belum punya akun mahir digital?{" "}
               <Link href="https://mahirdigital.id" className="text-primary">
-                Join us
+                Daftar Sekarang
               </Link>
             </p>
           </div>

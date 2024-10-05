@@ -97,7 +97,7 @@ function ResetPasswordPageComponent() {
                         <Button
                           variant="link"
                           onClick={() => {
-                            router.replace("/signin");
+                            router.replace("/login");
                           }}
                           className="w-full"
                         >

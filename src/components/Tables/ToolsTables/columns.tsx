@@ -19,7 +19,7 @@ export const columns: ColumnDef<ITools>[] = [
   },
   {
     accessorKey: "name",
-    header: "Title",
+    header: "Title Bantuan",
   },
   {
     header: "Deskripsi",
@@ -34,10 +34,10 @@ export const columns: ColumnDef<ITools>[] = [
   //   accessorKey: "format",
   //   header: "Format",
   // },
-  {
-    cell: ({ row }) => (row.original.type === "LINK" ? "Link" : "Lembar Kerja"),
-    header: "Tipe",
-  },
+  // {
+  //   cell: ({ row }) => (row.original.type === "LINK" ? "Link" : "Lembar Kerja"),
+  //   header: "Tipe",
+  // },
   {
     cell: ({ row }) => {
       return row.original.type_url === TypeUrlEnum.LINK ? (
@@ -66,6 +66,6 @@ export const columns: ColumnDef<ITools>[] = [
         </Link>
       );
     },
-    header: "Download / Buka Link",
+    header: "Buka Link",
   },
 ];

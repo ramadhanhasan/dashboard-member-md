@@ -107,11 +107,11 @@ function VerifiedPageComponent() {
                         <Button
                           variant="link"
                           onClick={() => {
-                            router.replace("/signin");
+                            router.replace("/login");
                           }}
                           className="w-full"
                         >
-                          Sign In
+                          Login
                         </Button>
                       </>
                     )}

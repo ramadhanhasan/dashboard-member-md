@@ -81,13 +81,23 @@ const menuGroups = [
       },
       {
         icon: (
-          <PartyPopper
+          <UsersRound
             width="18"
             height="18"
           />
         ),
-        label: "Merchandise",
-        route: "/merchandise-product",
+        label: "Affiliate Leads",
+        route: "/leads",
+      },
+      {
+        icon: (
+          <Wallet
+            width="18"
+            height="18"
+          />
+        ),
+        label: "Komisi",
+        route: "/commission",
       },
       {
         icon: (
@@ -111,7 +121,7 @@ const menuGroups = [
             height="18"
           />
         ),
-        label: "Affiliate Link",
+        label: "Link Affiliasi",
         route: "/links",
       },
       {
@@ -121,7 +131,7 @@ const menuGroups = [
             height="18"
           />
         ),
-        label: "Lembar Kerja",
+        label: "Lembar Kerja (Data)",
         route: "/tools-work-paper",
       },
       {
@@ -131,7 +141,7 @@ const menuGroups = [
             height="18"
           />
         ),
-        label: "Kumpulan Link",
+        label: "Kumpulan Tools",
         route: "/tools-link",
       },
       {
@@ -141,33 +151,23 @@ const menuGroups = [
             height="18"
           />
         ),
-        label: "Konten",
+        label: "Konten Iklan",
         route: "/content",
       },
     ],
   },
   {
-    name: "ACCOUNT",
+    name: "Others",
     menuItems: [
       {
         icon: (
-          <UsersRound
+          <PartyPopper
             width="18"
             height="18"
           />
         ),
-        label: "Affiliate Leads",
-        route: "/leads",
-      },
-      {
-        icon: (
-          <Wallet
-            width="18"
-            height="18"
-          />
-        ),
-        label: "Komisi",
-        route: "/commission",
+        label: "Others",
+        route: "/merchandise-product",
       },
       {
         icon: (

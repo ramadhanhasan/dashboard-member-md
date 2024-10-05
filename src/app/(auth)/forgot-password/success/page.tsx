@@ -35,8 +35,7 @@ const SuccessForgotPassword: React.FC = () => {
               </Link>
 
               <p className="2xl:px-20">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                suspendisse.
+                Selamat Datang Platform Mahir Digital, Sillahkan Masukan Email & Password Kamu.
               </p>
 
               <span className="mt-15 hidden w-full xl:block">
@@ -167,18 +166,18 @@ const SuccessForgotPassword: React.FC = () => {
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full text-center p-4 sm:p-12.5 xl:p-17.5">
               <h2 className="mb-5 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Request Password Success
+                Request Reset Password Berhasil 
               </h2>
 
               <MailCheck width={50} height={50} className="m-auto mb-10" />
               <p className="mb-9 mt-5">
-              Permintaan untuk reset password sudah diterima, silahkan cek berkala email Anda ( Termasuk folder SPAM ) untuk melanjutkan langkah reset password.
+              Permintaan untuk reset password sudah diterima, silahkan cek berkala email Kamu ( Termasuk folder SPAM ) untuk melanjutkan langkah reset password.
               </p>
-              <Link href={'/signin'}>
+              <Link href={'/login'}>
               <Button
               className="w-full pb-5 pt-5 text-white"
             >
-              Sign In
+              Login
             </Button></Link>
             </div>
           </div>

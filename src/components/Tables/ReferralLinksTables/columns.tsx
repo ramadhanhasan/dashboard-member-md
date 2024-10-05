@@ -10,11 +10,11 @@ export const FILTER_KEYS = ['search_field', 'search_value']
 export const columns: ColumnDef<IReferralLink>[] = [
   {
     accessorKey: 'name',
-    header: 'NAME'
+    header: 'FUNNEL'
   },
   {
     accessorKey: 'type',
-    header: 'LINK FOR'
+    header: 'TIPE AFILIASI'
   },
   {
     accessorKey: 'url',

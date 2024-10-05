@@ -6,13 +6,15 @@ import useGetAllQuery from "./_query/useGetAllMembershipProductQuery";
 import { Breadcrumbs } from "../../../components/breadcrumbs";
 import MembershipProduct from "../../../components/MembershipProducts";
 import { DefaultControls, DefaultUi, Player, Youtube } from "@vime/react";
-import { Check, ChevronDown } from "lucide-react";
+import { Check, ChevronDown, PaintBucket } from "lucide-react";
 import { detailPage } from "./_constants";
 import dynamic from "next/dynamic";
 import PlayerComponent from "../../../components/Players";
 
 const CoursePage = () => {
   const { paginationParams, filterParams, sortParams } = useQueryParam();
+
+  paginationParams.limit = 100;
 
   const { dataMembershipProduct, currentPageMembershipProduct, totalItemMembershipProduct, totalPageMembershipProduct } =
     useGetAllQuery({ ...paginationParams, filterParams, ...sortParams });

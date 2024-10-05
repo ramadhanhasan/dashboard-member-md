@@ -14,6 +14,8 @@ import { ChevronDown } from "lucide-react";
 const CoursePage = () => {
   const { paginationParams, filterParams, sortParams } = useQueryParam();
 
+  paginationParams.limit = 100;
+
   const { dataCourse, currentPageCourse, totalItemCourse, totalPageCourse } =
     useGetAllQuery({ ...paginationParams, filterParams, ...sortParams });
 

@@ -63,7 +63,7 @@ export const UserResetPasswordForm: React.FC<dataType> = ({
     })
     setTimeout(() => {
       router.refresh();
-      router.push('/signin');
+      router.push('/login');
     }, 3000);
   });
 

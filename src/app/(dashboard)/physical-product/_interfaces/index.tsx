@@ -7,6 +7,7 @@ export interface IProduct {
   name: string
   sku: string
   position: number
+  short_description: string
   description: string
   assets: {url: string}[]
   is_active: boolean

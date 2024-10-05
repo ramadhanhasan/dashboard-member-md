@@ -9,6 +9,8 @@ import { ReferralLinksTable } from "../../../components/Tables/ReferralLinksTabl
 import { AuthContext } from "../../../global_context/Auth";
 import { useContext } from "react";
 import { detailPage } from "./_constants";
+import PlayerComponent from "../../../components/Players";
+import { ChevronDown } from "lucide-react";
 
 const LinkPage = () => {
   const { paginationParams, filterParams, sortParams } = useQueryParam(FILTER_KEYS);
@@ -28,8 +30,21 @@ const LinkPage = () => {
     <DefaultLayout>
       <div className="mx-auto max-w-7xl">
         <Breadcrumbs items={breadcrumbItems} />
+        <div className="mb-5 p-4 text-center shadow-default dark:border-strokedark dark:bg-boxdark md:p-6 xl:p-9">
+          <p className="text-gray-500 dark:text-gray-400 mb-6 text-lg font-normal capitalize sm:px-16 lg:text-2xl xl:px-48">
+          Silahkan tonton video dibawah ini, untuk mengetahui cara menggunakan LINK AFFILIASI
+          </p>
+          <h1 className="mb-2 mt-5 text-2xl font-bold">
+            Video Panduan (Wajib Ditonton)
+          </h1>
+          <PlayerComponent
+            videoId={process.env.NEXT_PUBLIC_YOUTUBE_ID_LINK_AFFILIATE ?? ""}
+          />
+          <ChevronDown className="w-full mt-5" width={50} height={50} />
+        </div>
         <ReferralLinksTable
           searchKey="name"
+          searchPlaceholder="funnel"
           page={currentPageReferralLinks}
           limit={paginationParams.limit}
           columns={columns}

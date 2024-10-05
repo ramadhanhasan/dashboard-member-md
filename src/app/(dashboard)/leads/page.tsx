@@ -27,6 +27,7 @@ const LeadsPage = () => {
         <Breadcrumbs items={breadcrumbItems} />
         <UserLeadsTable
           searchKey="name"
+          searchPlaceholder="nama"
           page={currentPageLeads}
           limit={paginationParams.limit}
           columns={columns}

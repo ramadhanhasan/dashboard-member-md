@@ -57,11 +57,11 @@ const Course = ({ courses }: { courses: ICourse[] }) => {
             <div className="text-gray-500 mt-4 flex items-center text-sm">
               <div className="flex items-center">
                 <BookCheck />
-                ` {course.chapters?.length ?? 0} Chapter`
+                {course.chapters?.length ?? 0} Chapter
               </div>
               <div className="ml-4 flex items-center">
                 <Presentation />
-                ` { totalLesson(course) } Video Materi`
+                { totalLesson(course) } Video Materi
               </div>
             </div>
           </div>

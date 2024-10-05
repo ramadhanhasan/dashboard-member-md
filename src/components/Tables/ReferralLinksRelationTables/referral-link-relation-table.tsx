@@ -39,6 +39,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchKey: string | null;
+  searchPlaceholder?: string | null;
   limit: number | null;
   page: number | null;
   totalData: number | null;
@@ -54,6 +55,7 @@ export function ReferralLinksRelationTable<TData, TValue>({
   data,
   page = null,
   searchKey = null,
+  searchPlaceholder = null,
   totalData = null,
   totalPage = null,
   pageSizeOptions = [10, 20, 30, 40, 50],

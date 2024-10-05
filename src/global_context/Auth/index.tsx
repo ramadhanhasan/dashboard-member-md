@@ -22,7 +22,7 @@ const defaultAuthContext: AuthContextProps = {
 export const AuthContext = createContext<AuthContextProps>(defaultAuthContext)
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
-  const publicUrl = useMemo(() => { return ['signin', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp', 'checkout']; }, [])
+  const publicUrl = useMemo(() => { return ['login', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp', 'checkout']; }, [])
   const pathname = usePathname()
   const isAuth = pathname?.includes('/')
   const router = useRouter()
@@ -59,7 +59,7 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     if (token) {
       handleRefetchUserProfile()
     } else {
-      if (!publicUrl.includes(pathname.split('/')[1]))router.replace('/signin')
+      if (!publicUrl.includes(pathname.split('/')[1]))router.replace('/login')
     }
   }, [handleRefetchUserProfile, router, publicUrl, pathname])
 

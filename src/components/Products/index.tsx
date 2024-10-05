@@ -40,7 +40,11 @@ const Product = ({
               {product.name}
             </p>
             <div className="mt-4 mb-4 flex items-center flex">
-              <div className="flex-1">
+            <div
+              className="ql-editor text-gray-700 text-base"
+              dangerouslySetInnerHTML={{ __html: product.short_description ?? "" }}
+            />
+              {/* <div className="flex-1">
                 <p>HPP(Modal)</p>
                 <p>Harga Jual</p>
                 <p>Profit</p>
@@ -57,7 +61,7 @@ const Product = ({
               {formatPrice(product.net_price, "IDR", "id-ID")}
                 </div>
                 <p>{formatPrice(product.net_price - product.base_price)}</p>
-              </div>
+              </div> */}
             </div>
             <div
               className="ql-editor truncate-3 text-gray-700 text-base"

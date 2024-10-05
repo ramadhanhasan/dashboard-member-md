@@ -6,7 +6,7 @@ import Image from "next/image";
 import UserAuthForm from "../../../components/Forms/UserAuthForm";
 import logo from '../../../../public/images/logo/logo-md.png';
 
-const SignIn: React.FC = () => {
+const LogIn: React.FC = () => {
     return (
     <div className="mx-auto max-w-screen-2xl p-4 pt-5 md:p-6 2xl:p-10">
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -33,8 +33,7 @@ const SignIn: React.FC = () => {
               </Link>
 
               <p className="2xl:px-20">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                suspendisse.
+                Selamat Datang Platform Mahir Digital, Sillahkan Masukan Email & Password Kamu.
               </p>
 
               <span className="hidden w-full xl:block mt-15">
@@ -165,7 +164,7 @@ const SignIn: React.FC = () => {
           <div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Sign In to Mahir Digital
+                Login Membership Mahir Digital
               </h2>
               <UserAuthForm />
             </div>
@@ -176,4 +175,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default LogIn;

@@ -1,6 +1,6 @@
 export const detailPage = {
   baseTitle: 'Dashboard',
   basePath : '/',
-  title: 'Affiliate Links',
+  title: 'Link Affiliasi',
   path: 'links',
 }

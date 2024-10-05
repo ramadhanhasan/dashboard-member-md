@@ -76,7 +76,7 @@ export default function UserRequestForgotPasswordForm() {
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="Enter your email..."
+                    placeholder="Masukkan email Anda"
                     disabled={loading}
                     {...field}
                   />
@@ -93,7 +93,7 @@ export default function UserRequestForgotPasswordForm() {
               disabled={loading}
               className="w-full pb-5 pt-5 text-white"
             >
-              Send Password Reset Link
+              Kirim Link Untuk Reset Password
             </Button>
           </div>
         </form>

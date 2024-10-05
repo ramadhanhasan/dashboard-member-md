@@ -39,6 +39,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   searchKey: string;
+  searchPlaceholder?: string;
   limit: number;
   page: number;
   totalData: number;
@@ -54,6 +55,7 @@ export function ReferralLinksTable<TData, TValue>({
   data,
   page,
   searchKey,
+  searchPlaceholder,
   totalData,
   totalPage,
   pageSizeOptions = [10, 20, 30, 40, 50],
@@ -149,7 +151,7 @@ export function ReferralLinksTable<TData, TValue>({
     <div className="rounded-sm max-w-[calc(100vw-40px)] border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
     <div className="max-w-full overflow-x-auto">
       <Input
-        placeholder={`Search ${searchKey}...`}
+        placeholder={`Cari ${searchPlaceholder || searchKey}...`}
         value={(searchValue as string) ?? ''}
         onChange={(event) => {
           table.getColumn(searchKey)?.setFilterValue(event.target.value)
@@ -213,7 +215,7 @@ export function ReferralLinksTable<TData, TValue>({
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
             <div className="flex items-center space-x-2">
               <p className="whitespace-nowrap text-sm font-medium">
-                Rows per page
+                Data per halaman
               </p>
               <Select
                 value={`${table.getState().pagination.pageSize}`}
@@ -239,7 +241,7 @@ export function ReferralLinksTable<TData, TValue>({
         </div>
         <div className="flex w-full items-center justify-between gap-2 sm:justify-end">
           <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-            Page {table.getState().pagination.pageIndex + 1} of{' '}
+            Halaman {table.getState().pagination.pageIndex + 1} of{' '}
             {table.getPageCount()}
           </div>
           <div className="flex items-center space-x-2">

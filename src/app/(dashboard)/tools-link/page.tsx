@@ -48,6 +48,7 @@ const CoursePage = () => {
         </div> */}
         <ToolsTable
           searchKey="name"
+          searchPlaceholder="title bantuan"
           page={currentPageTool}
           limit={paginationParams.limit}
           columns={columns}

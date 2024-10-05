@@ -49,6 +49,7 @@ const ContentPage = () => {
         </div>
         <ContentTable
           searchKey="name"
+          searchPlaceholder="nama konten"
           page={currentPageTool}
           limit={paginationParams.limit}
           columns={columns}

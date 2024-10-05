@@ -10,6 +10,8 @@ import { detailPage } from "./_constants";
 const CoursePage = () => {
   const { paginationParams, filterParams, sortParams } = useQueryParam();
 
+  paginationParams.limit = 100;
+
   const { dataEvent, currentPageEvent, totalItemEvent, totalPageEvent } =
     useGetAllQuery({ ...paginationParams, filterParams, ...sortParams });
 

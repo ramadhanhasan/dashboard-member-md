@@ -1,6 +1,6 @@
 export const detailPage = {
   baseTitle: 'Dashboard',
   basePath : '/',
-  title: 'Kumpulan Link',
+  title: 'Kumpulan Tools',
   path: 'tools-link',
 }

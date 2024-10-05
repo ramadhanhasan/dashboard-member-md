@@ -179,13 +179,13 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
                     }
                   <ul className="text-gray-600 mt-4 space-y-2 text-sm">
                     <li>✓ {data?.chapters?.length ?? 0} Chapter</li>
+                    <li>✓ {totalLesson(data)} video materi</li>
                     <li>
-                      ✓ {Math.floor((data?.time || 0) / 60)} hours &{" "}
+                      ✓ {Math.floor((data?.time || 0) / 60)} jam,{" "}
                       {(data?.time || 0) % 60} menit video materi
                     </li>
-                    <li>✓ {totalLesson(data)} video materi</li>
-                    <li>✓ Full akses selamanya</li>
-                    <li>✓ Bisa diakses dimana saja</li>
+                    <li>✓ Full akses, bisa ditonton ulang 24 jam</li>
+                    {/* <li>✓ Bisa diakses dimana saja</li> */}
                   </ul>
                 </CardContent>
               </Card>

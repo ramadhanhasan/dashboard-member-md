@@ -55,8 +55,9 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
               <Card className="bg-white shadow-lg">
                 <CardHeader className="p-0">
                   <Image
-                    className="mb-4 w-full rounded-md" 
-                    width={400} height={200}
+                    className="mb-4 w-full rounded-md"
+                    width={400}
+                    height={200}
                     src={data?.assets[0].url ?? "https://placehold.co/400x200"}
                     alt="Event Image"
                   />
@@ -89,14 +90,14 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                       </p>
                     </div>
                   </div>
-                  <div className="text-gray-500 mt-4 flex items-center text-sm mb-5">
+                  <div className="text-gray-500 mb-5 mt-4 flex items-center text-sm">
                     <div className="flex items-center rounded-lg bg-slate-200 px-2 py-1">
                       <Link2 />` {data?.referral_links?.length ?? 0} link
                       affiliasi`
                     </div>
                   </div>
                   <Link
-                    href={process.env.NEXT_PUBLIC_ADMIN_WA_PRODUCT ?? ''}
+                    href={process.env.NEXT_PUBLIC_ADMIN_WA_PRODUCT ?? ""}
                     target="_blank"
                     rel="noopener noreferrer"
                     passHref={true}
@@ -147,20 +148,24 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
           </div>
         </div>
         <h1 className="mt-5 text-lg font-bold">AFFILIATE LINK {data?.name}</h1>
-        <ReferralLinksRelationTable
-          searchKey="name"
-          page={1}
-          limit={10}
-          columns={columns}
-          totalData={data?.referral_links?.length || 0}
-          data={data?.referral_links
-            ? data.referral_links.map((link) => {
-                link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type?.toLowerCase()}&whatsapp=${link.is_whatsapp_link ? phone : ""}`;
-                return link;
-              })
-            : []}
-          totalPage={1}
-        />
+        {data?.referral_links && data?.referral_links.length > 0 && (
+          <ReferralLinksRelationTable
+            searchKey="name"
+            page={1}
+            limit={10}
+            columns={columns}
+            totalData={data?.referral_links?.length || 0}
+            data={
+              data?.referral_links
+                ? data.referral_links.map((link) => {
+                    link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type?.toLowerCase()}&whatsapp=${link.is_whatsapp_link ? phone : ""}`;
+                    return link;
+                  })
+                : []
+            }
+            totalPage={1}
+          />
+        )}
       </div>
     </DefaultLayout>
   );

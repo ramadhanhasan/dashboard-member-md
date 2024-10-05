@@ -8,7 +8,7 @@ import getOneLinkRepository from './app/(dashboard)/links/_repository/getOneRepo
 export async function middleware(request: NextRequest) {
   const urlSearchParams = new URLSearchParams(request.nextUrl.search);
   const params = Object.fromEntries(urlSearchParams.entries());
-  const publicUrl = ['signin', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp', 'checkout'];
+  const publicUrl = ['login', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp', 'checkout'];
   // get user request cookie
   const userCookie = request.cookies.get(USER_LOCAL_STORAGE_KEY)?.value ?? ''
   let isTokenValid = false
@@ -69,7 +69,7 @@ export async function middleware(request: NextRequest) {
   const response =
   publicUrl.includes(request.nextUrl.pathname.split('/')[1]) 
       ? NextResponse.next()
-      : NextResponse.redirect(new URL('/signin', request.url))
+      : NextResponse.redirect(new URL('/login', request.url))
 
   // user cookie doesn't exit or token isn't valid redirect to auth
   return response
