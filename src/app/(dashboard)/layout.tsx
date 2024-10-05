@@ -20,7 +20,7 @@ export default function RootLayout({
 
   return (
       <div className="dark:bg-boxdark-2 dark:text-bodydark">
-        {loading ? <Loader /> : children}
+        {children}
         <FloatingWhatsAppButton />
       </div>
   );
