@@ -3,6 +3,9 @@ export interface IEvent {
   slug: string
   name: string
   description: string
+  implementation: string
+  location: string
+  location_detail: string
   image_url: string
   link_lp: string
   quota_type: string
@@ -11,4 +14,5 @@ export interface IEvent {
   end_date: Date
   price: number
   net_price: number
+  is_finished: boolean
 }

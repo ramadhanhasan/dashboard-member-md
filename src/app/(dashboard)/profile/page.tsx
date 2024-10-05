@@ -58,7 +58,7 @@ const Profile = () => {
             <div className="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
               <div className="flex-1">
                 <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                  {isLoaded && user && (
+                  {isLoaded && user && dataProvinces.length > 0 && (
                     <UserProfileForm
                       id={user?.id}
                       initialData={user}
