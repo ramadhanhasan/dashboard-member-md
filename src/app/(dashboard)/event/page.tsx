@@ -76,10 +76,18 @@ const CoursePage = () => {
                 onValueChange={handleImplementationChange}
                 defaultValue={""}
               >
-                <SelectTrigger className="px-5 py-1 text-sm lg:text-md">
+                <SelectTrigger className="lg:text-md px-5 py-1 text-sm">
                   <SelectValue placeholder="Pilih untuk filter Offline / Online" />
                 </SelectTrigger>
-                <SelectContent className="text-sm">
+                <SelectContent
+                  ref={(ref) => {
+                    if (!ref) return;
+                    ref.ontouchstart = (e) => {
+                      e.preventDefault();
+                    };
+                  }}
+                  className="text-sm"
+                >
                   <SelectItem value="all">Semua</SelectItem>
                   <SelectItem value="offline">Offline</SelectItem>
                   <SelectItem value="online">Online</SelectItem>
@@ -89,15 +97,23 @@ const CoursePage = () => {
             <Event events={dataEvent} />
           </TabsContent>
           <TabsContent value="is_finished">
-          <div className="m-auto mb-10 mt-5 max-w-sm">
-          <Select
+            <div className="m-auto mb-10 mt-5 max-w-sm">
+              <Select
                 onValueChange={handleImplementationChange}
                 defaultValue={""}
               >
-                <SelectTrigger className="px-5 py-1 text-sm lg:text-md">
+                <SelectTrigger className="lg:text-md px-5 py-1 text-sm">
                   <SelectValue placeholder="Pilih untuk filter Offline / Online" />
                 </SelectTrigger>
-                <SelectContent className="text-sm">
+                <SelectContent
+                  ref={(ref) => {
+                    if (!ref) return;
+                    ref.ontouchstart = (e) => {
+                      e.preventDefault();
+                    };
+                  }}
+                  className="text-sm"
+                >
                   <SelectItem value="all">Semua</SelectItem>
                   <SelectItem value="offline">Offline</SelectItem>
                   <SelectItem value="online">Online</SelectItem>
