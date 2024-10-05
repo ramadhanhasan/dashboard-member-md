@@ -19,7 +19,7 @@ export async function middleware(request: NextRequest) {
     const affCookie = request.cookies.get(AFF_STORAGE_KEY)?.value ?? ''
     const aff = params['aff'];
     
-    const res = NextResponse.redirect(data.data.url + '?whatsapp='+ params['whatsapp'] + '&affcode='+aff + '&funnel='+data.data.name, 302); // External website URL
+    const res = NextResponse.redirect(data.data.url + '?whatsapp='+ params['whatsapp'] + '&aff='+aff + '&funnel='+data.data.name, 302); // External website URL
     
     const expire = new Date()
     expire.setDate(expire.getDate() + 90)
