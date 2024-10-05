@@ -51,9 +51,13 @@ export async function middleware(request: NextRequest) {
     // request.cookies.delete(USER_LOCAL_STORAGE_KEY)
 
     // check if request path name if from auth or default path redirect to dashboard
-    const response = publicUrl.includes(pathname)
-      ? NextResponse.redirect(new URL('/', request.url))
-      : NextResponse.next()
+    if (pathname != '') {
+      const response = publicUrl.includes(pathname)
+        ? NextResponse.redirect(new URL('/', request.url))
+        : NextResponse.next()
+
+        return response;
+    }
 
     // TODO: set new cookie data base on token valid data, when refresh token is valid
     // saveUser(JSON.parse(userCookie))
