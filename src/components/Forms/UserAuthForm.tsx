@@ -46,6 +46,9 @@ export default function UserAuthForm() {
       setLoading(true);
       const res = await postSignIn(data);
       await login(res);
+      setTimeout(() => {
+        //test
+      }, 2000);
     } catch (error: any) {
       setErrorMsg(error.error);
       form.reset();
