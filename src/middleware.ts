@@ -8,10 +8,9 @@ import getOneLinkRepository from './app/(dashboard)/links/_repository/getOneRepo
 export async function middleware(request: NextRequest) {
   const urlSearchParams = new URLSearchParams(request.nextUrl.search);
   const params = Object.fromEntries(urlSearchParams.entries());
-  const publicUrl = ['login', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp', 'checkout'];
+  const publicUrl = ['login', 'verified', 'forgot-password', 'reset-password', 'lp', 'checkout'];
   // get user request cookie
   const userCookie = request.cookies.get(USER_LOCAL_STORAGE_KEY)?.value ?? ''
-  let isTokenValid = false
   let pathname = request.nextUrl.pathname.split('/')[1]
   // check if user cookie is in request
   
@@ -44,13 +43,9 @@ export async function middleware(request: NextRequest) {
     }
     return res;
   }
-  if (userCookie) {
-    // TODO: hit api to get token validity
-    isTokenValid = true
-  }
   
   // validate if user token is valid
-  if (isTokenValid && userCookie) {
+  if (userCookie) {
     // if valid delete cookie and use new token valid data
     // request.cookies.delete(USER_LOCAL_STORAGE_KEY)
 
