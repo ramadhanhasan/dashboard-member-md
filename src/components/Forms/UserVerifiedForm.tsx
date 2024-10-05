@@ -152,12 +152,12 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
       message: "Verifikasi Akun Kamu Sudah Berhasil",
       type: "success",
       description:
-        "halaman ini akan otomatis pindah ke halaman login dalamn waktu 5 detik",
+        "halaman ini akan otomatis pindah ke halaman login dalamn waktu 2 detik",
     });
     setTimeout(() => {
       router.refresh();
       router.push("/login");
-    }, 5000);
+    }, 2000);
   });
 
   const onSubmit = async (data: UserFormValue) => {

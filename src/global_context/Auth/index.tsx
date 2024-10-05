@@ -39,11 +39,11 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   }, [refetchUserProfile])
 
   const login = useCallback(
-    (userToken: UserToken) => {
-      saveUser(userToken) // save token to cookie
-      handleRefetchUserProfile()
-      router.refresh()
-      router.replace('/')
+    async (userToken: UserToken) => {
+      await saveUser(userToken) // save token to cookie
+      await handleRefetchUserProfile()
+      await router.refresh()
+      await router.replace('/')
     },
     [router, handleRefetchUserProfile],
   )
