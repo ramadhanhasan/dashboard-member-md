@@ -41,11 +41,11 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   const login = useCallback(
     (userToken: UserToken) => {
       saveUser(userToken) // save token to cookie
-      // handleRefetchUserProfile()
+      handleRefetchUserProfile()
       router.refresh()
       router.replace('/')
     },
-    [router],
+    [router, handleRefetchUserProfile],
   )
 
   const logout = useCallback(() => {
