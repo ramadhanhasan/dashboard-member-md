@@ -19,7 +19,6 @@ import Link from "next/link";
 import postSignIn from "../../app/(auth)/login/_repository/postSignin";
 import { IAuth } from "../../app/(auth)/login/_interfaces";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
-import { useRouter } from "next/navigation";
 
 const formSchema: z.ZodType<IAuth> = z.object({
   email: z.string().email({ message: "Enter a valid email address" }),
@@ -29,7 +28,6 @@ const formSchema: z.ZodType<IAuth> = z.object({
 type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
-  const router = useRouter()
   const { login } = useContext(AuthContext);
   const [errorMsg, setErrorMsg] = useState<any>(null);
   const [loading, setLoading] = useState(false);
@@ -48,8 +46,6 @@ export default function UserAuthForm() {
       setLoading(true);
       const res = await postSignIn(data);
       await login(res);
-      router.refresh()
-      router.replace('/')
     } catch (error: any) {
       setErrorMsg(error.error);
       form.reset();
