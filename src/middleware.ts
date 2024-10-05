@@ -43,7 +43,6 @@ export async function middleware(request: NextRequest) {
     }
     return res;
   }
-  
   if (userCookie) {
     // TODO: hit api to get token validity
     isTokenValid = true
@@ -60,7 +59,7 @@ export async function middleware(request: NextRequest) {
       : NextResponse.next()
 
     // TODO: set new cookie data base on token valid data, when refresh token is valid
-    saveUser(JSON.parse(userCookie))
+    // saveUser(JSON.parse(userCookie))
 
     // return response
     return response
