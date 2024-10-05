@@ -19,6 +19,7 @@ import Link from "next/link";
 import postSignIn from "../../app/(auth)/login/_repository/postSignin";
 import { IAuth } from "../../app/(auth)/login/_interfaces";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { useRouter } from "next/navigation";
 
 const formSchema: z.ZodType<IAuth> = z.object({
   email: z.string().email({ message: "Enter a valid email address" }),
@@ -39,6 +40,7 @@ export default function UserAuthForm() {
     resolver: zodResolver(formSchema),
     defaultValues,
   });
+  const router = useRouter()
 
   const onSubmit = async (data: UserFormValue) => {
     try {
@@ -47,7 +49,10 @@ export default function UserAuthForm() {
       const res = await postSignIn(data);
       await login(res);
       setTimeout(() => {
-        //test
+        console.log('masuk ke timeout');
+        
+        router.refresh()
+        router.push('/')
       }, 2000);
     } catch (error: any) {
       setErrorMsg(error.error);
