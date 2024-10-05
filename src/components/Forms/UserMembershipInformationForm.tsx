@@ -42,7 +42,7 @@ export const UserMembershipInformationForm: React.FC<
     <>
       <div className="flex justify-between border-b border-stroke px-7 py-4 dark:border-strokedark">
         <h3 className="font-medium text-black dark:text-white">
-          Membership Information
+          Informasi Membership
         </h3>
       </div>
       <div className="p-7">
@@ -54,7 +54,7 @@ export const UserMembershipInformationForm: React.FC<
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="mb-0">
-                    Username / Referral Code
+                    Username / Kode Referral
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -88,7 +88,7 @@ export const UserMembershipInformationForm: React.FC<
               )}
             />
 
-            <FormLabel className="pt-5">Membership Expired</FormLabel>
+            <FormLabel className="pt-5">Masa Aktif Membership</FormLabel>
             <Input
               type="text"
               placeholder="Enter your email"
@@ -96,28 +96,28 @@ export const UserMembershipInformationForm: React.FC<
               value={TimestampConverter(initialData.expired_time)}
             />
 
-            <FormLabel className="pt-5">Affiliate From</FormLabel>
+            <FormLabel className="pt-5">Affilisi Dari</FormLabel>
             <Input
               type="text"
               disabled
               value={initialData.referral_from_user?.name ?? ""}
             />
 
-            <FormLabel className="pt-5">Total Komisi</FormLabel>
+            <FormLabel className="pt-5">Total Komisi Masuk</FormLabel>
             <Input
               type="text"
               disabled
               value={formatPrice(initialData.total_commission || 0)}
             />
 
-            <FormLabel className="pt-5">Total Payout</FormLabel>
+            <FormLabel className="pt-5">Komisi Yang Sudah Dicairkan            </FormLabel>
             <Input
               type="text"
               disabled
               value={formatPrice((initialData.total_commission || 0) - (initialData.balance || 0))}
             />
 
-            <FormLabel className="pt-5">Komisi Tersedia</FormLabel>
+            <FormLabel className="pt-5">Komisi Tersedia (Belum dicairkan)            </FormLabel>
             <Input type="text" disabled value={formatPrice(initialData.balance || 0)} />
           </form>
         </Form>

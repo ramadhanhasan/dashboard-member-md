@@ -63,22 +63,25 @@ const CommissionUserPage = () => {
           <CardDataStats
             title="Komisi Tersedia (Belum dicairkan)"
             total={formatPrice(user?.balance ?? 0)}
+            background="bg-redcard"
           >
-            <CircleDollarSign className="text-green-500 font-bold" />
+            <CircleDollarSign className="text-redcard font-bold" />
           </CardDataStats>
 
           <CardDataStats
             title="Total Komisi Masuk"
             total={formatPrice(user?.total_commission ?? 0)}
+            background="bg-greencard"
           >
-            <CircleDollarSign />
+            <CircleDollarSign className="text-greencard" />
           </CardDataStats>
 
           <CardDataStats
             title="Komisi Yang Sudah Dicairkan"
             total={formatPrice((user?.total_commission || 0) - (user?.balance || 0))}
+            background="bg-yellowcard"
           >
-            <HandCoins className="text-yellow-500 font-bold" />
+            <HandCoins className="text-yellowcard font-bold" />
           </CardDataStats>
         </div>
         )}

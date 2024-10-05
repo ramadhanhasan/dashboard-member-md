@@ -106,13 +106,13 @@ export const UserChangePasswordForm = () => {
           <Button onClick={() => {
             setChangePasswordAction(!isChangePasswordAction)            
           }} className="text-white">
-            Edit Password
+            Ganti Password
           </Button>
         ) : (
           <Button onClick={() => {
             setChangePasswordAction(!isChangePasswordAction)            
           }} variant={"outline"}>
-            Cancel Edit
+            Batalkan Edit
           </Button>
         )}
       </div>
@@ -132,7 +132,7 @@ export const UserChangePasswordForm = () => {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Enter your password old password"
+                        placeholder="Masukkan password saat ini"
                         disabled={loading}
                         {...field}
                       />
@@ -151,7 +151,7 @@ export const UserChangePasswordForm = () => {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Enter your password"
+                        placeholder="Masukkan password baru"
                         disabled={loading}
                         {...field}
                       />
@@ -170,7 +170,7 @@ export const UserChangePasswordForm = () => {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Re-enter your password"
+                        placeholder="Masukkan kembali password baru"
                         disabled={loading}
                         {...field}
                       />
@@ -187,7 +187,7 @@ export const UserChangePasswordForm = () => {
                   disabled={loading}
                   className="mt-4 w-full pb-7 pt-7 text-white"
                 >
-                  Update Password
+                  Simpan Password
                 </Button>
               </div>
             </form>

@@ -178,7 +178,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
       )}
       <div className="flex justify-between border-b border-stroke px-7 py-4 dark:border-strokedark">
         <h3 className="font-medium text-black dark:text-white">
-          Personal Information
+          Informasi Pribadi
         </h3>
         {!isEditAction ? (
           <Button
@@ -196,7 +196,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
             }}
             variant={"outline"}
           >
-            Cancel Edit
+            Batalkan Edit
           </Button>
         )}
       </div>
@@ -212,11 +212,11 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="mb-0">Full Name</FormLabel>
+                    <FormLabel className="mb-0">Nama Lengkap</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Enter your full name"
+                        placeholder="Masukkan nama lengkap"
                         disabled={loading}
                         {...field}
                       />
@@ -231,11 +231,11 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 name="phone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="mb-0">Phone</FormLabel>
+                    <FormLabel className="mb-0">Nomor Whatsapp</FormLabel>
                     <FormControl>
                       <Input
                         type="phone"
-                        placeholder="Enter your phone"
+                        placeholder="Masukkan nomor whatsapp"
                         disabled={loading}
                         {...field}
                       />
@@ -250,7 +250,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 name="select_birth_date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel className="mb-0">Date</FormLabel>
+                    <FormLabel className="mb-0">Tanggal Lahir</FormLabel>
                     <Popover open={isOpen} onOpenChange={setIsOpen}>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -264,7 +264,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                             {field.value ? (
                               `${format(field.value, "PPP")}`
                             ) : (
-                              <span>Pick a date</span>
+                              <span>Pilih tanggal</span>
                             )}
                             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                           </Button>
@@ -298,7 +298,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 name="bank_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="mb-0">Bank Name</FormLabel>
+                    <FormLabel className="mb-0">Nama Bank</FormLabel>
                     <FormControl>
                     <Select
                       disabled={loading || !isEditAction}
@@ -312,7 +312,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                         <SelectTrigger>
                           <SelectValue
                             defaultValue={field.value}
-                            placeholder="Select Bank"
+                            placeholder="Pilih Bank"
                           />
                         </SelectTrigger>
                       </FormControl>
@@ -341,11 +341,11 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 name="account_number"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="mb-0">Account Number</FormLabel>
+                    <FormLabel className="mb-0">Nomor Rekening Bank</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Enter your account number"
+                        placeholder="Masukkan nomor rekening bank"
                         disabled={loading}
                         {...field}
                       />
@@ -360,11 +360,11 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 name="account_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="mb-0">Account Name</FormLabel>
+                    <FormLabel className="mb-0">Nama Rekening Bank</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Enter your account name"
+                        placeholder="Masukkan nama rekening bank"
                         disabled={loading}
                         {...field}
                       />
@@ -379,7 +379,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 name="province_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="mb-0">Province</FormLabel>
+                    <FormLabel className="mb-0">Provinsi</FormLabel>
                     <Select
                       disabled={loading || !isEditAction}
                       onValueChange={(e) => {
@@ -393,7 +393,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                         <SelectTrigger>
                           <SelectValue
                             defaultValue={field.value}
-                            placeholder="Select Province"
+                            placeholder="Pilih Provinsi"
                           />
                         </SelectTrigger>
                       </FormControl>
@@ -418,7 +418,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 name="city_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="mb-0">City</FormLabel>
+                    <FormLabel className="mb-0">Kota/Kabupaten</FormLabel>
                     <Select
                       disabled={loading || province === "" || !isEditAction}
                       onValueChange={(e) => {
@@ -432,7 +432,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                         <SelectTrigger>
                           <SelectValue
                             defaultValue={field.value}
-                            placeholder="Select City"
+                            placeholder="Pilih Kota"
                           />
                         </SelectTrigger>
                       </FormControl>
@@ -456,7 +456,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 name="subdistrict_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="mb-0">Subdistrict</FormLabel>
+                    <FormLabel className="mb-0">Kecamatan</FormLabel>
                     <Select
                       disabled={loading || city === "" || !isEditAction}
                       onValueChange={(e) => {
@@ -470,7 +470,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                         <SelectTrigger>
                           <SelectValue
                             defaultValue={field.value}
-                            placeholder="Select Subdistrict"
+                            placeholder="Pilih Kecamatan"
                           />
                         </SelectTrigger>
                       </FormControl>
@@ -498,11 +498,11 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 name="address"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="mb-0">Address</FormLabel>
+                    <FormLabel className="mb-0">Alamat Lengkap</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Enter your address"
+                        placeholder="Masukkan alamat lengkap"
                         disabled={loading}
                         {...field}
                       />
@@ -517,11 +517,11 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 name="postal_code"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="mb-0">Postal Code</FormLabel>
+                    <FormLabel className="mb-0">Kode Pos</FormLabel>
                     <FormControl>
                       <Input
                         type="text"
-                        placeholder="Enter your postal code"
+                        placeholder="Masukkan kode pos"
                         disabled={loading}
                         {...field}
                       />
