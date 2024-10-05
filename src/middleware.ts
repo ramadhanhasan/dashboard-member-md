@@ -12,7 +12,6 @@ export async function middleware(request: NextRequest) {
   // get user request cookie
   const userCookie = request.cookies.get(USER_LOCAL_STORAGE_KEY)?.value ?? ''
   let pathname = request.nextUrl.pathname.split('/')[1]
-  console.log('pathnamepathname:',pathname)
   // check if user cookie is in request
   
   if (pathname == 'lp') {
