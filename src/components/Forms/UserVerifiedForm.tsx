@@ -37,7 +37,12 @@ import { Calendar } from "../ui/calendar";
 import useVerifiedUserQuery from "../../app/(auth)/verified/_query/useVerifiedUserQuery";
 import { useRouter } from "next/navigation";
 import { notification } from "antd";
-import { BankList } from "../../constants/data";
+import {
+  BankList,
+  haveLearnedOption,
+  whyJoinOption,
+  workOption,
+} from "../../constants/data";
 
 const numberRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -71,6 +76,10 @@ const formSchema: z.ZodType<IUserVerified> = z
       .string()
       .regex(numberRegex, "account number must be number"),
     bank_name: z.string(),
+    work: z.string(),
+    have_studied: z.string(),
+    why_join: z.string(),
+    information_from: z.string(),
   })
   .superRefine((val, ctx) => {
     if (val.password !== val.confirmPassword) {
@@ -97,7 +106,11 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
 }) => {
   const [errorMsg, setErrorMsg] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-  const defaultValues: Partial<IUserVerified> = {...initialData, select_birth_date: new Date(initialData.birth_date ?? Date.now()), bank_name: BankList[5].name};
+  const defaultValues: Partial<IUserVerified> = {
+    ...initialData,
+    select_birth_date: new Date(initialData.birth_date ?? Date.now()),
+    bank_name: BankList[5].name,
+  };
   const [cities, setCities] = useState<ICity[]>([]);
   const [subdistricts, setSubdistricts] = useState<ISubdistrict[]>([]);
   const [province, setProvince] = useState(initialData.province_id ?? "");
@@ -110,40 +123,49 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
     resolver: zodResolver(formSchema),
     defaultValues,
   });
+  const [work, setWork] = useState("");
+  const [whyJoin, setWhyjoin] = useState("");
 
   useEffect(() => {
     const initiateCities = async (province_id: string) => {
-      const index = provinces.findIndex((province) => province.id == province_id);
+      const index = provinces.findIndex(
+        (province) => province.id == province_id,
+      );
       setCities(provinces[index]?.cities ?? []);
-    }
+    };
 
     const initiateSubdistricts = async (city_id: string) => {
       const index = cities.findIndex((city) => city.id == city_id);
       setSubdistricts(cities[index]?.subdistricts ?? []);
-    }
-    
+    };
+
     if (initialData.province_id && provinces.length > 0) {
-      initiateCities(initialData.province_id)
-    } 
+      initiateCities(initialData.province_id);
+    }
 
     if (initialData.city_id && provinces.length > 0) {
-      initiateSubdistricts(initialData.city_id)
+      initiateSubdistricts(initialData.city_id);
     }
   }, [provinces, initialData.province_id, initialData.city_id, cities]);
 
   const verifiedUserMutation = useVerifiedUserQuery(() => {
     notification.open({
-      message: 'Your account has been verified',
-      type: 'success',
-      description: 'page will move automatically to the sign in page in 3 seconds'
-    })
+      message: "Verifikasi Akun Anda Sudah Berhasil",
+      type: "success",
+      description:
+        "halaman ini akan otomatis pindah ke halaman login dalamn waktu 5 detik",
+    });
     setTimeout(() => {
       router.refresh();
-      router.push('/login');
-    }, 3000);
+      router.push("/login");
+    }, 5000);
   });
 
   const onSubmit = async (data: UserFormValue) => {
+    if (work != 'Lainnya') data.work = work;
+
+    if (whyJoin != 'Lainnya') data.why_join = whyJoin;
+
     try {
       setLoading(true);
       setErrorMsg(null);
@@ -189,11 +211,11 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
       )}
       <Form {...form}>
         <form
-        onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="w-full space-y-2"
         >
           <h2 className="mb-9 text-2xl font-bold text-black dark:text-white">
-            Create Your Password
+            Buat Kata Sandi Kamu
           </h2>
           <FormField
             control={form.control}
@@ -204,7 +226,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="Enter your password"
+                    placeholder="Masukkan password Kamu"
                     disabled={loading}
                     {...field}
                   />
@@ -219,11 +241,11 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Re-type Password</FormLabel>
+                <FormLabel>Ketik Ulang Password</FormLabel>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="Re-enter your password"
+                    placeholder="Masukkan kembali password Kamu"
                     disabled={loading}
                     {...field}
                   />
@@ -234,7 +256,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
           />
 
           <h2 className="mb-9 pt-10 text-2xl font-bold text-black dark:text-white">
-            Personal Information
+            Informasi Pribadi
           </h2>
 
           <FormField
@@ -242,11 +264,11 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel>Nama Lengkap</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="Enter your full name"
+                    placeholder="Masukkan nama lengkap"
                     disabled={loading}
                     {...field}
                   />
@@ -265,7 +287,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="Enter your email"
+                    placeholder="Masukkan alamat email"
                     disabled
                     {...field}
                   />
@@ -280,11 +302,11 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone</FormLabel>
+                <FormLabel>Nomor Whatsapp</FormLabel>
                 <FormControl>
                   <Input
                     type="phone"
-                    placeholder="Enter your phone"
+                    placeholder="Masukkan nomor whatsapp"
                     disabled
                     {...field}
                   />
@@ -299,7 +321,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="select_birth_date"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Birth Date</FormLabel>
+                <FormLabel>Tanggal Lahir</FormLabel>
                 <Popover open={isOpen} onOpenChange={setIsOpen}>
                   <PopoverTrigger asChild>
                     <FormControl>
@@ -313,7 +335,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                         {field.value ? (
                           `${format(field.value, "PPP")}`
                         ) : (
-                          <span>Pick a date</span>
+                          <span>Pilih tanggal</span>
                         )}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
@@ -347,38 +369,35 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="bank_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Bank Name</FormLabel>
+                <FormLabel>Nama Bank</FormLabel>
                 <FormControl>
-                <Select
-                      disabled={loading}
-                      onValueChange={(e) => {
-                        field.onChange(e);
-                      }}
-                      value={field.value}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue
-                            defaultValue={field.value}
-                            placeholder="Select Bank"
-                          />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectGroup className="max-h-[15rem] overflow-y-auto">
-                          {/* @ts-ignore  */}
-                          {BankList.map((bank) => (
-                            <SelectItem
-                              key={bank.name}
-                              value={bank.name}
-                            >
-                              {bank.name}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
+                  <Select
+                    disabled={loading}
+                    onValueChange={(e) => {
+                      field.onChange(e);
+                    }}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Pilih Bank"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup className="max-h-[15rem] overflow-y-auto">
+                        {/* @ts-ignore  */}
+                        {BankList.map((bank) => (
+                          <SelectItem key={bank.name} value={bank.name}>
+                            {bank.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -390,11 +409,11 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="account_number"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Account Number</FormLabel>
+                <FormLabel>Nomor Rekening Bank</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="Enter your account number"
+                    placeholder="Masukkan nomor rekening bank"
                     disabled={loading}
                     {...field}
                   />
@@ -409,11 +428,11 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="account_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Account Name</FormLabel>
+                <FormLabel>Nama Rekening Bank</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="Enter your account name"
+                    placeholder="Masukkan nama rekening bank"
                     disabled={loading}
                     {...field}
                   />
@@ -430,7 +449,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                 name="province_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Province</FormLabel>
+                    <FormLabel>Provinsi</FormLabel>
                     <Select
                       disabled={loading}
                       onValueChange={(e) => {
@@ -445,7 +464,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                         <SelectTrigger>
                           <SelectValue
                             defaultValue={field.value}
-                            placeholder="Select Province"
+                            placeholder="Pilih provinsi"
                           />
                         </SelectTrigger>
                       </FormControl>
@@ -472,7 +491,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                 name="city_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>City</FormLabel>
+                    <FormLabel>Kota/Kabupaten</FormLabel>
                     <Select
                       disabled={loading || province === ""}
                       onValueChange={(e) => {
@@ -487,7 +506,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                         <SelectTrigger>
                           <SelectValue
                             defaultValue={field.value}
-                            placeholder="Select City"
+                            placeholder="Pilih kota/kabupaten"
                           />
                         </SelectTrigger>
                       </FormControl>
@@ -513,7 +532,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                 name="subdistrict_id"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Subdistrict</FormLabel>
+                    <FormLabel>Kecamatan</FormLabel>
                     <Select
                       disabled={loading || city === ""}
                       onValueChange={(e) => {
@@ -527,7 +546,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                         <SelectTrigger>
                           <SelectValue
                             defaultValue={field.value}
-                            placeholder="Select Subdistrict"
+                            placeholder="Pilih kecamatan"
                           />
                         </SelectTrigger>
                       </FormControl>
@@ -557,11 +576,11 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="address"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Address</FormLabel>
+                <FormLabel>Alamat Lengkap</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="Enter your address"
+                    placeholder="Masukkan alamat lengkap"
                     disabled={loading}
                     {...field}
                   />
@@ -576,11 +595,11 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="postal_code"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Postal Code</FormLabel>
+                <FormLabel>Kode Pos</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="Enter your postal code"
+                    placeholder="Masukkan kode pos"
                     disabled={loading}
                     {...field}
                   />
@@ -590,6 +609,203 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             )}
           />
 
+          <h2 className="mb-9 pt-10 text-2xl font-bold text-black dark:text-white">
+            Informasi Tambahan
+          </h2>
+
+          <FormField
+            control={form.control}
+            name="work"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Mana yang paling menggambarkan pekerjaanmu?
+                </FormLabel>
+                <FormControl>
+                  <Select
+                    disabled={loading}
+                    onValueChange={(e) => {
+                      setWork(e);
+                    }}
+                    value={work}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Pilih Pekerjaan"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup className="max-h-[15rem] overflow-y-auto">
+                        {/* @ts-ignore  */}
+                        {workOption.map((value) => (
+                          <SelectItem key={value.value} value={value.value}>
+                            {value.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {work === "Lainnya" && (
+            <FormField
+              control={form.control}
+              name="work"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder="Tuliskan pekerjaanmu"
+                          disabled={loading}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+
+          <FormField
+            control={form.control}
+            name="have_studied"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  Apa Kamu pernah belajar digital marketing sebelumnya?
+                </FormLabel>
+                <FormControl>
+                  <Select
+                    disabled={loading}
+                    onValueChange={(e) => {
+                      field.onChange(e);
+                    }}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Pilih Jawabannya"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup className="max-h-[15rem] overflow-y-auto">
+                        {/* @ts-ignore  */}
+                        {haveLearnedOption.map((value) => (
+                          <SelectItem key={value.value} value={value.value}>
+                            {value.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="information_from"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Dari mana Kamu tau Mahir Digital?</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Darimana Kamu tau ?"
+                    disabled={loading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="why_join"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Kenapa ingin bergabung Mahir Digital?</FormLabel>
+                <FormControl>
+                  <Select
+                    disabled={loading}
+                    onValueChange={(e) => {
+                      setWhyjoin(e);
+                    }}
+                    value={whyJoin}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Pilih Jawabannya"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup className="max-h-[15rem] overflow-y-auto">
+                        {/* @ts-ignore  */}
+                        {whyJoinOption.map((value) => (
+                          <SelectItem key={value.value} value={value.value}>
+                            {value.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+        {whyJoin === "Lainnya" && (
+            <FormField
+              control={form.control}
+              name="why_join"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder="Tuliskan alasan Kamu"
+                          disabled={loading}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+
           <div className="mb-5">
             <Button
               type="submit"
@@ -597,7 +813,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
               disabled={loading}
               className="mt-4 w-full pb-7 pt-7 text-white"
             >
-              Submit Data
+              Simpan Data
             </Button>
           </div>
         </form>

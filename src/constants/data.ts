@@ -100,6 +100,71 @@ export enum ORDER_REFUND_REASON {
   LAINNYA = 'Lainnya',
 }
 
+export const workOption = [
+  {
+    label: "Pebisnis / Brand Owner",
+    value : "Pebisnis / Brand Owner"
+  },
+  {
+    label: "Marketer",
+    value : "Marketer"
+  },
+  {
+    label: "Dropshipper",
+    value : "Dropshipper"
+  },
+  {
+    label: "Pekerja Kreatif",
+    value : "Pekerja Kreatif"
+  },
+  {
+    label: "Karyawan Swasta",
+    value : "Karyawan Swasta"
+  },
+  {
+    label: "Karyawan BUMN",
+    value : "Karyawan BUMN"
+  },
+  {
+    label: "Lainnya",
+    value : "Lainnya"
+  },
+]
+
+export const haveLearnedOption = [
+  {
+    label: "Pernah beberapa kali",
+    value : "Pernah beberapa kali"
+  },
+  {
+    label: "Pernah sekali",
+    value : "Pernah sekali"
+  },
+  {
+    label: "Belum pernah sama sekali",
+    value : "Belum pernah sama sekali"
+  }
+]
+
+export const whyJoinOption = [
+  {
+    label: "Belajar digital marketing",
+    value : "Belajar digital marketing"
+  },
+  {
+    label: "Mengembangkan bisnis",
+    value : "Mengembangkan bisnis"
+  },
+  {
+    label: "Mendapatkan penghasilan tambahan",
+    value : "Mendapatkan penghasilan tambahan"
+  },
+  {
+    label: "Lainnya",
+    value : "Lainnya"
+  },
+]
+
 export const BankList = [
   {
     "name": "PT. BANK CIMB NIAGA - (CIMB)",

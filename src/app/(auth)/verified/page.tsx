@@ -81,15 +81,15 @@ function VerifiedPageComponent() {
                   />
                 </Link>
 
-                <p className="2xl:px-20">
+                {/* <p className="2xl:px-20">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit
                   suspendisse.
-                </p>
+                </p> */}
               </div>
             </div>
 
             <div className="w-full xl:block">
-              <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
+              <div className="w-full p-4 sm:p-7.5 xl:p-10.5">
                 {isLoaded && (
                   <>
                     {isValid ? (

@@ -432,7 +432,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                         <SelectTrigger>
                           <SelectValue
                             defaultValue={field.value}
-                            placeholder="Pilih Kota"
+                            placeholder="Pilih Kota/kabupaten"
                           />
                         </SelectTrigger>
                       </FormControl>
@@ -539,7 +539,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                     disabled={loading}
                     className="mt-4 w-full pb-7 pt-7 text-white"
                   >
-                    Save Data
+                    Simpan Data
                   </Button>
                 </div>
               )}

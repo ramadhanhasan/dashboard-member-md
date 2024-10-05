@@ -65,7 +65,7 @@ const SuccessCheckoutPage = ({ params }: { params: { slug: string } }) => {
               </div>
               <div className="mb-8 text-center">
                 <h1 className="text-gray-800 text-3xl font-bold">
-                  Checkout Product
+                  Checkout Membership
                 </h1>
                 <p className="text-gray-600 mt-2">
                   Selesaikan pembelian produk dengan mudah!

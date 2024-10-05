@@ -68,8 +68,7 @@ const CheckoutPage = ({ params }: { params: { order_number: string } }) => {
         <div className="bg-gray-50 min-h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
           <div className="bg-gray-100 items-center justify-center p-4">
             <div className="mb-6 rounded border border-yellow-400 bg-yellow-100 p-4 text-yellow-800">
-              Silahkan cek Whatsapp & kotak masuk Utama E-Mail
-              {data?.user_email}. Apabila tidak ada, silahkan cek kembali di
+              Silahkan cek Whatsapp & kotak masuk Utama E-Mail {data?.user_email}. Apabila tidak ada, silahkan cek kembali di
               bagian Promosi, Update atau Spam.
             </div>
             <Card className="w-full">

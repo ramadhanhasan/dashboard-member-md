@@ -1,9 +1,9 @@
 export interface IUserVerified {
-  id: string
-  activation_code: string
-  email: string
-  name: string
-  phone: string
+  id: string;
+  activation_code: string;
+  email: string;
+  name: string;
+  phone: string;
   birth_date?: string;
   select_birth_date?: Date;
   password: string;
@@ -15,5 +15,9 @@ export interface IUserVerified {
   postal_code: string;
   account_name: string;
   account_number: string;
-  bank_name: string
+  bank_name: string;
+  work: string;
+  have_studied: string;
+  information_from: string;
+  why_join: string;
 }
