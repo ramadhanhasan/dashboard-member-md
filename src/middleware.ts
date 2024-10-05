@@ -6,14 +6,36 @@ import { AFF_STORAGE_KEY, FUNNEL_STORAGE_KEY, USER_LOCAL_STORAGE_KEY } from '@/c
 import getOneLinkRepository from './app/(dashboard)/links/_repository/getOneRepository';
 
 export async function middleware(request: NextRequest) {
-  const urlSearchParams = new URLSearchParams(request.nextUrl.search);
-  const params = Object.fromEntries(urlSearchParams.entries());
-  const publicUrl = ['login', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp', 'checkout'];
   // get user request cookie
+  const publicUrl = ['login', 'verified', 'forgot-password', 'forgot-password/success', 'reset-password', 'lp', 'checkout'];
   const userCookie = request.cookies.get(USER_LOCAL_STORAGE_KEY)?.value ?? ''
   let isTokenValid = false
   // check if user cookie is in request
   
+  if (userCookie) {
+    // TODO: hit api to get token validity
+    isTokenValid = true
+  }
+  
+  // validate if user token is valid
+  if (isTokenValid && userCookie) {
+    // if valid delete cookie and use new token valid data
+    // request.cookies.delete(USER_LOCAL_STORAGE_KEY)
+
+    // check if request path name if from auth or default path redirect to dashboard
+    const response = publicUrl.includes(request.nextUrl.pathname.split('/')[1])
+      ? NextResponse.redirect(new URL('/', request.url))
+      : NextResponse.next()
+
+    // TODO: set new cookie data base on token valid data, when refresh token is valid
+    // saveUser(JSON.parse(userCookie))
+
+    // return response
+    return response
+  }
+
+  const urlSearchParams = new URLSearchParams(request.nextUrl.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
   if (request.nextUrl.pathname.split('/')[1] === 'lp') {
     const data = await getOneLinkRepository(Number(params['i']) || 0, params['whatsapp']);
     const affCookie = request.cookies.get(AFF_STORAGE_KEY)?.value ?? ''
@@ -43,27 +65,6 @@ export async function middleware(request: NextRequest) {
     }
     return res;
   }
-  if (userCookie) {
-    // TODO: hit api to get token validity
-    isTokenValid = true
-  }
-  
-  // validate if user token is valid
-  if (isTokenValid && userCookie) {
-    // if valid delete cookie and use new token valid data
-    // request.cookies.delete(USER_LOCAL_STORAGE_KEY)
-
-    // check if request path name if from auth or default path redirect to dashboard
-    const response = publicUrl.includes(request.nextUrl.pathname.split('/')[1])
-      ? NextResponse.redirect(new URL('/', request.url))
-      : NextResponse.next()
-
-    // TODO: set new cookie data base on token valid data, when refresh token is valid
-    // saveUser(JSON.parse(userCookie))
-
-    // return response
-    return response
-  }
 
   const response =
   publicUrl.includes(request.nextUrl.pathname.split('/')[1]) 
@@ -73,10 +74,6 @@ export async function middleware(request: NextRequest) {
   // user cookie doesn't exit or token isn't valid redirect to auth
   return response
 }
-
-// export async function middleware(request: NextRequest) {
-//   return NextResponse.next()
-// }
 
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js).*)']
