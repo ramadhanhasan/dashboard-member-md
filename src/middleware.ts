@@ -6,43 +6,44 @@ import { AFF_STORAGE_KEY, FUNNEL_STORAGE_KEY, USER_LOCAL_STORAGE_KEY } from '@/c
 import getOneLinkRepository from './app/(dashboard)/links/_repository/getOneRepository';
 
 export async function middleware(request: NextRequest) {
-  // const urlSearchParams = new URLSearchParams(request.nextUrl.search);
-  // const params = Object.fromEntries(urlSearchParams.entries());
+  const urlSearchParams = new URLSearchParams(request.nextUrl.search);
+  const params = Object.fromEntries(urlSearchParams.entries());
   const publicUrl = ['login', 'verified', 'forgot-password', 'reset-password', 'lp', 'checkout'];
   // get user request cookie
   const userCookie = request.cookies.get(USER_LOCAL_STORAGE_KEY)?.value ?? ''
   let pathname = request.nextUrl.pathname.split('/')[1]
+  console.log('pathnamepathname:',pathname)
   // check if user cookie is in request
   
-  // if (pathname === 'lp') {
-  //   const data = await getOneLinkRepository(Number(params['i']) || 0, params['whatsapp']);
-  //   const affCookie = request.cookies.get(AFF_STORAGE_KEY)?.value ?? ''
-  //   const aff = params['aff'];
+  if (pathname == 'lp') {
+    const data = await getOneLinkRepository(Number(params['i']) || 0, params['whatsapp']);
+    const affCookie = request.cookies.get(AFF_STORAGE_KEY)?.value ?? ''
+    const aff = params['aff'];
     
-  //   const res = NextResponse.redirect(data.data.url + '?whatsapp='+ params['whatsapp'] + '&aff='+aff + '&funnel='+data.data.name, 302); // External website URL
+    const res = NextResponse.redirect(data.data.url + '?whatsapp='+ params['whatsapp'] + '&aff='+aff + '&funnel='+data.data.name, 302); // External website URL
     
-  //   const expire = new Date()
-  //   expire.setDate(expire.getDate() + 90)
+    const expire = new Date()
+    expire.setDate(expire.getDate() + 90)
       
-  //   res.cookies.set(FUNNEL_STORAGE_KEY, data.data.name, {
-  //     // httpOnly: true,  // Secure, not accessible via JavaScript
-  //     // path: '/',       // Path for which the cookie is valid
-  //     // sameSite: 'strict',  // Control cross-site request behavior
-  //     maxAge: 60 * 60 * 24 * 90, // Optional: Set max-age for cookie (in seconds)
-  //     expires: expire, // Optional: expires in 1 day
-  //   });
+    res.cookies.set(FUNNEL_STORAGE_KEY, data.data.name, {
+      // httpOnly: true,  // Secure, not accessible via JavaScript
+      // path: '/',       // Path for which the cookie is valid
+      // sameSite: 'strict',  // Control cross-site request behavior
+      maxAge: 60 * 60 * 24 * 90, // Optional: Set max-age for cookie (in seconds)
+      expires: expire, // Optional: expires in 1 day
+    });
 
-  //   if (affCookie == '' && aff && aff != '') {
-  //     res.cookies.set(AFF_STORAGE_KEY, aff, {
-  //       // httpOnly: true,  // Secure, not accessible via JavaScript
-  //       // path: '/',       // Path for which the cookie is valid
-  //       // sameSite: 'strict',  // Control cross-site request behavior
-  //       maxAge: 60 * 60 * 24 * 90, // Optional: Set max-age for cookie (in seconds)
-  //       expires: expire, // Optional: expires in 1 day
-  //     });
-  //   }
-  //   return res;
-  // }
+    if (affCookie == '' && aff && aff != '') {
+      res.cookies.set(AFF_STORAGE_KEY, aff, {
+        // httpOnly: true,  // Secure, not accessible via JavaScript
+        // path: '/',       // Path for which the cookie is valid
+        // sameSite: 'strict',  // Control cross-site request behavior
+        maxAge: 60 * 60 * 24 * 90, // Optional: Set max-age for cookie (in seconds)
+        expires: expire, // Optional: expires in 1 day
+      });
+    }
+    return res;
+  }
   
   // validate if user token is valid
   if (userCookie) {
@@ -58,7 +59,7 @@ export async function middleware(request: NextRequest) {
     // saveUser(JSON.parse(userCookie))
 
     // return response
-    return response
+    return NextResponse.next()
   }
 
   const response =
