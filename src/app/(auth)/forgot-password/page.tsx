@@ -34,7 +34,7 @@ const ForgotPassword: React.FC = () => {
               </Link>
 
               <p className="2xl:px-20">
-                Selamat Datang Platform Mahir Digital, Sillahkan Masukan Email & Password Kamu.
+                Selamat Datang Platform Mahir Digital, Sillahkan Masukan Email Kamu :)
               </p>
 
               <span className="mt-15 hidden w-full xl:block">
@@ -169,7 +169,7 @@ const ForgotPassword: React.FC = () => {
               </h2>
 
               <p className="mb-9">
-                Masukkan email Anda untuk mendapatkan link untuk reset password.
+                Masukkan Email Kamu untuk mendapatkan link untuk reset password.
               </p>
               <UserRequestForgotPasswordForm />
             </div>

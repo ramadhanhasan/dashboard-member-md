@@ -96,7 +96,7 @@ export const UserMembershipInformationForm: React.FC<
               value={TimestampConverter(initialData.expired_time)}
             />
 
-            <FormLabel className="pt-5">Affilisi Dari</FormLabel>
+            <FormLabel className="pt-5">Affiliasi Dari</FormLabel>
             <Input
               type="text"
               disabled

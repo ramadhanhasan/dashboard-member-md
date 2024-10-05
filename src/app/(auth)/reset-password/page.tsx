@@ -75,10 +75,10 @@ function ResetPasswordPageComponent() {
                   />
                 </Link>
 
-                <p className="2xl:px-20">
+                {/* <p className="2xl:px-20">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit
                   suspendisse.
-                </p>
+                </p> */}
               </div>
             </div>
 

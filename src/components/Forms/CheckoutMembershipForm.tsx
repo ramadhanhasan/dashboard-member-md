@@ -197,7 +197,7 @@ export const CheckoutMembershipForm: React.FC<FormProps> = ({
             <div className="lg:col-span-5">
               <Card>
                 <CardHeader>
-                  <CardTitle>Pesanan Anda</CardTitle>
+                  <CardTitle>Pesanan Kamu</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">

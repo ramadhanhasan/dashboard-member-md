@@ -76,7 +76,7 @@ export default function UserRequestForgotPasswordForm() {
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="Masukkan email Anda"
+                    placeholder="Masukkan Email Kamu"
                     disabled={loading}
                     {...field}
                   />

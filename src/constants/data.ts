@@ -110,12 +110,24 @@ export const workOption = [
     value : "Marketer"
   },
   {
+    label: "Mahasiswa",
+    value : "Mahasiswa"
+  },
+  {
     label: "Dropshipper",
     value : "Dropshipper"
   },
   {
     label: "Pekerja Kreatif",
     value : "Pekerja Kreatif"
+  },
+  {
+    label: "Profesional",
+    value : "Profesional"
+  },
+  {
+    label: "Ibu Rumah Tangga",
+    value : "Ibu Rumah Tangga"
   },
   {
     label: "Karyawan Swasta",
@@ -133,17 +145,21 @@ export const workOption = [
 
 export const haveLearnedOption = [
   {
-    label: "Pernah beberapa kali",
-    value : "Pernah beberapa kali"
+    label: "Belum pernah sama sekali",
+    value : "Belum pernah sama sekali"
   },
   {
     label: "Pernah sekali",
     value : "Pernah sekali"
   },
   {
-    label: "Belum pernah sama sekali",
-    value : "Belum pernah sama sekali"
-  }
+    label: "Pernah beberapa kali",
+    value : "Pernah beberapa kali"
+  },
+  {
+    label: "Sudah sering",
+    value : "Sudah sering"
+  },
 ]
 
 export const whyJoinOption = [

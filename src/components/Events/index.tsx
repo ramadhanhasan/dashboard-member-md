@@ -64,10 +64,14 @@ const Event = ({ events }: { events: IEvent[] }) => {
             <div className="text-gray-500 bold mt-4 flex items-center">
               {event.price != event.net_price && (
                 <div className="mr-2 text-sm text-red line-through">
-                  {formatPrice(event.price, "IDR", "id-ID")}
+                  {
+                    event.price !== 0 ? formatPrice(event.price, "IDR", "id-ID") : 'GRATIS'
+                  }
                 </div>
               )}
-              {formatPrice(event.net_price, "IDR", "id-ID")}
+              {
+                event.net_price !== 0 ? formatPrice(event.net_price, "IDR", "id-ID") : 'GRATIS'
+              }
             </div>
             {/* <span className="mb-2 mr-2 inline-block rounded-full bg-blue-200 px-3 py-1 text-sm font-semibold text-blue-700">
             {event.time} minutes

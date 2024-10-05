@@ -69,7 +69,7 @@ export const UserChangePasswordForm = () => {
 
   const changePasswordUserMutation = usePutPasswordQuery(() => {
     notification.open({
-      message: "Password anda sudah sukses terupdate",
+      message: "Password Kamu sudah sukses terupdate",
       type: "success",
     });
     form.reset();
@@ -100,7 +100,7 @@ export const UserChangePasswordForm = () => {
       )}
       <div className="flex justify-between border-b border-stroke px-7 py-4 dark:border-strokedark">
         <h3 className="font-medium text-black dark:text-white">
-          Password Anda
+          Password Kamu
         </h3>
         {!isChangePasswordAction ? (
           <Button onClick={() => {

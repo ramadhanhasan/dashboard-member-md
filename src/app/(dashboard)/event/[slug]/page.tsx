@@ -77,10 +77,10 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
             <div className="text-gray-500 bold mb-4 mt-4 flex items-center">
               {data?.price != data?.net_price && (
                 <div className="mr-2 text-sm text-red line-through">
-                  {formatPrice(data?.price || 0, "IDR", "id-ID")}
+                  {data?.price !== 0 ? formatPrice(data?.price || 0, "IDR", "id-ID") : 'GRATIS'}
                 </div>
               )}
-              {formatPrice(data?.net_price || 0, "IDR", "id-ID")}
+              {data?.net_price !== 0 ? formatPrice(data?.net_price || 0, "IDR", "id-ID") : 'GRATIS'}
             </div>
             {/* <span className="mb-2 mr-2 inline-block rounded-full bg-blue-200 px-3 py-1 text-sm font-semibold text-blue-700">
             {event.time} minutes

@@ -157,7 +157,7 @@ const menuGroups = [
     ],
   },
   {
-    name: "Others",
+    name: "OTHERS",
     menuItems: [
       {
         icon: (
@@ -166,7 +166,7 @@ const menuGroups = [
             height="18"
           />
         ),
-        label: "Others",
+        label: "Merchandise",
         route: "/merchandise-product",
       },
       {

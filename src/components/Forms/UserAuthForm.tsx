@@ -78,7 +78,7 @@ export default function UserAuthForm() {
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="Masukkan email Kamu"
+                    placeholder="Masukkan Email Kamu"
                     disabled={loading}
                     {...field}
                   />
@@ -96,12 +96,12 @@ export default function UserAuthForm() {
                 <div className="flex justify-between">
 
                 <FormLabel>Password</FormLabel>
-                <Link href={'/forgot-password'}>lupa password ?</Link>
+                <Link href={'/forgot-password'}>Lupa Password ?</Link>
                 </div>
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="Masukkan password Kamu"
+                    placeholder="Masukkan Password Kamu"
                     disabled={loading}
                     {...field}
                   />

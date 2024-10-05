@@ -33,7 +33,7 @@ const LogIn: React.FC = () => {
               </Link>
 
               <p className="2xl:px-20">
-                Selamat Datang Platform Mahir Digital, Sillahkan Masukan Email & Password Kamu.
+                Selamat Datang Platform Mahir Digital, Sillahkan Masukan Email & Password Kamu :)
               </p>
 
               <span className="hidden w-full xl:block mt-15">

@@ -34,9 +34,9 @@ const SuccessForgotPassword: React.FC = () => {
                 />
               </Link>
 
-              <p className="2xl:px-20">
+              {/* <p className="2xl:px-20">
                 Selamat Datang Platform Mahir Digital, Sillahkan Masukan Email & Password Kamu.
-              </p>
+              </p> */}
 
               <span className="mt-15 hidden w-full xl:block">
                 <svg

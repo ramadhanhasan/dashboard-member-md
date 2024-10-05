@@ -79,7 +79,7 @@ const formSchema: z.ZodType<IUserVerified> = z
     work: z.string(),
     have_studied: z.string(),
     why_join: z.string(),
-    information_from: z.string(),
+    information_from: z.string()
   })
   .superRefine((val, ctx) => {
     if (val.password !== val.confirmPassword) {
@@ -124,7 +124,6 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
     defaultValues,
   });
   const [work, setWork] = useState("");
-  const [whyJoin, setWhyjoin] = useState("");
 
   useEffect(() => {
     const initiateCities = async (province_id: string) => {
@@ -150,7 +149,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
 
   const verifiedUserMutation = useVerifiedUserQuery(() => {
     notification.open({
-      message: "Verifikasi Akun Anda Sudah Berhasil",
+      message: "Verifikasi Akun Kamu Sudah Berhasil",
       type: "success",
       description:
         "halaman ini akan otomatis pindah ke halaman login dalamn waktu 5 detik",
@@ -162,9 +161,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
   });
 
   const onSubmit = async (data: UserFormValue) => {
-    if (work != 'Lainnya') data.work = work;
-
-    if (whyJoin != 'Lainnya') data.why_join = whyJoin;
+    if (work != "Lainnya") data.work = work;
 
     try {
       setLoading(true);
@@ -364,84 +361,6 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="bank_name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nama Bank</FormLabel>
-                <FormControl>
-                  <Select
-                    disabled={loading}
-                    onValueChange={(e) => {
-                      field.onChange(e);
-                    }}
-                    value={field.value}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          defaultValue={field.value}
-                          placeholder="Pilih Bank"
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup className="max-h-[15rem] overflow-y-auto">
-                        {/* @ts-ignore  */}
-                        {BankList.map((bank) => (
-                          <SelectItem key={bank.name} value={bank.name}>
-                            {bank.name}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="account_number"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nomor Rekening Bank</FormLabel>
-                <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="Masukkan nomor rekening bank"
-                    disabled={loading}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="account_name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nama Rekening Bank</FormLabel>
-                <FormControl>
-                  <Input
-                    type="text"
-                    placeholder="Masukkan nama rekening bank"
-                    disabled={loading}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
           <div className="mb-4 flex flex-col gap-6 xl:flex-row">
             <div className="w-full xl:w-1/3">
               <FormField
@@ -610,6 +529,88 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
           />
 
           <h2 className="mb-9 pt-10 text-2xl font-bold text-black dark:text-white">
+            Lengkapi Nomor Rekening Kamu (Untuk Transfer Komisi Affiliate)
+          </h2>
+
+          <FormField
+            control={form.control}
+            name="bank_name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nama Bank</FormLabel>
+                <FormControl>
+                  <Select
+                    disabled={loading}
+                    onValueChange={(e) => {
+                      field.onChange(e);
+                    }}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Pilih Bank"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectGroup className="max-h-[15rem] overflow-y-auto">
+                        {/* @ts-ignore  */}
+                        {BankList.map((bank) => (
+                          <SelectItem key={bank.name} value={bank.name}>
+                            {bank.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="account_number"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nomor Rekening Bank</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Masukkan nomor rekening bank"
+                    disabled={loading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="account_name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Nama Rekening Bank</FormLabel>
+                <FormControl>
+                  <Input
+                    type="text"
+                    placeholder="Masukkan nama rekening bank"
+                    disabled={loading}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <h2 className="mb-9 pt-10 text-2xl font-bold text-black dark:text-white">
             Informasi Tambahan
           </h2>
 
@@ -626,6 +627,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                     disabled={loading}
                     onValueChange={(e) => {
                       setWork(e);
+                      field.onChange(e);
                     }}
                     value={work}
                     defaultValue={field.value}
@@ -746,65 +748,19 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="why_join"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Kenapa ingin bergabung Mahir Digital?</FormLabel>
+                <FormLabel>Kenapa ingin bergabung Mahir Digital? Dan apa harapannya?</FormLabel>
                 <FormControl>
-                  <Select
-                    disabled={loading}
-                    onValueChange={(e) => {
-                      setWhyjoin(e);
-                    }}
-                    value={whyJoin}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue
-                          defaultValue={field.value}
-                          placeholder="Pilih Jawabannya"
-                        />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectGroup className="max-h-[15rem] overflow-y-auto">
-                        {/* @ts-ignore  */}
-                        {whyJoinOption.map((value) => (
-                          <SelectItem key={value.value} value={value.value}>
-                            {value.label}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  <Input
+                      type="text"
+                      placeholder="Kenapa ?"
+                      disabled={loading}
+                      {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
-        {whyJoin === "Lainnya" && (
-            <FormField
-              control={form.control}
-              name="why_join"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          type="text"
-                          placeholder="Tuliskan alasan Kamu"
-                          disabled={loading}
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          )}
 
           <div className="mb-5">
             <Button
