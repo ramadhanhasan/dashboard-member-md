@@ -174,7 +174,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
     try {
       setLoading(true);
       setErrorMsg(null);
-      data.birth_date = data.select_birth_date?.toLocaleDateString();
+      data.birth_date = data.select_birth_date?.toDateString();
       await verifiedUserMutation.mutate({
         id: data.id,
         body: data,
