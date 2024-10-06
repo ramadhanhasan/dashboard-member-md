@@ -283,10 +283,6 @@ export const BankList = [
     "code": "422"
   },
   {
-    "name": "PT. BANK JAGO SYARIAH",
-    "code": "422"
-  },
-  {
     "name": "PT. BANK SYARIAH INDONESIA (BSI)",
     "code": "422"
   },
