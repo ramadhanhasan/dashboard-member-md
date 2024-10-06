@@ -39,6 +39,7 @@ import { notification } from "antd";
 import { IUser } from "../../app/(dashboard)/profile/_interfaces";
 import usePutProfileQuery from "../../app/(dashboard)/profile/_query/usePutProfileUserQuery";
 import { BankList } from "../../constants/data";
+import TimestampConverter from "../../utils/dateFormatter";
 
 const numberRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -137,7 +138,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
     try {
       setLoading(true);
       setErrorMsg(null);
-      data.birth_date = data.select_birth_date?.toDateString();
+      data.birth_date = TimestampConverter(data.select_birth_date, 'YYYY/MM/DD');
       await updateProfileMutation.mutate({
         body: data,
       });

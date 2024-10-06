@@ -43,6 +43,7 @@ import {
   whyJoinOption,
   workOption,
 } from "../../constants/data";
+import TimestampConverter from "../../utils/dateFormatter";
 
 const numberRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -174,7 +175,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
     try {
       setLoading(true);
       setErrorMsg(null);
-      data.birth_date = data.select_birth_date?.toDateString();
+      data.birth_date = TimestampConverter(data.select_birth_date, 'YYYY/MM/DD');
       await verifiedUserMutation.mutate({
         id: data.id,
         body: data,
