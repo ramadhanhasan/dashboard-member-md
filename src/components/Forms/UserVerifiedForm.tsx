@@ -77,6 +77,7 @@ const formSchema: z.ZodType<IUserVerified> = z
       .regex(numberRegex, "account number must be number"),
     bank_name: z.string(),
     work: z.string(),
+    work_others: z.optional(z.string()),
     have_studied: z.string(),
     why_join: z.string(),
     information_from: z.string()
@@ -87,6 +88,13 @@ const formSchema: z.ZodType<IUserVerified> = z
         code: z.ZodIssueCode.custom,
         message: "Password is not the same as confirm password",
         path: ["confirmPassword"],
+      });
+    }
+    if (val.work === 'Lainnya' && val.work_others == '') {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'field ini harus diisi',
+        path: ['work_others']
       });
     }
   });
@@ -161,7 +169,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
   });
 
   const onSubmit = async (data: UserFormValue) => {
-    if (work != "Lainnya") data.work = work;
+    if (work === "Lainnya") data.work = data.work_others || '';
 
     try {
       setLoading(true);
@@ -304,7 +312,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                   <Input
                     type="phone"
                     placeholder="Masukkan nomor whatsapp"
-                    disabled
+                    disabled={loading}
                     {...field}
                   />
                 </FormControl>
@@ -596,11 +604,11 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             name="account_name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nama Rekening Bank</FormLabel>
+                <FormLabel>Nama Pemilik Rekening</FormLabel>
                 <FormControl>
                   <Input
                     type="text"
-                    placeholder="Masukkan nama rekening bank"
+                    placeholder="Masukkan nama pemelik rekening"
                     disabled={loading}
                     {...field}
                   />
@@ -660,7 +668,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
           {work === "Lainnya" && (
             <FormField
               control={form.control}
-              name="work"
+              name="work_others"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -676,7 +684,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                       <FormMessage />
                     </FormItem>
                   </FormControl>
-                  <FormMessage />
+                  {/* <FormMessage /> */}
                 </FormItem>
               )}
             />

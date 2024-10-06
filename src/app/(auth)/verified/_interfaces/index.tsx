@@ -20,4 +20,5 @@ export interface IUserVerified {
   have_studied: string;
   information_from: string;
   why_join: string;
+  work_others?: string;
 }
