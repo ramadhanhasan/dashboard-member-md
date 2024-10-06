@@ -2,8 +2,29 @@
 const nextConfig = {
     reactStrictMode: false,
     images: {
-        domains: ['dev-joar.oss-ap-southeast-1.aliyuncs.com', 'via.placeholder.com', 'placehold.co', 'mahir-digital-id.oss-ap-southeast-5.aliyuncs.com']
-    }
+        remotePatterns: [
+          {
+            protocol: 'https',
+            hostname: 'dev-joar.oss-ap-southeast-1.aliyuncs.com',
+            pathname: '**',
+          },
+          {
+            protocol: 'https',
+            hostname: 'via.placeholder.com',
+            pathname: '**',
+          },
+          {
+            protocol: 'https',
+            hostname: 'placehold.co',
+            pathname: '**',
+          },
+          {
+            protocol: 'https',
+            hostname: 'mahir-digital-id.oss-ap-southeast-5.aliyuncs.com',
+            pathname: '**',
+          },
+        ],
+      },
 };
 
 export default nextConfig;

@@ -42,8 +42,9 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
     (userToken: UserToken) => {
       saveUser(userToken) // save token to cookie
       handleRefetchUserProfile()
-      router.refresh()
+      // router.refresh()
       router.replace('/')
+      router.refresh()
     },
     [router, handleRefetchUserProfile],
   )
