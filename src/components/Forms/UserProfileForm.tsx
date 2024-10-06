@@ -137,7 +137,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
     try {
       setLoading(true);
       setErrorMsg(null);
-      data.birth_date = data.select_birth_date?.toLocaleDateString();
+      data.birth_date = data.select_birth_date?.toDateString();
       await updateProfileMutation.mutate({
         body: data,
       });
