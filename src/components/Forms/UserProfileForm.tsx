@@ -49,11 +49,11 @@ const formSchema: z.ZodType<IUser> = z.object({
   id: z.string(),
   name: z.string().min(4),
   phone: z.string().regex(numberRegex, "invalid phone number"),
-  select_birth_date: z.optional(
-    z.date({
-      required_error: "A date of birth is required.",
-    }),
-  ),
+  // select_birth_date: z.optional(
+  //   z.date({
+  //     required_error: "A date of birth is required.",
+  //   }),
+  // ),
   province_id: z.string().min(2, { message: "Choose province" }),
   city_id: z.string().min(2, { message: "Choose city" }),
   subdistrict_id: z.string().min(2, { message: "Choose subdistrict" }),
@@ -87,7 +87,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
   const [loading, setLoading] = useState(false);
   const defaultValues: Partial<IUser> = {
     ...initialData,
-    select_birth_date: new Date(initialData.birth_date ?? ""),
+    // select_birth_date: new Date(initialData.birth_date ?? ""),
   };
   const [cities, setCities] = useState<ICity[]>([]);
   const [subdistricts, setSubdistricts] = useState<ISubdistrict[]>([]);
@@ -138,7 +138,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
     try {
       setLoading(true);
       setErrorMsg(null);
-      data.birth_date = TimestampConverter(data.select_birth_date, 'YYYY/MM/DD');
+      // data.birth_date = TimestampConverter(data.select_birth_date, 'YYYY/MM/DD');
       await updateProfileMutation.mutate({
         body: data,
       });
@@ -246,7 +246,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                 )}
               />
 
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="select_birth_date"
                 render={({ field }) => (
@@ -292,7 +292,7 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
 
               <FormField
                 control={form.control}

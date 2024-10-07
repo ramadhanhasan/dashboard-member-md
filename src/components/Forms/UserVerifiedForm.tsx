@@ -58,11 +58,11 @@ const formSchema: z.ZodType<IUserVerified> = z
     activation_code: z.string(),
     name: z.string().min(4),
     phone: z.string().regex(numberRegex, "invalid phone number"),
-    select_birth_date: z.optional(
-      z.date({
-        required_error: "A date of birth is required.",
-      }),
-    ),
+    // select_birth_date: z.optional(
+    //   z.date({
+    //     required_error: "A date of birth is required.",
+    //   }),
+    // ),
     province_id: z.string().min(2, { message: "Choose province" }),
     city_id: z.string().min(2, { message: "Choose city" }),
     subdistrict_id: z.string().min(2, { message: "Choose subdistrict" }),
@@ -117,7 +117,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
   const [loading, setLoading] = useState(false);
   const defaultValues: Partial<IUserVerified> = {
     ...initialData,
-    select_birth_date: new Date(initialData.birth_date ?? Date.now()),
+    // select_birth_date: new Date(initialData.birth_date ?? Date.now()),
     bank_name: BankList[5].name,
   };
   const [cities, setCities] = useState<ICity[]>([]);
@@ -175,7 +175,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
     try {
       setLoading(true);
       setErrorMsg(null);
-      data.birth_date = TimestampConverter(data.select_birth_date, 'YYYY/MM/DD');
+      // data.birth_date = TimestampConverter(data.select_birth_date, 'YYYY/MM/DD');
       await verifiedUserMutation.mutate({
         id: data.id,
         body: data,
@@ -322,7 +322,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
             )}
           />
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name="select_birth_date"
             render={({ field }) => (
@@ -368,7 +368,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           <div className="mb-4 flex flex-col gap-6 xl:flex-row">
             <div className="w-full xl:w-1/3">
