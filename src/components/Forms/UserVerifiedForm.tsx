@@ -211,7 +211,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
     <>
       {errorMsg && (
         <Alert variant="destructive">
-          <AlertTitle>Submit Error!</AlertTitle>
+          <AlertTitle>Verifikasi Akun Kamu Gagal</AlertTitle>
           <AlertDescription>{errorMsg}</AlertDescription>
         </Alert>
       )}

@@ -57,7 +57,7 @@ export default function UserAuthForm() {
     <>
       {errorMsg && (
         <Alert variant="destructive">
-          <AlertTitle>Login Error!</AlertTitle>
+          <AlertTitle>Percobaan Login Gagal</AlertTitle>
           <AlertDescription>
             {errorMsg}
           </AlertDescription>
