@@ -430,5 +430,7 @@ const config: Config = {
   plugins: [
 	require("tailwindcss-animate"),
 	],
+	mode: 'jit',  // Enable Just-in-Time mode
+  purge: ['./src/app/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],  // Ensure your paths are correct
 };
 export default config;
