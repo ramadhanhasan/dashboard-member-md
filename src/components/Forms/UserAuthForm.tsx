@@ -19,6 +19,7 @@ import Link from "next/link";
 import postSignIn from "../../app/(auth)/login/_repository/postSignin";
 import { IAuth } from "../../app/(auth)/login/_interfaces";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { PasswordInput } from "../ui/password-input";
 
 const formSchema: z.ZodType<IAuth> = z.object({
   email: z.string().email({ message: "Enter a valid email address" }),
@@ -99,8 +100,7 @@ export default function UserAuthForm() {
                 <Link href={'/forgot-password'}>Lupa Password ?</Link>
                 </div>
                 <FormControl>
-                  <Input
-                    type="password"
+                  <PasswordInput
                     placeholder="Masukkan Password Kamu"
                     disabled={loading}
                     {...field}

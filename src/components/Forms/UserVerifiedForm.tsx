@@ -30,20 +30,15 @@ import {
   IProvince,
   ISubdistrict,
 } from "../../app/api/_interfaces/provinces.interface";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { cn } from "../../lib/utils";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { Calendar } from "../ui/calendar";
 import useVerifiedUserQuery from "../../app/(auth)/verified/_query/useVerifiedUserQuery";
 import { useRouter } from "next/navigation";
 import { notification } from "antd";
 import {
   BankList,
   haveLearnedOption,
-  whyJoinOption,
   workOption,
 } from "../../constants/data";
-import TimestampConverter from "../../utils/dateFormatter";
+import { PasswordInput } from "../ui/password-input";
 
 const numberRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
@@ -230,8 +225,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input
-                    type="password"
+                  <PasswordInput
                     placeholder="Masukkan password Kamu"
                     disabled={loading}
                     {...field}
@@ -249,7 +243,7 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
               <FormItem>
                 <FormLabel>Ketik Ulang Password</FormLabel>
                 <FormControl>
-                  <Input
+                  <PasswordInput
                     type="password"
                     placeholder="Masukkan kembali password Kamu"
                     disabled={loading}
