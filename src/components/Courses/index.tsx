@@ -50,10 +50,10 @@ const Course = ({ courses }: { courses: ICourse[] }) => {
                 <span className="text-yellow-500">★★★★★</span>
               </div>
             </div>
-            <div
+            {/* <div
               className="ql-editor truncate-3 text-gray-700 text-base"
               dangerouslySetInnerHTML={{ __html: course.description ?? "" }}
-            />
+            /> */}
             <div className="text-gray-500 mt-4 flex items-center text-sm">
               <div className="flex items-center">
                 <BookCheck />
