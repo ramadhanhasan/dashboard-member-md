@@ -28,7 +28,7 @@ export async function middleware(request: NextRequest) {
   if (pathname == "lp") {
     const data = await getOneLinkRepository(
       Number(params["i"]) || 0,
-      params["whatsapp"],
+      params["type"],
     );
     const affCookie = request.cookies.get(AFF_STORAGE_KEY)?.value ?? "";
     const aff = params["aff"];
@@ -36,7 +36,7 @@ export async function middleware(request: NextRequest) {
     const res = NextResponse.redirect(
       data.data.url +
         "?whatsapp=" +
-        params["whatsapp"] +
+        (params["whatsapp"] || 0) +
         "&aff=" +
         aff +
         "&funnel=" +
