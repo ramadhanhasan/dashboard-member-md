@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import postCreateOrderMembership from '../_repository/postCreateOrderMembershipRepository'
 import { ResponseWrapper } from '../../../types/fetch'
 import { deleteCookie } from 'cookies-next'
-import { AFF_STORAGE_KEY } from '../../../constants/data'
+import { AFF_STORAGE_KEY, FUNNEL_STORAGE_KEY } from '../../../constants/data'
 import { useRouter } from 'next/navigation'
 
 const useCreateOrderMembershipQuery = ({}) => {
@@ -14,6 +14,7 @@ const useCreateOrderMembershipQuery = ({}) => {
     mutationFn: postCreateOrderMembership,
     onSuccess: (data) => {
       deleteCookie(AFF_STORAGE_KEY);
+      deleteCookie(FUNNEL_STORAGE_KEY);
       router.refresh();
       router.replace('/checkout/success/'+data.order_number)
     },

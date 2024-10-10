@@ -101,7 +101,7 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                     )}
                     {formatPrice(data?.net_price || 0, "IDR", "id-ID")}
                   </div> */}
-                  {data?.is_finished ? (
+                  {/* {data?.is_finished ? (
                     <>
                       <Button disabled className="mb-4 w-full text-white">
                         <svg
@@ -192,7 +192,7 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                         </Button>
                       </Link>
                     </>
-                  )}
+                  )} */}
                 </CardContent>
               </Card>
             </div>
