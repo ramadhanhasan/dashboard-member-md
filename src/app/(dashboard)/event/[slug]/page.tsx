@@ -193,6 +193,23 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                       </Link>
                     </>
                   )} */}
+
+{data?.button_text && data?.link && (
+                    <>
+                      <Link
+                        href={data.link ?? process.env.NEXT_PUBLIC_ADMIN_WA_EVENT}
+                        // target="_blank"
+                        // rel="noopener noreferrer"
+                        passHref={true}
+                      >
+                        <Button className="mb-4 w-full text-white">
+                          {data.button_text}
+                        </Button>
+                      </Link>
+                    </>
+                  )}
+
+
                 </CardContent>
               </Card>
             </div>

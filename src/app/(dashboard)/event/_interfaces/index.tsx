@@ -7,7 +7,8 @@ export interface IEvent {
   location: string
   location_detail: string
   image_url: string
-  link_lp: string
+  link?: string
+  button_text?: string
   quota_type: string
   quota: number
   start_date: Date
