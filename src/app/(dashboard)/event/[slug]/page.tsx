@@ -194,7 +194,7 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                     </>
                   )} */}
 
-{data?.button_text && data?.link && (
+{data?.button_text && data?.button_text != '' && data?.link && data.link != '' && (
                     <>
                       <Link
                         href={data.link ?? process.env.NEXT_PUBLIC_ADMIN_WA_EVENT}
