@@ -50,7 +50,7 @@ const LinkPage = () => {
           columns={columns}
           totalData={totalItemReferralLinks}
           data={dataReferralLinks.map(link => {
-            link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type.toLowerCase()}&whatsapp=${link.is_whatsapp_link ? phone : ''}`
+            link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type.toLowerCase()}${link.is_whatsapp_link ? '&whatsapp='+phone : ''}`
             return link
           })}
           totalPage={totalPageReferralLinks}

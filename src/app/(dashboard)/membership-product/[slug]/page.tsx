@@ -113,7 +113,7 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
           data={
             data?.referral_links
               ? data.referral_links.map((link) => {
-                  link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type?.toLowerCase()}&whatsapp=${link.is_whatsapp_link ? phone : ""}`;
+                  link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type?.toLowerCase()}${link.is_whatsapp_link ? '&whatsapp='+phone : ""}`;
                   return link;
                 })
               : []
