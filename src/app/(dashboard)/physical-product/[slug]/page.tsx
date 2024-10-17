@@ -96,12 +96,12 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                       </p>
                     </div> */}
                   </div>
-                  <div className="text-gray-500 mb-5 mt-4 flex items-center text-sm">
+                  {/* <div className="text-gray-500 mb-5 mt-4 flex items-center text-sm">
                     <div className="flex items-center rounded-lg bg-slate-200 px-2 py-1">
                       <Link2 />` {data?.referral_links?.length ?? 0} link
                       affiliasi`
                     </div>
-                  </div>
+                  </div> */}
                   <Link
                     href={process.env.NEXT_PUBLIC_ADMIN_WA_PRODUCT ?? ""}
                     target="_blank"
