@@ -156,7 +156,7 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
                     className="mb-4 w-full rounded-md"
                     src={
                       data?.image_introduce_url ??
-                      "https://placehold.co/400x200"
+                      ""
                     }
                     alt="Course Image"
                   />

@@ -63,7 +63,7 @@ export function ContentGallery<TData, TValue>({
   page,
   totalData,
   totalPage,
-  pageSizeOptions = [10, 20, 30, 40, 50],
+  pageSizeOptions = [12, 24, 36, 48, 60],
   limit,
   loading,
 }: DataTableProps<TData, TValue>) {
@@ -179,7 +179,7 @@ export function ContentGallery<TData, TValue>({
               </div>
             </div>
           )}
-          <div className="mb-5 columns-2 gap-2 md:columns-3 xl:columns-5">
+          <div className="mb-5 grid grid-cols-2 gap-2 md:grid-cols-4">
             {data.map((tool: ITools) => (
               <div key={tool.id} className="relative mb-2 break-inside-avoid">
                 <div className="absolute left-0 top-0 w-full">
@@ -194,20 +194,21 @@ export function ContentGallery<TData, TValue>({
                       height={1000}
                       alt=""
                       src={tool.url}
+                      className="rounded"
                     ></Image>
                   </DialogTrigger>
-                  <DialogContent className="max-w-3xl">
+                  <DialogContent className="w-full">
                     <DialogHeader>
                       <DialogTitle>{`${tool.name} (${tool.format})`}</DialogTitle>
                     </DialogHeader>
-                    <div className="m-auto mt-4 max-w-md">
+                    <div className="m-auto mt-4 max-w-2xl">
                       <Image
                         src={tool.url}
                         alt={tool.name}
                         width={800}
                         height={600}
                         layout="responsive"
-                        className="mb-5 min-w-64 rounded"
+                        className="mb-5 min-w-64 rounded rounded"
                       />
                       <Link
                         target="_blank"
@@ -223,6 +224,9 @@ export function ContentGallery<TData, TValue>({
                     </div>
                   </DialogContent>
                 </Dialog>
+                <p className="mt-2 truncate-2 text-lg mb-2 text-center">
+                  {tool.name}
+                </p>
               </div>
             ))}
           </div>

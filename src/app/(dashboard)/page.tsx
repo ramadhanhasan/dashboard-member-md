@@ -44,11 +44,11 @@ export default function Home() {
         </p>
 
         {videoDashboard.map((video) => (
-          <>
+          <div key={video.embedId}>
             <h1 className="mb-2 mt-5 text-2xl font-bold">{video.title}</h1>
             <PlayerComponent videoId={video.embedId ?? ""} />
             {/* <Separator className="mt-5"/> */}
-          </>
+          </div>
         ))}
 
         <h1 className="text-gray-900 mb-4 mt-10 text-xl font-bold leading-none tracking-tight dark:text-white md:text-2xl lg:text-3xl">
