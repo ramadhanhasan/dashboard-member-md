@@ -10,16 +10,22 @@ import { ContentTable } from "../../../components/Tables/ContentsTables/content-
 import { columns, FILTER_KEYS } from "../../../components/Tables/ContentsTables/columns";
 import PlayerComponent from "../../../components/Players";
 import { ChevronDown } from "lucide-react";
+import { ITools } from "./_interfaces";
+import { ContentGallery } from "../../../components/Tables/ContentsTables/content-gallery";
 
 const ContentPage = () => {
   const [filterType, setFilterType] = useState<string>("CONTENT");
   const { paginationParams, filterParams, sortParams } = useQueryParam(FILTER_KEYS);
+  
+  if (paginationParams.limit === 10) paginationParams.limit = 10;
+  
   const {
     dataTool,
     currentPageTool,
     totalItemTool,
     totalPageTool,
     refetechDataTool,
+    isLoadingTool
   } = useGetAllQuery({
     ...paginationParams,
     filterParams: { types: filterType, ...filterParams },
@@ -57,6 +63,14 @@ const ContentPage = () => {
           data={dataTool}
           totalPage={totalPageTool}
         />
+         {/* <ContentGallery
+          page={currentPageTool}
+          limit={paginationParams.limit}
+          totalData={totalItemTool}
+          data={dataTool}
+          totalPage={totalPageTool}
+          loading={isLoadingTool}
+        /> */}
       </div>
     </DefaultLayout>
   );

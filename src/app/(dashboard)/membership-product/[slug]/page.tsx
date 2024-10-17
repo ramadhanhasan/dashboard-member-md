@@ -55,7 +55,7 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                     width={400}
                     height={200}
                     className="mb-4 w-full rounded-md"
-                    src={data?.image_url ?? "https://placehold.co/400x200"}
+                    src={data?.image_url ?? ""}
                     alt="Event Image"
                   />
                 </CardHeader>
