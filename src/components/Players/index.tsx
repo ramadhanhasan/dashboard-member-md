@@ -44,6 +44,7 @@ const PlayerComponent = ({
         allow="autoplay; encrypted-media"
         allowFullScreen
       ></iframe>
+      <div className="overlay-gdrive"></div>
     </div>x
         <LiteYouTubeEmbed 
           id={videoId}
