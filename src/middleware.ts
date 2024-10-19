@@ -30,7 +30,7 @@ export async function middleware(request: NextRequest) {
       Number(params["i"]) || 0,
       params["type"],
     );
-    const affCookie = request.cookies.get(AFF_STORAGE_KEY)?.value ?? "";
+    // const affCookie = request.cookies.get(AFF_STORAGE_KEY)?.value ?? "";
     const aff = params["aff"];
 
     const res = NextResponse.redirect(
@@ -51,11 +51,11 @@ export async function middleware(request: NextRequest) {
       // httpOnly: true,  // Secure, not accessible via JavaScript
       // path: '/',       // Path for which the cookie is valid
       // sameSite: 'strict',  // Control cross-site request behavior
-      maxAge: 60 * 60 * 24 * 90, // Optional: Set max-age for cookie (in seconds)
+      maxAge: 60 * 60 * 24 * 180, // Optional: Set max-age for cookie (in seconds) - 180 day (6 month)
       expires: expire, // Optional: expires in 1 day
     });
 
-    if (affCookie == "" && aff && aff != "") {
+    if (aff && aff != "") {
       res.cookies.set(AFF_STORAGE_KEY, aff, {
         // httpOnly: true,  // Secure, not accessible via JavaScript
         // path: '/',       // Path for which the cookie is valid
