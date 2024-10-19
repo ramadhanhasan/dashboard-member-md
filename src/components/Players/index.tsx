@@ -35,11 +35,23 @@ const PlayerComponent = ({
 } : {videoId : string}) => {
 
     return (
+        <>
+        <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%', background: '#000' }}>
+      <iframe
+        src={'https://drive.google.com/file/d/1mfgNnibtZkBtu-7_2NWs4WglaPNGfo5_/preview'}
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        frameBorder="0"
+        allow="autoplay; encrypted-media"
+        allowFullScreen
+      ></iframe>
+    </div>x
         <LiteYouTubeEmbed 
           id={videoId}
           title="Mahir Digital"
           params="rel=0"
       />
+        </>
+
     )
 }
 
