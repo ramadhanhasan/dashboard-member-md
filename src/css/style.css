@@ -122,8 +122,9 @@ iframe .ytp-chrome-top {
   top: 0;
   left: 0;
   width: 100%;
-  height: 17%;
-  background-color: white; /* Fully transparent */
+  height: 12%;
+  cursor: not-allowed! important;
+  background-color: transparent; /* Fully transparent */
   z-index: 1000; /* Higher than the iframe */
 }
 
@@ -141,10 +142,22 @@ iframe .ytp-chrome-top {
   position: absolute;
   bottom: 0;
   right: 6%;
-  width: 9%;
+  width: 10%;
   height: 9%;
-  background-color: white; /* Fully transparent */
+  background-color: transparent; /* Fully transparent */
   z-index: 1000; /* Higher than the iframe */
+}
+
+@media screen and (max-width: 600px) {
+  .overlay-bottom {
+    position: absolute;
+    bottom: 0;
+    right: 18%;
+    width: 15%;
+    height: 20%;
+    background-color: transparent; /* Fully transparent */
+    z-index: 1000; /* Higher than the iframe */
+  }
 }
 
 .truncate-2 {

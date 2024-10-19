@@ -66,7 +66,11 @@ const PlayerComponent = ({
           <div className="overlay-gdrive"></div>
         </div>
       ) : (
-        <LiteYouTubeEmbed id={videoId} title="Mahir Digital" params="rel=0" />
+        <div className="video-wrapper">
+          <LiteYouTubeEmbed id={videoId} title="Mahir Digital" params="rel=0" />
+          <div className="overlay" />
+          <div className="overlay-bottom" />
+        </div>
       )}
     </>
   );
