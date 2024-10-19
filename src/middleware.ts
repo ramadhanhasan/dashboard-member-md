@@ -35,8 +35,8 @@ export async function middleware(request: NextRequest) {
 
     const res = NextResponse.redirect(
       data.data.url +
-        "?whatsapp=" +
-        (params["whatsapp"] || 0) +
+        "?" +
+        (params["whatsapp"] ? "whatsapp="+params["whatsapp"] : "") +
         "&aff=" +
         aff +
         "&funnel=" +
