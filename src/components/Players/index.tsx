@@ -67,7 +67,7 @@ const PlayerComponent = ({
         </div>
       ) : (
         <div className="video-wrapper">
-          <LiteYouTubeEmbed id={videoId} title="Mahir Digital" params="rel=0" />
+          <LiteYouTubeEmbed id={videoId} title="Mahir Digital" params="rel=0" cookie={true} />
           <div className="overlay" />
           <div className="overlay-bottom" />
         </div>
