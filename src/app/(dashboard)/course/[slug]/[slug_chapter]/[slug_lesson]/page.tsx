@@ -124,7 +124,7 @@ const CoursePage = ({
           <div className="flex flex-col lg:flex-row lg:space-x-8">
             {/* Course Details Section */}
             <div className="mt-4 flex-1 space-y-6">
-              <PlayerComponent videoId={dataLesson?.youtube_id ?? ""} />
+              <PlayerComponent videoId={dataLesson?.youtube_id ?? ""} gdriveId={dataLesson?.gdrive_id ?? ""} />
               <div
                 className="ql-editor custom-list"
                 dangerouslySetInnerHTML={{

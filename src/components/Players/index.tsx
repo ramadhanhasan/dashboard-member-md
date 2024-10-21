@@ -32,14 +32,14 @@ import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 
 const PlayerComponent = ({
   videoId,
-  gdriveLink,
+  gdriveId,
 }: {
   videoId: string;
-  gdriveLink?: string;
+  gdriveId?: string;
 }) => {
   return (
     <>
-      {gdriveLink ? (
+      {gdriveId && gdriveId.trim() != "" ? (
         <div
           style={{
             position: "relative",
@@ -51,7 +51,7 @@ const PlayerComponent = ({
           }}
         >
           <iframe
-            src={gdriveLink}
+            src={`https://drive.google.com/file/d/${gdriveId}/preview`}
             style={{
               position: "absolute",
               top: 0,
