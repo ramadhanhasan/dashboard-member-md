@@ -55,6 +55,7 @@ export interface ILesson {
   name: string
   thumbnail_url?: string
   youtube_id: string
+  gdrive_id?: string
   description?: string
   position: number
   time: number
