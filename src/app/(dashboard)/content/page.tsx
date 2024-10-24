@@ -53,7 +53,7 @@ const ContentPage = () => {
           />
           <ChevronDown className="w-full mt-5" width={50} height={50} />
         </div>
-        <ContentTable
+        {/* <ContentTable
           searchKey="name"
           searchPlaceholder="nama konten"
           page={currentPageTool}
@@ -62,15 +62,15 @@ const ContentPage = () => {
           totalData={totalItemTool}
           data={dataTool}
           totalPage={totalPageTool}
-        />
-         {/* <ContentGallery
+        /> */}
+         <ContentGallery
           page={currentPageTool}
           limit={paginationParams.limit}
           totalData={totalItemTool}
           data={dataTool}
           totalPage={totalPageTool}
           loading={isLoadingTool}
-        /> */}
+        />
       </div>
     </DefaultLayout>
   );
