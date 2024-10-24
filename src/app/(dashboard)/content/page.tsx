@@ -17,7 +17,7 @@ const ContentPage = () => {
   const [filterType, setFilterType] = useState<string>("CONTENT");
   const { paginationParams, filterParams, sortParams } = useQueryParam(FILTER_KEYS);
   
-  if (paginationParams.limit === 10) paginationParams.limit = 10;
+  if (paginationParams.limit === 10) paginationParams.limit = 12;
   
   const {
     dataTool,
