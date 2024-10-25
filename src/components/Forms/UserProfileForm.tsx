@@ -117,11 +117,11 @@ export const UserProfileForm: React.FC<UserProfileFormProps> = ({
     };
 
     if (initialData.province_id && provinces.length > 0) {
-      initiateCities(initialData.province_id);
+      initiateCities(province);
     }
 
     if (initialData.city_id && provinces.length > 0) {
-      initiateSubdistricts(initialData.city_id);
+      initiateSubdistricts(city);
     }
   }, [provinces, cities, initialData.city_id, initialData.province_id]);
 

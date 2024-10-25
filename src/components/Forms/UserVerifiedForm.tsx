@@ -143,11 +143,11 @@ export const UserVerifiedForm: React.FC<UserVerifiedFormProps> = ({
     };
 
     if (initialData.province_id && provinces.length > 0) {
-      initiateCities(initialData.province_id);
+      initiateCities(province);
     }
 
     if (initialData.city_id && provinces.length > 0) {
-      initiateSubdistricts(initialData.city_id);
+      initiateSubdistricts(city);
     }
   }, [provinces, initialData.province_id, initialData.city_id, cities]);
 
