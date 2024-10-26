@@ -208,7 +208,7 @@ export function ContentGallery<TData, TValue>({
                         width={800}
                         height={600}
                         layout="responsive"
-                        className="mb-5 min-w-64 rounded rounded"
+                        className="mb-5 rounded rounded"
                       />
                       <Link
                         target="_blank"

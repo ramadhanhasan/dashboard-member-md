@@ -49,7 +49,7 @@ const Profile = () => {
 
   return (
     <>
-      {!isLoaded ? (
+      {!isLoaded && dataProvinces.length === 0 ? (
         <Loader />
       ) : (
         <DefaultLayout>
