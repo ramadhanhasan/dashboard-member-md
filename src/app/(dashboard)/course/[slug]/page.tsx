@@ -19,6 +19,7 @@ import useEnrollCourseQuery from "./_query/useEnrollCourseQuery";
 import useGetAllHistoryQuery from "./_query/useGetAllHistoryQuery";
 import Image from "next/image";
 import { detailPage } from "../_constants";
+import Loader from "../../../../components/common/Loader";
 
 const CoursePage = ({ params }: { params: { slug: string } }) => {
   const router = useRouter();
@@ -26,8 +27,11 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
     params.slug,
   );
 
-  const { dataHistoryLesson } =
-    useGetAllHistoryQuery({ limit: 1, filterParams : { course_slug: params.slug }, sortParams : {order: 'DESC', sort: 'updated_at'} });
+  const { dataHistoryLesson } = useGetAllHistoryQuery({
+    limit: 1,
+    filterParams: { course_slug: params.slug },
+    sortParams: { order: "DESC", sort: "updated_at" },
+  });
 
   function totalLesson(course: ICourse | null) {
     let total: number = 0;
@@ -49,9 +53,9 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
 
   const enrollCourseMutation = useEnrollCourseQuery(() => {
     router.refresh();
-      router.push(
-        `${params.slug}/${data?.chapters?.length ? data?.chapters[0].slug : ""}/${data?.chapters?.length && data?.chapters[0].lessons ? data?.chapters[0].lessons[0].slug : ""}`,
-      );
+    router.push(
+      `${params.slug}/${data?.chapters?.length ? data?.chapters[0].slug : ""}/${data?.chapters?.length && data?.chapters[0].lessons ? data?.chapters[0].lessons[0].slug : ""}`,
+    );
   });
 
   const handleClick = () => {
@@ -59,7 +63,7 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
       if (dataHistoryLesson?.length === 0) {
         enrollCourseMutation.mutate({
           slug: params.slug,
-        }); 
+        });
       } else {
         router.refresh();
         router.push(
@@ -79,121 +83,129 @@ const CoursePage = ({ params }: { params: { slug: string } }) => {
   };
 
   return (
-    <DefaultLayout>
-      <div className="mx-auto max-w-7xl">
-        <Breadcrumbs items={breadcrumbItems} />
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <DefaultLayout>
+          <div className="mx-auto max-w-7xl">
+            <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
-          {/* Course Details Section */}
-          <div className="mt-4 flex-1 space-y-6">
-            <div
-              className="ql-editor custom-list"
-              dangerouslySetInnerHTML={{ __html: data?.description ?? "" }}
-            ></div>
-            <h2 className="mb-6 text-xl font-semibold">Isi Materi</h2>
-            <Accordion type="multiple" className="w-full">
-              {data?.chapters?.map((chapter, index) => (
-                <AccordionItem key={index}
-                  value={chapter?.slug ?? ""}
-                  className="mb-4 rounded-lg bg-slate-200 pb-2"
-                >
-                  <AccordionTrigger className="text-gray-900 px-4 py-2 font-semibold">
-                    <p className="text-justify font-medium">
-                      {chapter.name} -{" "}
-                      <span className="font-small text-gray-500">
-                        {chapter.lessons?.length} lessons
-                      </span>
-                    </p>
-                  </AccordionTrigger>
-                  {chapter.lessons && (
-                    <AccordionContent className="px-4 py-2">
-                      <ul className="text-gray-700 mt-2">
-                        {chapter.lessons.map((lesson, subIndex) => (
-                          <li
-                            key={subIndex}
-                            className="border-gray-200 rounded-lg border bg-white p-4 shadow-md"
-                          >
-                            <Link
-                              href={`/course/${data.slug}/${chapter.slug}/${lesson.slug}`}
-                              className="flex items-center justify-between"
-                            >
-                              <LockOpen className="h-6 w-6 text-green-500" />
-                              {lesson?.lesson_history && lesson.lesson_history.length > 0 &&
-                              lesson.lesson_history[0].is_completed ? (
-                                <>
-                                  <span className="text-gray-800 flex-grow px-4 line-through	">
-                                    {lesson.name}
-                                  </span>
+            <div className="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
+              {/* Course Details Section */}
+              <div className="mt-4 flex-1 space-y-6">
+                <div
+                  className="ql-editor custom-list"
+                  dangerouslySetInnerHTML={{ __html: data?.description ?? "" }}
+                ></div>
+                <h2 className="mb-6 text-xl font-semibold">Isi Materi</h2>
+                <Accordion type="multiple" className="w-full">
+                  {data?.chapters?.map((chapter, index) => (
+                    <AccordionItem
+                      key={index}
+                      value={chapter?.slug ?? ""}
+                      className="mb-4 rounded-lg bg-slate-200 pb-2"
+                    >
+                      <AccordionTrigger className="text-gray-900 px-4 py-2 font-semibold">
+                        <p className="text-justify font-medium">
+                          {chapter.name} -{" "}
+                          <span className="font-small text-gray-500">
+                            {chapter.lessons?.length} lessons
+                          </span>
+                        </p>
+                      </AccordionTrigger>
+                      {chapter.lessons && (
+                        <AccordionContent className="px-4 py-2">
+                          <ul className="text-gray-700 mt-2">
+                            {chapter.lessons.map((lesson, subIndex) => (
+                              <li
+                                key={subIndex}
+                                className="border-gray-200 rounded-lg border bg-white p-4 shadow-md"
+                              >
+                                <Link
+                                  href={`/course/${data.slug}/${chapter.slug}/${lesson.slug}`}
+                                  className="flex items-center justify-between"
+                                >
+                                  <LockOpen className="h-6 w-6 text-green-500" />
+                                  {lesson?.lesson_history &&
+                                  lesson.lesson_history.length > 0 &&
+                                  lesson.lesson_history[0].is_completed ? (
+                                    <>
+                                      <span className="text-gray-800 flex-grow px-4 line-through	">
+                                        {lesson.name}
+                                      </span>
 
-                                  <CircleCheck className="h-6 w-6 text-green-400" />
-                                </>
-                              ) : (
-                                <>
-                                  <span className="text-gray-800 flex-grow px-4 ">
-                                    {lesson.name}
-                                  </span>
-                                  <Circle className="text-gray-400 h-6 w-6" />
-                                </>
-                              )}
-                            </Link>
-                          </li>
-                        ))}
+                                      <CircleCheck className="h-6 w-6 text-green-400" />
+                                    </>
+                                  ) : (
+                                    <>
+                                      <span className="text-gray-800 flex-grow px-4 ">
+                                        {lesson.name}
+                                      </span>
+                                      <Circle className="text-gray-400 h-6 w-6" />
+                                    </>
+                                  )}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      )}
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </div>
+
+              {/* Course Purchase Sidebar */}
+              <div className="top-8 flex-shrink-0 lg:w-1/3">
+                <div className="sticky top-10">
+                  <Card className="bg-white shadow-lg">
+                    <CardHeader className="p-0">
+                      <Image
+                        width={400}
+                        height={200}
+                        className="mb-4 w-full rounded-md"
+                        src={data?.image_introduce_url ?? ""}
+                        alt="Course Image"
+                      />
+                    </CardHeader>
+                    <CardContent>
+                      <Button
+                        onClick={handleClick}
+                        className="mb-4 w-full text-white"
+                      >
+                        {dataHistoryLesson?.length > 0
+                          ? "Melanjutkan materi"
+                          : "Mulai materi sekarang"}
+                      </Button>
+                      {dataHistoryLesson?.length > 0 && (
+                        <Button
+                          variant={"outline"}
+                          onClick={handleClickFromBeginning}
+                          className="mb-4 w-full"
+                        >
+                          Mulai materi dari awal
+                        </Button>
+                      )}
+                      <ul className="text-gray-600 mt-4 space-y-2 text-sm">
+                        <li>✓ {data?.chapters?.length ?? 0} Chapter</li>
+                        <li>✓ {totalLesson(data)} video materi</li>
+                        <li>
+                          ✓ {Math.floor((data?.time || 0) / 60)} jam,{" "}
+                          {(data?.time || 0) % 60} menit video materi
+                        </li>
+                        <li>✓ Full akses, bisa ditonton ulang 24 jam</li>
+                        {/* <li>✓ Bisa diakses dimana saja</li> */}
                       </ul>
-                    </AccordionContent>
-                  )}
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-
-          {/* Course Purchase Sidebar */}
-          <div className="top-8 flex-shrink-0 lg:w-1/3">
-            <div className="sticky top-10">
-              <Card className="bg-white shadow-lg">
-                <CardHeader className="p-0">
-                  <Image
-                    width={400} height={200}
-                    className="mb-4 w-full rounded-md"
-                    src={
-                      data?.image_introduce_url ??
-                      ""
-                    }
-                    alt="Course Image"
-                  />
-                </CardHeader>
-                <CardContent>
-                  <Button
-                    onClick={handleClick}
-                    className="mb-4 w-full text-white"
-                  >
-                    {dataHistoryLesson?.length > 0
-                      ? "Melanjutkan materi"
-                      : "Mulai materi sekarang"}
-                  </Button>
-                    {dataHistoryLesson?.length > 0 && (
-                      <Button variant={"outline"}
-                      onClick={handleClickFromBeginning}
-                      className="mb-4 w-full"
-                      >Mulai materi dari awal</Button>
-                    )
-                    }
-                  <ul className="text-gray-600 mt-4 space-y-2 text-sm">
-                    <li>✓ {data?.chapters?.length ?? 0} Chapter</li>
-                    <li>✓ {totalLesson(data)} video materi</li>
-                    <li>
-                      ✓ {Math.floor((data?.time || 0) / 60)} jam,{" "}
-                      {(data?.time || 0) % 60} menit video materi
-                    </li>
-                    <li>✓ Full akses, bisa ditonton ulang 24 jam</li>
-                    {/* <li>✓ Bisa diakses dimana saja</li> */}
-                  </ul>
-                </CardContent>
-              </Card>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </DefaultLayout>
+        </DefaultLayout>
+      )}
+    </>
   );
 };
 

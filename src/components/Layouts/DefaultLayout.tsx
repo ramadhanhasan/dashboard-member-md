@@ -13,7 +13,7 @@ export default function DefaultLayout({
   return (
     <>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
-      <div className="flex flex-col h-screen">
+      {/* <div className="flex flex-col h-screen"> */}
         {/* <!-- ===== Sidebar Start ===== --> */}
         <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         {/* <!-- ===== Sidebar End ===== --> */}
@@ -36,7 +36,7 @@ export default function DefaultLayout({
           {/* <!-- ===== Main Content End ===== --> */}
         </div>
         {/* <!-- ===== Content Area End ===== --> */}
-      </div>
+      {/* </div> */}
       {/* <!-- ===== Page Wrapper End ===== --> */}
     </>
   );

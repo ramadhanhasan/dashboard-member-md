@@ -1,0 +1,33 @@
+name: Node.js CD Development
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the development branch
+  push:
+    branches: [development]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DEV }}
+          username: ${{ secrets.USERNAME_DEV }}
+          key: ${{ secrets.PRIVATE_KEY_ACTIONS_DEV }}
+          port: 22
+          script: |
+            cd /var/www/dashboard-member-md
+            git stash
+            git checkout development
+            git pull
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            npm install --legacy-peer-deps
+            npm run build
+            pm2 restart dashboard-member-md
