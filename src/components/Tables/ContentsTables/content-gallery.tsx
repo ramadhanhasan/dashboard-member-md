@@ -197,7 +197,7 @@ export function ContentGallery<TData, TValue>({
                       className="rounded"
                     ></Image>
                   </DialogTrigger>
-                  <DialogContent className="w-full">
+                  <DialogContent className="w-full max-h-screen overflow-auto">
                     <DialogHeader>
                       <DialogTitle>{`${tool.name} (${tool.format})`}</DialogTitle>
                     </DialogHeader>
