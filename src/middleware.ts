@@ -47,8 +47,7 @@ export async function middleware(request: NextRequest) {
     const expire = new Date();
     expire.setDate(expire.getDate() + 180);
     const domain = '.'+process.env.NEXT_PUBLIC_DOMAIN;
-    console.log(domain);
-
+    
     res.cookies.set(FUNNEL_STORAGE_KEY, data.data.name, {
       domain,
       path: '/',       // Path for which the cookie is valid
