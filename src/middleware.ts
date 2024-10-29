@@ -45,10 +45,12 @@ export async function middleware(request: NextRequest) {
     ); // External website URL
 
     const expire = new Date();
-    expire.setDate(expire.getDate() + 90);
+    expire.setDate(expire.getDate() + 180);
+    const domain = '.'+process.env.NEXT_PUBLIC_DOMAIN;
+    console.log(domain);
 
     res.cookies.set(FUNNEL_STORAGE_KEY, data.data.name, {
-      domain: '.mahirdigital.id',
+      domain,
       path: '/',       // Path for which the cookie is valid
       sameSite: 'none',  // Control cross-site request behavior
       secure: true,
@@ -58,7 +60,7 @@ export async function middleware(request: NextRequest) {
 
     if (aff && aff != "") {
       res.cookies.set(AFF_STORAGE_KEY, aff, {
-        domain: '.mahirdigital.id',
+        domain,
         path: '/',       // Path for which the cookie is valid
         sameSite: 'none',  // Control cross-site request behavior
         secure: true,
