@@ -21,13 +21,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../components/ui/select";
+import { Separator } from "../../../components/ui/separator";
 
 const CoursePage = () => {
   let { paginationParams, filterParams, sortParams } = useQueryParam();
-  const [filterPeriod, setFilterPeriod] = useState<string>("is_in_feature");
+  // const [filterPeriod, setFilterPeriod] = useState<string>("is_in_feature");
   paginationParams.limit = 100;
+  
+  filterParams = { ...filterParams, is_finished: "true" };
 
-  filterParams = { ...filterParams, [filterPeriod]: "true" };
+  const dataEventPassed = useGetAllQuery({
+    ...paginationParams,
+    filterParams,
+    ...sortParams,
+  });
+
+  filterParams = { ...filterParams, is_in_feature: "true" };
+  delete filterParams.is_finished;
 
   const { dataEvent, refetechDataEvent, isLoadingEvent } = useGetAllQuery({
     ...paginationParams,
@@ -35,14 +45,15 @@ const CoursePage = () => {
     ...sortParams,
   });
 
+
   const breadcrumbItems = [
     { title: detailPage.baseTitle, link: detailPage.basePath },
     { title: detailPage.title, link: detailPage.basePath + detailPage.path },
   ];
 
-  const handleTabChange = (value: string) => {
-    setFilterPeriod(value);
-  };
+  // const handleTabChange = (value: string) => {
+  //   setFilterPeriod(value);
+  // };
 
   const handleImplementationChange = (value: string) => {
     if (value === "all") {
@@ -57,7 +68,7 @@ const CoursePage = () => {
     <DefaultLayout>
       <div className="mx-auto max-w-7xl">
         <Breadcrumbs items={breadcrumbItems} />
-        <Tabs
+        {/* <Tabs
           onValueChange={handleTabChange}
           defaultValue="is_in_feature"
           className="w-full"
@@ -69,10 +80,11 @@ const CoursePage = () => {
             <TabsTrigger className="text-sm lg:text-lg" value="is_finished">
               Event Yang Sudah Selesai
             </TabsTrigger>
-          </TabsList>
-          <TabsContent value="is_in_feature">
-            <div className="m-auto mb-10 mt-5 max-w-sm">
-              <Select
+          </TabsList> */}
+          {/* <TabsContent value="is_in_feature"> */}
+            <div className="m-auto mb-10 mt-5 text-center">
+              <h1 className="text-2xl font-semibold">Event Akan Datang</h1>
+              {/* <Select
                 onValueChange={handleImplementationChange}
                 defaultValue={""}
               >
@@ -92,7 +104,7 @@ const CoursePage = () => {
                   <SelectItem value="offline">Offline</SelectItem>
                   <SelectItem value="online">Online</SelectItem>
                 </SelectContent>
-              </Select>
+              </Select> */}
             </div>
             {dataEvent.length === 0 && !isLoadingEvent && (
               <div className="flex w-full flex-wrap items-center justify-center gap-10">
@@ -118,21 +130,24 @@ const CoursePage = () => {
                   </svg>
                 </div>
                 <div>
-                  <h2 className="pb-1 text-center text-base font-semibold leading-relaxed text-black">
-                    Tidak menemukan event...
+                  <h2 className="pb-1 text-center text-base leading-relaxed text-black">
+                    Saat ini belum ada event...
                   </h2>
-                  <p className="pb-4 text-center text-sm font-normal leading-snug text-black">
+                  {/* <p className="pb-4 text-center text-sm font-normal leading-snug text-black">
                     Cobalah untuk menghapus filter Kamu
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>
             )}
             <Event events={dataEvent} />
-          </TabsContent>
-          <TabsContent value="is_finished">
-            <div className="m-auto mb-10 mt-5 max-w-sm">
-              <Select
+          {/* </TabsContent> */}
+          {/* <TabsContent value="is_finished"> */}
+            <Separator className="mt-10" />
+            <div className="m-auto mb-10 mt-5 text-center">
+              <h1 className="text-2xl font-semibold">Event Yang Sudah Selesai</h1>
+
+              {/* <Select
                 onValueChange={handleImplementationChange}
                 defaultValue={""}
               >
@@ -152,9 +167,9 @@ const CoursePage = () => {
                   <SelectItem value="offline">Offline</SelectItem>
                   <SelectItem value="online">Online</SelectItem>
                 </SelectContent>
-              </Select>
+              </Select> */}
             </div>
-            {dataEvent.length === 0 && !isLoadingEvent && (
+            {dataEventPassed.dataEvent.length === 0 && !dataEventPassed.isLoadingEvent && (
               <div className="flex w-full flex-wrap items-center justify-center gap-10">
               <div className="grid w-60 gap-4">
                 <div className="bg-gray-50 mx-auto inline-flex h-20 w-20 items-center justify-center rounded-full shadow-sm">
@@ -178,19 +193,19 @@ const CoursePage = () => {
                   </svg>
                 </div>
                 <div>
-                  <h2 className="pb-1 text-center text-base font-semibold leading-relaxed text-black">
+                  <h2 className="pb-1 text-center text-base leading-relaxed text-black">
                     Tidak menemukan event...
                   </h2>
-                  <p className="pb-4 text-center text-sm font-normal leading-snug text-black">
+                  {/* <p className="pb-4 text-center text-sm font-normal leading-snug text-black">
                     Cobalah untuk menghapus filter Kamu
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>
             )}
-            <Event events={dataEvent} />
-          </TabsContent>
-        </Tabs>
+            <Event events={dataEventPassed.dataEvent} />
+          {/* </TabsContent> */}
+        {/* </Tabs> */}
       </div>
     </DefaultLayout>
   );
