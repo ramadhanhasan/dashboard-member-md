@@ -158,7 +158,7 @@ export function ReferralLinksTable<TData, TValue>({
         }}
         className="w-full md:max-w-sm"
       />
-      <ScrollArea className="h-[calc(80vh-220px)] mt-5 rounded-md border">
+      <ScrollArea className="mt-5 rounded-md border">
         <Table className="relative">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

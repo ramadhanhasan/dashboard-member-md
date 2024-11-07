@@ -146,7 +146,7 @@ export function ReferralLinksRelationTable<TData, TValue>({
   }, [searchValue]);
 
   return (
-    <ScrollArea className="mt-5 h-[calc(80vh-220px)] rounded-md border bg-white">
+    <ScrollArea className="mt-5 rounded-md border bg-white">
       <Table className="relative">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
