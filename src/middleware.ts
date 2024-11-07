@@ -45,22 +45,25 @@ export async function middleware(request: NextRequest) {
     ); // External website URL
 
     const expire = new Date();
-    expire.setDate(expire.getDate() + 90);
-
+    expire.setDate(expire.getDate() + 180);
+    const domain = '.'+process.env.NEXT_PUBLIC_DOMAIN;
+    
     res.cookies.set(FUNNEL_STORAGE_KEY, data.data.name, {
-      // httpOnly: true,  // Secure, not accessible via JavaScript
-      // path: '/',       // Path for which the cookie is valid
-      // sameSite: 'strict',  // Control cross-site request behavior
+      domain,
+      path: '/',       // Path for which the cookie is valid
+      sameSite: 'none',  // Control cross-site request behavior
+      secure: true,
       maxAge: 60 * 60 * 24 * 180, // Optional: Set max-age for cookie (in seconds) - 180 day (6 month)
       expires: expire, // Optional: expires in 1 day
     });
 
     if (aff && aff != "") {
       res.cookies.set(AFF_STORAGE_KEY, aff, {
-        // httpOnly: true,  // Secure, not accessible via JavaScript
-        // path: '/',       // Path for which the cookie is valid
-        // sameSite: 'strict',  // Control cross-site request behavior
-        maxAge: 60 * 60 * 24 * 90, // Optional: Set max-age for cookie (in seconds)
+        domain,
+        path: '/',       // Path for which the cookie is valid
+        sameSite: 'none',  // Control cross-site request behavior
+        secure: true,
+        maxAge: 60 * 60 * 24 * 180, // Optional: Set max-age for cookie (in seconds)
         expires: expire, // Optional: expires in 1 day
       });
     }
