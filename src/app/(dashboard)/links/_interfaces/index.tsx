@@ -10,6 +10,7 @@ export interface IReferralLink {
   url: string
   utm_pixel?: string
   is_active: boolean
+  is_pixel_meta: boolean
   code: number
   is_whatsapp_link: boolean
   product?: IProduct

@@ -59,8 +59,8 @@ export async function middleware(request: NextRequest) {
       expires: expire, // Optional: expires in 1 day
     });
 
-    if (pixel && pixel.trim() != '') {
-      res.cookies.set(UTM_PIXEL_META, pixel, {
+    // if (pixel && pixel.trim() != '') {
+      res.cookies.set(UTM_PIXEL_META, pixel ?? '', {
         domain,
         path: '/',       // Path for which the cookie is valid
         sameSite: 'none',  // Control cross-site request behavior
@@ -68,7 +68,7 @@ export async function middleware(request: NextRequest) {
         maxAge: 60 * 60 * 24 * 180, // Optional: Set max-age for cookie (in seconds) - 180 day (6 month)
         expires: expire, // Optional: expires in 1 day
       });
-    }
+    // }
 
     if (aff && aff != "") {
       res.cookies.set(AFF_STORAGE_KEY, aff, {
