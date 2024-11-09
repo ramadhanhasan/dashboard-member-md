@@ -54,7 +54,7 @@ const Course = ({ courses }: { courses: ICourse[] }) => {
               className="ql-editor truncate-3 text-gray-700 text-base"
               dangerouslySetInnerHTML={{ __html: course.description ?? "" }}
             /> */}
-            <div className="text-gray-500 mt-4 flex items-center text-sm">
+            {/* <div className="text-gray-500 mt-4 flex items-center text-sm">
               <div className="flex items-center">
                 <BookCheck />
                 {course.chapters?.length ?? 0} Chapter
@@ -63,7 +63,7 @@ const Course = ({ courses }: { courses: ICourse[] }) => {
                 <Presentation />
                 { totalLesson(course) } Video Materi
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="px-6 py-4 rounded-full">
             <Button className="w-full text-white">Buka Materi</Button>
