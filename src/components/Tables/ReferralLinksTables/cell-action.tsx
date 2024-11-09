@@ -60,14 +60,12 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   };
 
   const { paginationParams, filterParams, sortParams } =
-  useQueryParam(FILTER_KEYS);
+    useQueryParam(FILTER_KEYS);
 
-  const {
-    refetechDataReferralLinks
-  } = useGetAllQuery({
+  const { refetechDataReferralLinks } = useGetAllQuery({
     ...paginationParams,
     filterParams,
-    ...sortParams
+    ...sortParams,
   });
 
   const handleChildSubmit = () => {
@@ -80,12 +78,20 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       <ReferralLinkAttributeForm
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
-        initialData={data.referral_link_attributes?.length ? data.referral_link_attributes[0] : null}
-        id={data.referral_link_attributes?.length ? data.referral_link_attributes[0].id : null}
+        initialData={
+          data.referral_link_attributes?.length
+            ? data.referral_link_attributes[0]
+            : null
+        }
+        id={
+          data.referral_link_attributes?.length
+            ? data.referral_link_attributes[0].id
+            : null
+        }
         setRefetch={handleChildSubmit}
         referralLinkId={data.id ?? ""}
       />
-      <div className="text-center max-w-48 flex flex-col rounded-lg shadow-sm">
+      <div className="flex max-w-48 flex-col rounded-lg text-center shadow-sm">
         <Button
           onClick={handleCopy}
           className={`transition-all ${
@@ -108,16 +114,21 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <SquareArrowOutUpRight width={15} className="ml-2" />
           </Button>
         </Link>
-        <Button
-          variant="outline"
-          className="mb-1 w-48"
-          onClick={(event) => {
-            setIsDialogOpen(true);
-          }}
-        >
-          {data.referral_link_attributes?.length && data.referral_link_attributes[0].utm_pixel?.trim() != "" ? "Ubah" : "Tambah"} Pixel Meta{" "}
-          <FilePenLine width={15} className="ml-2" />
-        </Button>
+        {data.is_pixel_meta && (
+          <Button
+            variant="outline"
+            className="mb-1 w-48"
+            onClick={(event) => {
+              setIsDialogOpen(true);
+            }}
+          >
+            {data.referral_link_attributes?.length &&
+            data.referral_link_attributes[0].utm_pixel?.trim() != ""
+              ? "Ubah"
+              : "Tambah"}{" "}
+            Pixel Meta <FilePenLine width={15} className="ml-2" />
+          </Button>
+        )}
       </div>
     </>
   );

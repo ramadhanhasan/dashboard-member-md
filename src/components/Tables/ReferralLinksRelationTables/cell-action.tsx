@@ -109,16 +109,18 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <SquareArrowOutUpRight width={15} className="ml-2" />
           </Button>
         </Link>
-        <Button
+        {data.is_pixel_meta && (
+          <Button
           variant="outline"
           className="mb-1 w-48"
           onClick={(event) => {
             setIsDialogOpen(true);
           }}
-        >
-          {data.referral_link_attributes?.length && data.referral_link_attributes[0].utm_pixel?.trim() != "" ? "Ubah" : "Tambah"} Pixel Meta{" "}
-          <FilePenLine width={15} className="ml-2" />
-        </Button>
+          >
+            {data.referral_link_attributes?.length && data.referral_link_attributes[0].utm_pixel?.trim() != "" ? "Ubah" : "Tambah"} Pixel Meta{" "}
+            <FilePenLine width={15} className="ml-2" />
+          </Button>
+        )}
       </div>
     </>
   );
