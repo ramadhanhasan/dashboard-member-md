@@ -60,6 +60,7 @@ const fetchConstructor = async <ResponseT, InputT = unknown>({
         Authorization: `Bearer ${token?.accessToken}`,
       }),
       'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',
+      Origin: process.env.NEXT_PUBLIC_URL,
     },
   }
 
