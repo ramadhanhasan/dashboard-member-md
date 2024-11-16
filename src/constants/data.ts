@@ -1,6 +1,7 @@
 export const USER_LOCAL_STORAGE_KEY = 'sidsecuretoken';
 export const AFF_STORAGE_KEY = 'affcode';
 export const FUNNEL_STORAGE_KEY = 'funnelcode';
+export const UTM_PIXEL_META = 'utm_pixel';
 
 export enum RouteENUM {
   CATEGORY = 'v1/categories/user/',
