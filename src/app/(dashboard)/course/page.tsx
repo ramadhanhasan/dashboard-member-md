@@ -32,10 +32,10 @@ const CoursePage = () => {
 
   return (
     <>
-      {isLoadingCourse ? (
-        <Loader />
-      ) : (
-        <DefaultLayout>
+      <DefaultLayout>
+        {isLoadingCourse ? (
+          <Loader />
+        ) : (
           <div className="mx-auto max-w-7xl">
             <Breadcrumbs items={breadcrumbItems} />
             <div className="mb-5 p-4 text-center shadow-default dark:border-strokedark dark:bg-boxdark md:p-6 xl:p-9">
@@ -53,8 +53,8 @@ const CoursePage = () => {
             </div>
             <Course courses={dataCourse} />
           </div>
-        </DefaultLayout>
-      )}
+        )}
+      </DefaultLayout>
     </>
   );
 };

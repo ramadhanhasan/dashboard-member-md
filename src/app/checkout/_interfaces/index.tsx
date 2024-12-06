@@ -27,6 +27,10 @@
     created_at?: Date
     updated_at?: Date
     status?: string
+    snap?: {
+      token: string
+      redirect_url: string
+    }
   }
   
   export interface OrderDetail {

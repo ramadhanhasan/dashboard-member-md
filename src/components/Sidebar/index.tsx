@@ -7,7 +7,7 @@ import Image from "next/image";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { BookOpenCheck, CalendarSearch, ExternalLink, FileBox, Images, Link2, PackageOpen, PartyPopper, ScrollText, UsersRound, Wallet, Wrench } from "lucide-react";
+import { BookOpenCheck, CalendarSearch, ExternalLink, FileBox, Images, Link2, PackageOpen, PartyPopper, ScrollText, ShoppingBag, UsersRound, Wallet, Wrench } from "lucide-react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -108,6 +108,16 @@ const menuGroups = [
         ),
         label: "Event & Kopdar",
         route: "/event",
+      },
+      {
+        icon: (
+          <ShoppingBag
+            width="18"
+            height="18"
+          />
+        ),
+        label: "Pesanan Saya",
+        route: "/order",
       }
     ],
   },

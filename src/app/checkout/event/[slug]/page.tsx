@@ -10,65 +10,79 @@ import { getCookie } from "cookies-next";
 import {
   AFF_STORAGE_KEY,
   FUNNEL_STORAGE_KEY,
+  ORDER_SUB_TYPE,
 } from "../../../../constants/data";
 import { AuthContext } from "../../../../global_context/Auth";
 import { useContext, useEffect, useState } from "react";
 import DefaultLayout from "../../../../components/Layouts/DefaultLayout";
 import useGetDetailQuery from "../../../(dashboard)/profile/_query/useGetDetailQuery";
+import useGetDetailEventQuery from "../../_query/useGetDetailEventQuery";
+import { CheckoutEventForm } from "../../../../components/Forms/CheckoutEventForm";
 import Loader from "../../../../components/common/Loader";
 
-const MembershipCheckoutPage = ({ params }: { params: { slug: string } }) => {
+const EventCheckoutPage = ({ params }: { params: { slug: string } }) => {
   const { isAuth } = useContext(AuthContext);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
-  const { data, isLoading, isError } = useGetDetailMembershipQuery(params.slug);
+  const { data, isLoading, isError } = useGetDetailEventQuery(params.slug);
   const total_quantity = 1;
-  const total_discount_price = (data?.price || 0) - (data?.net_price || 0);
-  const total_net_price = (data?.net_price ?? 0) * total_quantity;
-  const total_price = (data?.price ?? 0) * total_quantity;
+  const [totalDiscountPrice, setTotalDiscountPrice] = useState<number>((data?.price || 0) - (data?.net_price || 0) * total_quantity);
+  const [totalNetPrice, setTotalNetPrice] = useState<number>((data?.net_price ?? 0) * total_quantity);
+  const [totalPrice, setTotalPrice] = useState<number>((data?.price ?? 0) * total_quantity);
   const order_details: OrderDetail[] = [
     {
       item_name: data?.name || "",
       other_id: data?.id,
-      membership_id: data?.id,
-      type: "MEMBERSHIP",
-      discount_price: total_discount_price,
+      event_id: data?.id,
+      type: ORDER_SUB_TYPE.EVENT,
+      discount_price: totalDiscountPrice,
       price: data?.price ?? 0,
       net_price: data?.net_price ?? 0,
-      total_price: total_price,
-      total_discount_price: total_discount_price,
-      total_net_price: total_net_price,
+      total_price: totalPrice,
+      total_discount_price: totalDiscountPrice,
+      total_net_price: totalNetPrice,
       quantity: 1,
       weight: 0,
       base_price: 0,
+      image_url: data?.image_url
     },
   ];
-  const referral_from = getCookie(AFF_STORAGE_KEY);
-  const funnel = getCookie(FUNNEL_STORAGE_KEY);
-
+  
   const user = useGetDetailQuery();
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (isAuth) await user.refetchData()
-        setIsLoaded(true);
+        if (isAuth && data) {
+          await user.refetchData();
+        } else if (data) {
+          data.net_price = data?.consumer_net_price;
+          data.price = data?.consumer_price;
+          await setTotalDiscountPrice((data?.price || 0) - (data?.net_price || 0));
+          await setTotalNetPrice((data?.net_price ?? 0) * total_quantity);
+          await setTotalPrice((data?.price ?? 0) * total_quantity);
+          
+        }
+
+        await setIsLoaded(true);
       } catch (error: any) {
         setIsLoaded(true);
       }
     };
 
-    fetchData().catch((error) => {
-      setIsLoaded(true);
-    });
-  }, [isAuth, user.refetchData]);
+    if (data) {
+      fetchData().catch((error) => {
+        setIsLoaded(true);
+      });
+    }
+  }, [isAuth, user.refetchData, data, totalDiscountPrice, totalNetPrice, totalPrice]);
 
   return (
     <>
       {!isLoaded && (
         <Loader />
-      )} 
+      )}
       {isAuth && isLoaded && (
         <DefaultLayout>
           {/* <div className="mx-auto max-w-screen-lg p-4 md:p-6 2xl:p-10"> */}
@@ -79,16 +93,16 @@ const MembershipCheckoutPage = ({ params }: { params: { slug: string } }) => {
                     {/* Header Section */}
                     <div className="mb-4 mt-4 text-center">
                       <h1 className="text-gray-800 text-3xl font-bold">
-                        Checkout Membership
+                        Checkout Event
                       </h1>
                     </div>
                     {!isLoading && !isError && (
-                      <CheckoutMembershipForm
-                        membership={data}
+                      <CheckoutEventForm
+                        event={data}
                         orderDetails={order_details}
-                        total_discount_price={total_discount_price}
-                        total_net_price={total_net_price}
-                        total_price={total_price}
+                        total_discount_price={totalDiscountPrice}
+                        total_net_price={totalNetPrice}
+                        total_price={totalPrice}
                         total_quantity={total_quantity}
                         referral_from={undefined}
                         funnel={undefined}
@@ -131,22 +145,22 @@ const MembershipCheckoutPage = ({ params }: { params: { slug: string } }) => {
                   </div>
                   <div className="mb-8 text-center">
                     <h1 className="text-gray-800 text-3xl font-bold">
-                      Checkout Membership
+                      Checkout Event
                     </h1>
                     <p className="text-gray-600 mt-2">
-                      Selesaikan pembelian produk dengan mudah!
+                      Selesaikan pendaftaran event dengan mudah!
                     </p>
                   </div>
                   {!isLoading && !isError && (
-                    <CheckoutMembershipForm
-                      membership={data}
+                    <CheckoutEventForm
+                      event={data}
                       orderDetails={order_details}
-                      total_discount_price={total_discount_price}
-                      total_net_price={total_net_price}
-                      total_price={total_price}
+                      total_discount_price={totalDiscountPrice}
+                      total_net_price={totalNetPrice}
+                      total_price={totalPrice}
                       total_quantity={total_quantity}
-                      referral_from={referral_from}
-                      funnel={funnel}
+                      referral_from={undefined}
+                      funnel={undefined}
                       user={null}
                     />
                   )}
@@ -160,4 +174,4 @@ const MembershipCheckoutPage = ({ params }: { params: { slug: string } }) => {
   );
 };
 
-export default MembershipCheckoutPage;
+export default EventCheckoutPage;

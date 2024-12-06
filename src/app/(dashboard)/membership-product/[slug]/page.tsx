@@ -13,8 +13,10 @@ import { ReferralLinksRelationTable } from "../../../../components/Tables/Referr
 import { columns } from "../../../../components/Tables/ReferralLinksRelationTables/columns";
 import Image from "next/image";
 import { detailPage } from "../_constants";
+import { Button } from "../../../../components/ui/button";
+import Loader from "../../../../components/common/Loader";
 
-const EventPage = ({ params }: { params: { slug: string } }) => {
+const MembershipDetailPage = ({ params }: { params: { slug: string } }) => {
   const { userProfile, isAuth } = useContext(AuthContext);
   const router = useRouter();
   const { data, isLoading, isError, refetchData } =
@@ -36,93 +38,108 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
 
   return (
     <DefaultLayout>
-      <div className="mx-auto max-w-7xl">
-        <Breadcrumbs items={breadcrumbItems} />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="mx-auto max-w-7xl">
+          <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
-          {/* Course Details Section */}
-          <div className="mt-4 flex-1 space-y-6">
-            <div
-              className="ql-editor custom-list"
-              dangerouslySetInnerHTML={{ __html: data?.description ?? "" }}
-            ></div>
-          </div>
-          <div className="top-8 flex-shrink-0 lg:w-1/3">
-            <div className="sticky top-10">
-              <Card className="bg-white shadow-lg">
-                <CardHeader className="p-0">
-                  <Image
-                    width={400}
-                    height={200}
-                    className="mb-4 w-full rounded-md"
-                    src={data?.image_url ?? ""}
-                    alt="Event Image"
-                  />
-                </CardHeader>
-                <CardContent className="pb-5">
-                  <p className="truncate-2 mb-2 text-xl font-bold">
-                    {data?.name}
-                  </p>
-                  <div className="mb-4 mt-4 flex flex items-center">
-                    <div className="flex-1">
-                      <p>Harga Jual</p>
-                      <p>Komisi</p>
-                      <p>Profit</p>
-                    </div>
-                    <div className="flex-1 font-bold text-blue-700">
-                      <div className="flex">
-                        {data?.price != data?.net_price && (
-                          <div className="mr-2 text-sm text-red line-through">
-                            {formatPrice(data?.price || 0, "IDR", "id-ID")}
-                          </div>
-                        )}
-                        {formatPrice(data?.net_price || 0, "IDR", "id-ID")}
+          <div className="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
+            {/* Course Details Section */}
+            <div className="mt-4 flex-1 space-y-6">
+              <div
+                className="ql-editor custom-list"
+                dangerouslySetInnerHTML={{ __html: data?.description ?? "" }}
+              ></div>
+            </div>
+            <div className="top-8 flex-shrink-0 lg:w-1/3">
+              <div className="sticky top-10">
+                <Card className="bg-white shadow-lg">
+                  <CardHeader className="p-0">
+                    <Image
+                      width={400}
+                      height={200}
+                      className="mb-4 w-full rounded-md"
+                      src={data?.image_url ?? ""}
+                      alt="Event Image"
+                    />
+                  </CardHeader>
+                  <CardContent className="pb-5">
+                    <p className="truncate-2 mb-2 text-xl font-bold">
+                      {data?.name}
+                    </p>
+                    <div className="mb-4 mt-4 flex flex items-center">
+                      <div className="flex-1">
+                        <p>Harga Jual</p>
+                        <p>Komisi</p>
+                        <p>Profit</p>
                       </div>
-                      <p> {userProfile?.commission} % </p>
-                      <p>
-                        {formatPrice(
-                          ((data?.net_price || 0) *
-                            (userProfile?.commission || 0)) /
-                            100,
-                        )}
-                      </p>
+                      <div className="flex-1 font-bold text-blue-700">
+                        <div className="flex">
+                          {data?.price != data?.net_price && (
+                            <div className="mr-2 text-sm text-red line-through">
+                              {formatPrice(data?.price || 0, "IDR", "id-ID")}
+                            </div>
+                          )}
+                          {formatPrice(data?.net_price || 0, "IDR", "id-ID")}
+                        </div>
+                        <p> {userProfile?.commission} % </p>
+                        <p>
+                          {formatPrice(
+                            ((data?.net_price || 0) *
+                              (userProfile?.commission || 0)) /
+                              100,
+                          )}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-gray-500 mt-4 flex items-center text-sm">
-                    <div className="flex items-center rounded-lg bg-slate-200 px-2 py-1">
-                      <Link />` {data?.referral_links?.length ?? 0} link
-                      affiliasi`
+                    <div className="text-gray-500 mt-4 flex items-center text-sm">
+                      <div className="flex items-center rounded-lg bg-slate-200 px-2 py-1">
+                        <Link />` {data?.referral_links?.length ?? 0} link
+                        affiliasi`
+                      </div>
+                      <div className="ml-4 flex items-center rounded-lg bg-slate-200 px-2 py-1">
+                        <Timer />
+                        {data?.expired_time} hari aktif
+                      </div>
                     </div>
-                    <div className="ml-4 flex items-center rounded-lg bg-slate-200 px-2 py-1">
-                      <Timer />
-                      {data?.expired_time} hari aktif
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                    <Button
+                      className="mt-4 w-full text-white"
+                      onClick={() => {
+                        router.refresh();
+                        router.replace(`/checkout/membership/${data?.slug}`);
+                      }}
+                    >
+                      Checkout Membership
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
+          <h1 className="mt-5 text-lg font-bold">
+            AFFILIATE LINK {data?.name}
+          </h1>
+          <ReferralLinksRelationTable
+            searchKey="name"
+            page={1}
+            limit={10}
+            columns={columns}
+            totalData={data?.referral_links?.length || 0}
+            data={
+              data?.referral_links
+                ? data.referral_links.map((link) => {
+                    link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type?.toLowerCase()}${link.is_whatsapp_link ? "&whatsapp=" + phone : ""}`;
+                    return link;
+                  })
+                : []
+            }
+            totalPage={1}
+          />
         </div>
-        <h1 className="mt-5 text-lg font-bold">AFFILIATE LINK {data?.name}</h1>
-        <ReferralLinksRelationTable
-          searchKey="name"
-          page={1}
-          limit={10}
-          columns={columns}
-          totalData={data?.referral_links?.length || 0}
-          data={
-            data?.referral_links
-              ? data.referral_links.map((link) => {
-                  link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type?.toLowerCase()}${link.is_whatsapp_link ? '&whatsapp='+phone : ""}`;
-                  return link;
-                })
-              : []
-          }
-          totalPage={1}
-        />
-      </div>
+      )}
     </DefaultLayout>
   );
 };
 
-export default EventPage;
+export default MembershipDetailPage;

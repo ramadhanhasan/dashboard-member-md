@@ -15,6 +15,7 @@ import { Button } from "../../../../components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import { detailPage } from "../_constants";
+import Loader from "../../../../components/common/Loader";
 
 const EventPage = ({ params }: { params: { slug: string } }) => {
   const { userProfile, isAuth } = useContext(AuthContext);
@@ -39,7 +40,10 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
 
   return (
     <DefaultLayout>
-      <div className="mx-auto max-w-7xl">
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="mx-auto max-w-7xl">
         <Breadcrumbs items={breadcrumbItems} />
 
         <div className="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
@@ -177,6 +181,7 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
           </>
         )}
       </div>
+      )}
     </DefaultLayout>
   );
 };

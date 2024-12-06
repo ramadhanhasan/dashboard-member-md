@@ -31,7 +31,6 @@ function ResetPasswordPageComponent() {
     const fetchData = async () => {
       try {
         const user = await validateCode({ id, code });
-        console.log(user);
         setUser({ ...user, forgotten_code: code ? code : "" });
         setIsValid(true);
         setIsLoaded(true);

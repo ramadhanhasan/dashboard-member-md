@@ -32,10 +32,13 @@ const useCreateOrderMembershipQuery = ({}) => {
         sameSite: 'none',  // Control cross-site request behavior
         secure: true,
       });
+      // return data;
       router.refresh();
       router.replace('/checkout/success/'+data.order_number)
     },
     onError: (err: ResponseWrapper<null>) => {
+      console.log(err);
+      
       notification.error({
         message: Array.isArray(err.error)
           ? err.error.join(', ')

@@ -17,6 +17,7 @@ import useGetDetailQuery from "../profile/_query/useGetDetailQuery";
 import { useEffect, useState } from "react";
 import getDetailRepository from "../profile/_repository/getDetailRepository";
 import { IUser } from "../profile/_interfaces";
+import Loader from "../../../components/common/Loader";
 
 const CommissionUserPage = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -28,7 +29,8 @@ const CommissionUserPage = () => {
     currentPageCommissionHistory,
     totalItemCommissionHistory,
     totalPageCommissionHistory,
-    refetechDataCommissionHistory
+    refetechDataCommissionHistory,
+    isLoadingCommissionHistory,
   } = useGetAllQuery({ ...paginationParams, filterParams, ...sortParams });
 
   const breadcrumbItems = [
@@ -52,50 +54,56 @@ const CommissionUserPage = () => {
     fetchData().catch((error) => {
       setIsLoaded(true);
     });
-  }, [refetechDataCommissionHistory])
+  }, [refetechDataCommissionHistory]);
 
   return (
     <DefaultLayout>
-      <div className="mx-auto max-w-7xl">
-        <Breadcrumbs items={breadcrumbItems} />
-        {isLoaded && user && (
-          <div className="grid mb-5 grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
-          <CardDataStats
-            title="Komisi Tersedia (Belum dicairkan)"
-            total={formatPrice(user?.balance ?? 0)}
-            background="bg-redcard"
-          >
-            <CircleDollarSign className="text-redcard font-bold" />
-          </CardDataStats>
+      {!isLoaded ? (
+        <Loader />
+      ) : (
+        <div className="mx-auto max-w-7xl">
+          <Breadcrumbs items={breadcrumbItems} />
+          {isLoaded && user && (
+            <div className="mb-5 grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-7.5">
+              <CardDataStats
+                title="Komisi Tersedia (Belum dicairkan)"
+                total={formatPrice(user?.balance ?? 0)}
+                background="bg-redcard"
+              >
+                <CircleDollarSign className="font-bold text-redcard" />
+              </CardDataStats>
 
-          <CardDataStats
-            title="Total Komisi Masuk"
-            total={formatPrice(user?.total_commission ?? 0)}
-            background="bg-greencard"
-          >
-            <CircleDollarSign className="text-greencard" />
-          </CardDataStats>
+              <CardDataStats
+                title="Total Komisi Masuk"
+                total={formatPrice(user?.total_commission ?? 0)}
+                background="bg-greencard"
+              >
+                <CircleDollarSign className="text-greencard" />
+              </CardDataStats>
 
-          <CardDataStats
-            title="Komisi Yang Sudah Dicairkan"
-            total={formatPrice((user?.total_commission || 0) - (user?.balance || 0))}
-            background="bg-yellowcard"
-          >
-            <HandCoins className="text-yellowcard font-bold" />
-          </CardDataStats>
+              <CardDataStats
+                title="Komisi Yang Sudah Dicairkan"
+                total={formatPrice(
+                  (user?.total_commission || 0) - (user?.balance || 0),
+                )}
+                background="bg-yellowcard"
+              >
+                <HandCoins className="font-bold text-yellowcard" />
+              </CardDataStats>
+            </div>
+          )}
+
+          <UserCommissionHistoryTable
+            searchKey="notes"
+            page={currentPageCommissionHistory}
+            limit={paginationParams.limit}
+            columns={columns}
+            totalData={totalItemCommissionHistory}
+            data={dataCommissionHistory}
+            totalPage={totalPageCommissionHistory}
+          />
         </div>
-        )}
-        
-        <UserCommissionHistoryTable
-          searchKey="notes"
-          page={currentPageCommissionHistory}
-          limit={paginationParams.limit}
-          columns={columns}
-          totalData={totalItemCommissionHistory}
-          data={dataCommissionHistory}
-          totalPage={totalPageCommissionHistory}
-        />
-      </div>
+      )}
     </DefaultLayout>
   );
 };

@@ -19,8 +19,8 @@ const fetchConstructor = async <ResponseT, InputT = unknown>({
   let data
   let queryParams
 
+  token = await getToken()
   if (withAuth) {
-    token = await getToken()
     if (token === undefined) window.location.href = '/login'
   }
 
@@ -56,7 +56,7 @@ const fetchConstructor = async <ResponseT, InputT = unknown>({
   const reqConfig: AxiosRequestConfig = {
     headers: {
       ...headers,
-      ...(withAuth && {
+      ...(token && {
         Authorization: `Bearer ${token?.accessToken}`,
       }),
       'Content-Type': isFormData ? 'multipart/form-data' : 'application/json',

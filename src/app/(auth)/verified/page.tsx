@@ -15,6 +15,7 @@ import {
 import { Button } from "../../../components/ui/button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { IUserVerified } from "./_interfaces";
+import Loader from "../../../components/common/Loader";
 
 function VerifiedPageComponent() {
   const defaultErrorMsg =
@@ -59,69 +60,75 @@ function VerifiedPageComponent() {
   }, [refetechDataProvinces, id, code]);
 
   return (
-      <div className="mx-auto max-w-screen-lg p-4 md:p-6 2xl:p-10">
-        <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-          <div className="items-center">
-            <div className="w-full xl:block">
-              <div className="px-26 py-17.5 text-center">
-                <Link className="mb-5.5 inline-block" href="/">
-                  <Image
-                    className="hidden dark:block"
-                    src={logo}
-                    alt="Logo"
-                    width={176}
-                    height={32}
-                  />
-                  <Image
-                    className="dark:hidden"
-                    src={logo}
-                    alt="Logo"
-                    width={176}
-                    height={32}
-                  />
-                </Link>
+    <>
+      {!isLoaded ? (
+        <Loader />
+      ) : (
+        <div className="mx-auto max-w-screen-lg p-4 md:p-6 2xl:p-10">
+          <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="items-center">
+              <div className="w-full xl:block">
+                <div className="px-26 py-17.5 text-center">
+                  <Link className="mb-5.5 inline-block" href="/">
+                    <Image
+                      className="hidden dark:block"
+                      src={logo}
+                      alt="Logo"
+                      width={176}
+                      height={32}
+                    />
+                    <Image
+                      className="dark:hidden"
+                      src={logo}
+                      alt="Logo"
+                      width={176}
+                      height={32}
+                    />
+                  </Link>
 
-                {/* <p className="2xl:px-20">
+                  {/* <p className="2xl:px-20">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit
                   suspendisse.
                 </p> */}
+                </div>
               </div>
-            </div>
 
-            <div className="w-full xl:block">
-              <div className="w-full p-4 sm:p-7.5 xl:p-10.5">
-                {isLoaded && (
-                  <>
-                    {isValid ? (
-                      <UserVerifiedForm
-                        id={user?.id}
-                        initialData={user}
-                        provinces={dataProvinces}
-                      />
-                    ) : (
-                      <>
-                        <Alert variant="destructive">
-                          <AlertTitle>Verification Code Failed!</AlertTitle>
-                          <AlertDescription>{errMsg}</AlertDescription>
-                        </Alert>
-                        <Button
-                          variant="link"
-                          onClick={() => {
-                            router.replace("/login");
-                          }}
-                          className="w-full"
-                        >
-                          Login
-                        </Button>
-                      </>
-                    )}
-                  </>
-                )}
+              <div className="w-full xl:block">
+                <div className="w-full p-4 sm:p-7.5 xl:p-10.5">
+                  {isLoaded && (
+                    <>
+                      {isValid ? (
+                        <UserVerifiedForm
+                          id={user?.id}
+                          initialData={user}
+                          provinces={dataProvinces}
+                        />
+                      ) : (
+                        <>
+                          <Alert variant="destructive">
+                            <AlertTitle>Verification Code Failed!</AlertTitle>
+                            <AlertDescription>{errMsg}</AlertDescription>
+                          </Alert>
+                          <Button
+                            variant="link"
+                            onClick={() => {
+                              router.replace("/login");
+                            }}
+                            className="w-full"
+                          >
+                            Login
+                          </Button>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
+    </>
   );
 }
 
@@ -131,5 +138,5 @@ export default function VerifiedPage() {
     <Suspense>
       <VerifiedPageComponent />
     </Suspense>
-  )
+  );
 }

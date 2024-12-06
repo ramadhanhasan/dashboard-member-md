@@ -18,22 +18,21 @@ import { Button } from "../ui/button";
 import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 import { useRouter } from "next/navigation";
 import { IOrder, OrderDetail } from "../../app/checkout/_interfaces";
-import { IMembershipProduct } from "../../app/(dashboard)/membership-product/_interfaces";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { formatPrice } from "../../utils/priceFormatter";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "../ui/label";
 import useCreateOrderMembershipQuery from "../../app/checkout/_query/useCreateOrderMembershipQuery";
-import useGetDetailQuery from "../../app/(dashboard)/profile/_query/useGetDetailQuery";
 import { IUser } from "../../app/(dashboard)/profile/_interfaces";
+import { IEvent } from "../../app/(dashboard)/event/_interfaces";
 import Image from "next/image";
-import { ORDER_SUB_TYPE } from "../../constants/data";
+import { ORDER_SUB_TYPE, ORDER_TYPE } from "../../constants/data";
 
 const numberRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
 );
 
-const formSchema: z.ZodType<IOrder> = z.object({
+const formSchema: z.ZodType<any> = z.object({
   user_email: z.string().email({ message: "Enter a valid email address" }),
   user_name: z.string().min(4),
   user_phone: z.string().regex(numberRegex, "invalid phone number"),
@@ -54,7 +53,7 @@ const formSchema: z.ZodType<IOrder> = z.object({
 type FormValue = z.infer<typeof formSchema>;
 
 interface FormProps {
-  membership: IMembershipProduct | null;
+  event: IEvent | null;
   orderDetails: OrderDetail[];
   referral_from?: string;
   total_quantity: number;
@@ -65,8 +64,8 @@ interface FormProps {
   user: IUser | null;
 }
 
-export const CheckoutMembershipForm: React.FC<FormProps> = ({
-  membership,
+export const CheckoutEventForm: React.FC<FormProps> = ({
+  event,
   referral_from,
   orderDetails,
   total_quantity,
@@ -74,13 +73,23 @@ export const CheckoutMembershipForm: React.FC<FormProps> = ({
   total_net_price,
   total_price,
   funnel,
-  user
+  user,
 }) => {
   const [errorMsg, setErrorMsg] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [snapToken, setSnapToken] = useState<string | null>(null);
   const router = useRouter();
-  
+
+  useEffect(() => {
+    // const script = document.createElement('script');
+    // script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
+    // script.async = true;
+    // document.body.appendChild(script);
+    // return () => {
+    //   document.body.removeChild(script);
+    // };
+  }, [total_discount_price, total_net_price, total_price]);
+
   const form = useForm<FormValue>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -93,27 +102,16 @@ export const CheckoutMembershipForm: React.FC<FormProps> = ({
       total_price,
       total_quantity,
       referral_from,
-      type: 'SALES',
-      sub_type: ORDER_SUB_TYPE.MEMBERSHIP,
+      type: ORDER_TYPE.SALES,
+      sub_type: ORDER_SUB_TYPE.EVENT,
       funnel,
       user_email: user?.email,
       user_phone: user?.phone,
-      user_name: user?.name
+      user_name: user?.name,
     },
   });
 
-
   const createOrderMutation = useCreateOrderMembershipQuery(() => {});
-
-  useEffect(() => {
-    // const script = document.createElement('script');
-    // script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
-    // script.async = true;
-    // document.body.appendChild(script);
-    // return () => {
-    //   document.body.removeChild(script);
-    // };
-  }, []);
 
   // const { mutateAsync, isError, error } = useCreateOrderMembershipQuery();
 
@@ -139,6 +137,9 @@ export const CheckoutMembershipForm: React.FC<FormProps> = ({
       setLoading(false);
     }
   };
+
+  console.log(orderDetails);
+  
 
   return (
     <>
@@ -228,37 +229,35 @@ export const CheckoutMembershipForm: React.FC<FormProps> = ({
                   <CardTitle>Pesanan Kamu</CardTitle>
                 </CardHeader>
                 <CardContent className="p-4">
-                <div className="mb-4 flex items-center justify-between border-b pb-4">
-                    <div className="flex items-center space-x-4">
-                      <Image
-                        className="lg:w-18 w-12 rounded-md"
-                        width={400}
-                        height={200}
-                        src={membership?.image_url ?? ""}
-                        alt="Membership Image"
-                      />
-                      <div className="mr-2">
-                        <p className="font-medium">{membership?.name}</p>
-                        <p className="text-gray-500 text-sm">
-                          Masa Aktif : {membership?.expired_time} Hari
-                        </p>
-                        {membership?.price != membership?.net_price && (
-                          <p className="text-gray-500 text-sm line-through">
-                          {formatPrice(membership?.price ?? 0)}
-                          </p>
-                        )}
+                  {orderDetails.map((detail) => (
+                    <div key={detail.id} className="mb-4 flex items-center justify-between border-b pb-4">
+                      <div className="flex items-center space-x-4">
+                        <Image
+                          className="w-12 rounded-md lg:w-18"
+                          width={400}
+                          height={200}
+                          src={detail.image_url ?? ""}
+                          alt="Event Image"
+                        />
+                        <div className="mr-2">
+                          <p className="font-medium">{detail.item_name}</p>
+                          {detail.price != detail.net_price && (
+                            <p className="text-gray-500 text-sm line-through">
+                              {formatPrice(detail.price ?? 0)}
+                            </p>
+                          )}
+                        </div>
                       </div>
+                      <p className="text-gray-800 font-bold">
+                        {formatPrice(detail.net_price ?? 0)}
+                      </p>
                     </div>
-                    <p className="text-gray-800 font-bold">
-                      {formatPrice(membership?.net_price ?? 0)}
-                    </p>
-                  </div>
+                  ))}
                   <div className="space-y-4">
-                    {/* Product Item */}
                     {/* Subtotal and Fees */}
                     <div className="flex justify-between">
                       <p>Subtotal</p>
-                      <p>{formatPrice(membership?.net_price ?? 0)}</p>
+                      <p>{formatPrice(event?.net_price ?? 0)}</p>
                     </div>
                     <div className="flex justify-between text-lg font-bold">
                       <p>Total</p>
@@ -349,7 +348,9 @@ export const CheckoutMembershipForm: React.FC<FormProps> = ({
               disabled={loading}
               className="mb-5 mt-8 w-full px-5 py-7 text-lg text-white"
             >
-              {!loading ? `Buat Pesanan ${formatPrice(total_net_price)} `: 'Pesanan diproses...'} 
+              {!loading
+                ? `Buat Pesanan ${formatPrice(total_net_price)} `
+                : "Pesanan diproses..."}
             </Button>
           </div>
         </form>

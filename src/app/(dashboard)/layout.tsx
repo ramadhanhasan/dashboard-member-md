@@ -12,13 +12,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // const pathname = usePathname();
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 500);
-  }, []);
+  // useEffect(() => {
+  //   setTimeout(() => setLoading(false), 500);
+  // }, []);
 
   return (
       <div className="dark:bg-boxdark-2 dark:text-bodydark">
