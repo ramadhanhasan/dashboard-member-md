@@ -40,7 +40,7 @@ const CheckoutPage = ({ params }: { params: { order_number: string } }) => {
 
   const confirmOrder = () => {
     let encodedURL = encodeURIComponent(`
-      Hallo Kak, Saya mau konfirmasi pembayaran nomor invoice #${data?.order_number}.
+      Hallo Kak, Saya mau konfirmasi pembayaran nomor invoice ${data?.sub_type.toLowerCase()} #${data?.order_number}.
 
       Nama :
       No Handphone :
@@ -53,7 +53,7 @@ const CheckoutPage = ({ params }: { params: { order_number: string } }) => {
 
   const confirmHelp = () => {
     let encodedURL = encodeURIComponent(`
-      Hallo Kak, aku ada pertanyaan/kendala untuk daftar member Mahir Digital. Mohon Bantuannya`);
+      Hallo Kak, aku ada pertanyaan/kendala untuk ${data?.sub_type.toLowerCase()} member Mahir Digital. Mohon Bantuannya`);
     let link = `${process.env.NEXT_PUBLIC_ADMIN_WA_CONFIRM_PAYMENT}?text=${encodedURL}`;
     window.open(link, "_blank");
   };
