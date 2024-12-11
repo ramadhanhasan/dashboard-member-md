@@ -3,24 +3,19 @@
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { Breadcrumbs } from "../../../../components/breadcrumbs";
 import { Card, CardContent, CardHeader } from "../../../../components/ui/card";
-import { Link2, Timer } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { formatPrice } from "../../../../utils/priceFormatter";
 import { AuthContext } from "../../../../global_context/Auth";
 import { useContext } from "react";
 import { ReferralLinksRelationTable } from "../../../../components/Tables/ReferralLinksRelationTables/referral-link-relation-table";
 import { columns } from "../../../../components/Tables/ReferralLinksRelationTables/columns";
 import useGetDetailProductQuery from "../_query/useGetDetailProductQuery";
 import { Button } from "../../../../components/ui/button";
-import Link from "next/link";
 import Image from "next/image";
 import { detailPage } from "../_constants";
 import Loader from "../../../../components/common/Loader";
 
 const EventPage = ({ params }: { params: { slug: string } }) => {
-  const { userProfile, isAuth } = useContext(AuthContext);
-  const router = useRouter();
-  const { data, isLoading, isError, refetchData } = useGetDetailProductQuery(
+  const { userProfile } = useContext(AuthContext);
+  const { data, isLoading } = useGetDetailProductQuery(
     params.slug,
   );
 
@@ -37,6 +32,13 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
       link: detailPage.basePath + detailPage.path + data?.slug,
     },
   ];
+
+  const chatProduct = () => {
+    let encodedURL = encodeURIComponent(`
+      Hallo Kak, aku ada pertanyaan untuk produk ${data?.name}. Mohon Bantuannya`);
+    let link = `${process.env.NEXT_PUBLIC_ADMIN_WA_PRODUCT}?text=${encodedURL}`;
+    window.open(link, "_blank");
+  };
 
   return (
     <DefaultLayout>
@@ -106,16 +108,19 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                       affiliasi`
                     </div>
                   </div> */}
-                  <Link
+                  {/* <Link
                     href={process.env.NEXT_PUBLIC_ADMIN_WA_PRODUCT ?? ""}
                     target="_blank"
                     rel="noopener noreferrer"
                     passHref={true}
-                  >
-                    <Button className="mb-4 w-full text-white">
+                  > */}
+                    {/* <Button onClick={chatProduct} className="mb-4 w-full text-white">
+                      Checkout Product
+                    </Button> */}
+                    <Button onClick={chatProduct} variant={'outline'} className="mb-4 w-full">
                       <svg
                         className="mr-2"
-                        fill="white"
+                        fill="black"
                         height="15px"
                         width="15px"
                         version="1.1"
@@ -151,7 +156,7 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                       </svg>
                       Chat Admin
                     </Button>
-                  </Link>
+                  {/* </Link> */}
                 </CardContent>
               </Card>
             </div>
