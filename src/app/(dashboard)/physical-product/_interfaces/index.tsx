@@ -9,12 +9,21 @@ export interface IProduct {
   position: number
   short_description: string
   description: string
-  assets: {url: string}[]
+  assets: IAsset[]
   is_active: boolean
   stock_type: string
   stock: number
+  weight: number
+  width: number
+  length: number
+  height: number
+  max_qty_purchase: number
   price: number
   base_price: number
   net_price: number
   referral_links?: IReferralLink[]
+}
+
+export interface IAsset {
+  url : string
 }

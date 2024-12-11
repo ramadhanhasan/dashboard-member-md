@@ -4,7 +4,7 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import { Breadcrumbs } from "../../../../components/breadcrumbs";
 import { Card, CardContent, CardHeader } from "../../../../components/ui/card";
 import { AuthContext } from "../../../../global_context/Auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ReferralLinksRelationTable } from "../../../../components/Tables/ReferralLinksRelationTables/referral-link-relation-table";
 import { columns } from "../../../../components/Tables/ReferralLinksRelationTables/columns";
 import useGetDetailProductQuery from "../_query/useGetDetailProductQuery";
@@ -12,13 +12,26 @@ import { Button } from "../../../../components/ui/button";
 import Image from "next/image";
 import { detailPage } from "../_constants";
 import Loader from "../../../../components/common/Loader";
+import { useRouter } from "next/navigation";
+import { StockTypeEnum } from "../../../../constants/data";
+import { Label } from "../../../../components/ui/label";
+import { Input } from "../../../../components/ui/input";
 
 const EventPage = ({ params }: { params: { slug: string } }) => {
+  const router = useRouter();
   const { userProfile } = useContext(AuthContext);
-  const { data, isLoading } = useGetDetailProductQuery(
-    params.slug,
-  );
+  const { data, isLoading } = useGetDetailProductQuery(params.slug);
+  const [quantity, setQuantity] = useState<number>(1);
 
+  const incrementQty = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const decrementQty = () => {
+    if (quantity > 1) {
+      setQuantity((prev) => prev - 1);
+    }
+  };
   const phone = userProfile?.phone.startsWith("0")
     ? "62" + userProfile.phone.substring(1)
     : userProfile?.phone;
@@ -46,78 +59,128 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
         <Loader />
       ) : (
         <div className="mx-auto max-w-7xl">
-        <Breadcrumbs items={breadcrumbItems} />
+          <Breadcrumbs items={breadcrumbItems} />
 
-        <div className="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
-          {/* Course Details Section */}
-          <div className="mt-4 flex-1 space-y-6">
-            <div
-              className="ql-editor custom-list"
-              dangerouslySetInnerHTML={{ __html: data?.description ?? "" }}
-            ></div>
-          </div>
-          <div className="top-8 flex-shrink-0 lg:w-1/3">
-            <div className="sticky top-10">
-              <Card className="bg-white shadow-lg">
-                <CardHeader className="p-0">
-                  <Image
-                    className="mb-4 w-full rounded-md"
-                    width={400}
-                    height={200}
-                    src={data?.assets[0].url ?? ""}
-                    alt="Event Image"
-                  />
-                </CardHeader>
-                <CardContent className="pb-5">
-                  <p className="truncate-2 mb-2 text-xl font-bold">
-                    {data?.name}
-                  </p>
-                  <div className="mb-4 mt-4 flex flex items-center">
-                    <div
-                      className="ql-editor text-gray-700 text-base"
-                      dangerouslySetInnerHTML={{
-                        __html: data?.short_description ?? "",
-                      }}
+          <div className="flex flex-col flex-col-reverse lg:flex-row lg:space-x-8">
+            {/* Course Details Section */}
+            <div className="mt-4 flex-1 space-y-6">
+              <div
+                className="ql-editor custom-list"
+                dangerouslySetInnerHTML={{ __html: data?.description ?? "" }}
+              ></div>
+            </div>
+            <div className="top-8 flex-shrink-0 lg:w-1/3">
+              <div className="sticky top-10">
+                <Card className="bg-white shadow-lg">
+                  <CardHeader className="p-0">
+                    <Image
+                      className="mb-4 w-full rounded-md"
+                      width={400}
+                      height={200}
+                      src={data?.assets[0].url ?? ""}
+                      alt="Event Image"
                     />
-                    {/* <div className="flex-1">
-                      <p>HPP(Modal)</p>
-                      <p>Harga Jual</p>
-                      <p>Profit</p>
+                  </CardHeader>
+                  <CardContent className="pb-5">
+                    <p className="truncate-2 mb-2 text-xl font-bold">
+                      {data?.name}
+                    </p>
+                    <div className="mb-4 mt-4 flex flex items-center">
+                      <div
+                        className="ql-editor text-gray-700 text-base"
+                        dangerouslySetInnerHTML={{
+                          __html: data?.short_description ?? "",
+                        }}
+                      />
                     </div>
-                    <div className="flex-1 font-bold text-blue-700">
-                      <p> {formatPrice(data?.base_price || 0)} </p>
-
-                      <div className="flex">
-                        {data?.price != data?.net_price && (
-                          <div className="mr-2 text-sm text-red line-through">
-                            {formatPrice(data?.price || 0, "IDR", "id-ID")}
-                          </div>
-                        )}
-                        {formatPrice(data?.net_price || 0, "IDR", "id-ID")}
+                    <div className="m-auto text-center">
+                      <Label>Jumlah:</Label>
+                      <div className="relative m-auto flex max-w-[11rem]">
+                        <Button
+                          disabled={quantity === 1}
+                          onClick={decrementQty}
+                          id="decrement-button"
+                          data-input-counter-decrement="bedrooms-input"
+                          className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border-gray-300 focus:ring-gray-100 dark:focus:ring-gray-700 h-11 rounded-s-lg border p-3 focus:outline-none focus:ring-2"
+                        >
+                          <svg
+                            className="text-gray-900 h-3 w-3 dark:text-white"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 18 2"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M1 1h16"
+                            />
+                          </svg>
+                        </Button>
+                        <Input 
+                        type="number" 
+                        id="quantity-input" 
+                        max={data?.max_qty_purchase}
+                        min={1}
+                        disabled
+                        onChange={(e) => setQuantity(Number(e.target.value))}
+                        value={quantity}
+                        className="bg-gray-50 border-x-0 border-gray-300 text-center text-gray-900 text-md focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 pl-1 pr-1" 
+                        required 
+                        />
+                        <Button
+                          onClick={incrementQty}
+                          disabled={quantity === data?.max_qty_purchase}
+                          id="increment-button"
+                          data-input-counter-increment="bedrooms-input"
+                          className="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border-gray-300 focus:ring-gray-100 dark:focus:ring-gray-700 h-11 rounded-e-lg border p-3 focus:outline-none focus:ring-2"
+                        >
+                          <svg
+                            className="text-gray-900 h-3 w-3 dark:text-white"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 18 18"
+                          >
+                            <path
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M9 1v16M1 9h16"
+                            />
+                          </svg>
+                        </Button>
                       </div>
-                      <p>
-                        {formatPrice(
-                          (data?.net_price || 0) - (data?.base_price || 0),
-                        )}
+                      <p
+                        className="text-gray-500 dark:text-gray-400 my-2 text-sm"
+                      >
+                        Tentukan jumlah yang ingin di beli.
                       </p>
-                    </div> */}
-                  </div>
-                  {/* <div className="text-gray-500 mb-5 mt-4 flex items-center text-sm">
-                    <div className="flex items-center rounded-lg bg-slate-200 px-2 py-1">
-                      <Link2 />` {data?.referral_links?.length ?? 0} link
-                      affiliasi`
                     </div>
-                  </div> */}
-                  {/* <Link
-                    href={process.env.NEXT_PUBLIC_ADMIN_WA_PRODUCT ?? ""}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    passHref={true}
-                  > */}
-                    {/* <Button onClick={chatProduct} className="mb-4 w-full text-white">
-                      Checkout Product
-                    </Button> */}
-                    <Button onClick={chatProduct} variant={'outline'} className="mb-4 w-full">
+                    <Button
+                      className="mb-4 w-full text-white"
+                      onClick={() => {
+                        router.refresh();
+                        router.replace(`/checkout/product/${data?.slug}?quantity=${quantity}`);
+                      }}
+                      disabled={
+                        data?.stock_type === StockTypeEnum.ADJUSTABLE &&
+                        data?.stock === 0
+                      }
+                    >
+                      {data?.stock_type === StockTypeEnum.ADJUSTABLE &&
+                      data?.stock === 0
+                        ? "Stok Habis"
+                        : "Beli Sekarang"}
+                    </Button>
+                    <Button
+                      onClick={chatProduct}
+                      variant={"outline"}
+                      className="mb-4 w-full"
+                    >
                       <svg
                         className="mr-2"
                         fill="black"
@@ -156,36 +219,35 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                       </svg>
                       Chat Admin
                     </Button>
-                  {/* </Link> */}
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </div>
+          {data?.referral_links && data?.referral_links.length > 0 && (
+            <>
+              <h1 className="mt-5 text-lg font-bold">
+                AFFILIATE LINK {data?.name}
+              </h1>
+              <ReferralLinksRelationTable
+                searchKey="name"
+                page={1}
+                limit={10}
+                columns={columns}
+                totalData={data?.referral_links?.length || 0}
+                data={
+                  data?.referral_links
+                    ? data.referral_links.map((link) => {
+                        link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type?.toLowerCase()}${link.is_whatsapp_link ? "&whatsapp=" + phone : ""}`;
+                        return link;
+                      })
+                    : []
+                }
+                totalPage={1}
+              />
+            </>
+          )}
         </div>
-        {data?.referral_links && data?.referral_links.length > 0 && (
-          <>
-            <h1 className="mt-5 text-lg font-bold">
-              AFFILIATE LINK {data?.name}
-            </h1>
-            <ReferralLinksRelationTable
-              searchKey="name"
-              page={1}
-              limit={10}
-              columns={columns}
-              totalData={data?.referral_links?.length || 0}
-              data={
-                data?.referral_links
-                  ? data.referral_links.map((link) => {
-                      link.url = `${process.env.NEXT_PUBLIC_URL}/lp?aff=${userProfile?.username}&i=${link.code}&type=${link.type?.toLowerCase()}${link.is_whatsapp_link ? '&whatsapp='+phone : ""}`;
-                      return link;
-                    })
-                  : []
-              }
-              totalPage={1}
-            />
-          </>
-        )}
-      </div>
       )}
     </DefaultLayout>
   );

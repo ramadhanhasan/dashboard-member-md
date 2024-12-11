@@ -7,10 +7,7 @@ import { Button } from "../../../../components/ui/button";
 import { Card, CardContent, CardHeader } from "../../../../components/ui/card";
 import {
   Calendar,
-  Circle,
-  CircleCheck,
   LinkIcon,
-  LockOpen,
   MapPin,
 } from "lucide-react";
 import Link from "next/link";
@@ -23,7 +20,7 @@ import Loader from "../../../../components/common/Loader";
 
 const EventPage = ({ params }: { params: { slug: string } }) => {
   const router = useRouter();
-  const { data, isLoading, isError, refetchData } = useGetDetailQuery(
+  const { data, isLoading } = useGetDetailQuery(
     params.slug,
   );
 
