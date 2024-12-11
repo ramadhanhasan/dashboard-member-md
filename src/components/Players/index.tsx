@@ -48,7 +48,7 @@ const PlayerComponent = ({
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (!isLoaded) {
+      if (!isLoaded && gdriveId && gdriveId.trim() != "") {
         setHasError(true);
         notification.error({
           message: 'Koneksi Terputus atau Lambat',
