@@ -114,6 +114,14 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                           : "Daftar Sekarang"}
                       </Button>
                     )}
+                    {data?.is_finished && (
+                      <Button
+                        className="mb-2 w-full text-white"
+                        disabled={true}
+                      >
+                        Pendaftaran Ditutup
+                      </Button>
+                    )}
                     {data?.button_text &&
                       data?.button_text != "" &&
                       data?.link &&
@@ -127,7 +135,7 @@ const EventPage = ({ params }: { params: { slug: string } }) => {
                             passHref={true}
                           >
                             <Button
-                              variant={data.is_finished ? "default" : "outline"}
+                              variant={'outline'}
                               className="mb-4 w-full"
                             >
                               {data.button_text}
